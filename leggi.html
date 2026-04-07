@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leggi msg</title>
+     <link rel="icon" href="img/favicon.png"  type="image/png">
+    <style>
+
+body
+{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    font-family: 'Times New Roman', serif;
+    align-items: center;
+    text-align: center;
+}
+   
+
+
+#container{       
+    height: 500px;
+    width:273px;
+    margin-left: 40px;
+    margin-top: 50px;
+    background-color: cornflowerblue;
+    border-radius: 10px;
+    border: 5px;
+   
+   
+    
+} 
+
+h3{
+    
+    margin-top: 40px;
+    
+}
+
+#inskey{
+    transform: translateY(30px);
+}
+
+
+ 
+  
+#key{
+   height: 30px;
+    width: 180px;   
+    border-radius: 5px;   
+    font-size: 14px;
+    margin-top: 20px;   
+
+}    
+
+
+#error{
+    color: red;        
+}
+
+#labmsg{
+    display: inline-block;
+    transform: translateY(30px);
+}
+
+
+
+textarea {
+    line-height: 20px; 
+    background-image: linear-gradient(transparent 19px, #ccc 19px);
+    background-size: 100% 20px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin-top: 40px;
+}
+button{
+    width: 60px;
+    height: 35px;
+    margin-top: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    
+}
+
+#data{
+     height: 20px;
+    width: 140px;
+   
+    border-radius: 5px;
+    padding: 0 15px;
+    font-size: 12px;
+    
+    margin-top: 35px;
+   
+
+}  
+button:hover{
+    background-color: orangered;
+}
+
+
+  </style>
+  </head>
+  <body>
+        
+
+    <div id="container">
+     <h3>Leggi messaggi:</h3>
+          
+
+       <p id="inskey"   >Inserisci Key</p> 
+      <input type="password" name="Key" id="key" required  autocomplete="off">     
+      
+      <div  id="error"  required  ></div>
+      
+    
+      <label for="message" id="labmsg" >Messaggio:</label>
+      <textarea  name="message" id="message" rows="5"  cols="30" ></textarea>             
+
+      <button onclick="verifica()" 
+            type="button" id="verifica" >Verifica key</button>
+
+       <button onclick="decripta()" disabled = "disabled"; 
+            type="button" id="abilita" >Decripta msg</button>
+            
+      <button onclick="cancella()" disabled = "disabled"; 
+            type="button" id="btc" >Cancella msg</button>
+
+       <input type="text" name="data" id="data" >
+
+   </div>  
+
+    <script>
+
+
+        let numero ;        
+        let conta;
+        let msg;
+        let lunghezza;
+        let lettera;
+        let converti;
+        let pari;     
+        let stringaConverti;
+        let numeroRandom;
+
+
+             let data= new Date(); 
+             document.getElementById('data').value = (data) ; 
+             
+             function verifica(){
+                
+             let bradMessage = document.getElementById('key').value;       
+ 
+             let datiRecuperati = localStorage.getItem(bradMessage);
+   
+          
+    
+              if (datiRecuperati === null) {
+              document .getElementById("error").innerText = "key mancante o errata";  
+              return               
+                }
+                document .getElementById("error").innerText = "";     
+
+                 datiArray = JSON.parse(datiRecuperati); 
+                 numeroRandom = datiArray[0];            
+                 msg    = datiArray[1]; 
+                document.getElementById('message').value = (msg) ; 
+                document.getElementById('abilita').disabled = false;  
+                
+            }        
+         
+        function decripta(){
+       
+                
+             let bradMessage = document.getElementById('key').value;       
+
+             let datiRecuperati = localStorage.getItem(bradMessage);
+                 
+              if (datiRecuperati === null) {
+              document .getElementById("errork").innerText = "key mancante o errata";  
+              return               
+                }
+                                           
+                 datiArray = JSON.parse(datiRecuperati); 
+                 numeroRandom = datiArray[0];            
+                 msg    = datiArray[1]; 
+    
+                let  stringaConverti = "";
+                let  numero = numeroRandom;
+                
+                 let lunghezza = msg.length;  
+
+                 for ( let conta=0; conta <lunghezza; conta ++)
+	               {		
+                 let   lettera = msg[conta] ;  	     		 
+                 let  converti = lettera.charCodeAt(0);
+                  
+	  	         let   pari = conta;	  	  	  	  
+
+                 if (pari %2 == 0) {  
+                  converti=converti + numero;
+               
+                }
+                 else{     
+                 converti = converti - numero; 
+                
+               }
+
+                 numero = numero  -1;
+            	
+		         stringaConverti+=String.fromCharCode(converti) ;                             
+         
+          } 
+              
+                 document.getElementById("message").value = stringaConverti;
+                 document.getElementById('btc').disabled = false;  
+                
+      }    
+               function cancella(){
+                 let bradMessage = document.getElementById('key').value; 
+                   localStorage.removeItem(bradMessage);
+                  document.getElementById("message").value = "";
+                  document.getElementById("key").value = "";
+               
+               }
+
+        
+    </script>
+     
+        
+ </body>
+ </html>
+ 
+ 
