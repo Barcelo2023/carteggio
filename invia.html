@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invia msg</title>
+     <link rel="icon" href="img/favicon.png"  type="image/png">
+    <style>
+   body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    font-family: 'Times New Roman', serif;
+    align-items: center;
+    text-align: center;
+}
+   
+
+
+#container{       
+    height: 500px;
+    width:273px;
+    margin-left: 40px;
+    margin-top: 50px;
+    background-color: cornflowerblue;
+    border-radius: 10px;
+    border: 5px;
+    text-align: center; 
+    justify-content: center;   
+    
+} 
+
+#email
+{
+    height: 30px;
+    width: 180px;
+    display: flex;
+    border-radius: 5px;
+    font-size: 13px;
+    margin-top: 15px;
+    transform: translateX(44px);
+    
+}    
+
+
+textarea {
+    line-height: 20px; 
+    background-image: linear-gradient(transparent 19px, #ccc 19px);
+    background-size: 100% 20px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin-top: 20px;
+}
+#lab{
+    display: inline-block;
+    transform: translateY(16px);
+}
+
+
+button{
+    height: 30px;
+    width: 200px;
+   margin-top: 10px; 
+   border-radius: 5px;
+   cursor: pointer;
+   background-color:white;
+   display: inline;
+   margin-top: 30px;
+  
+   
+}
+
+#data
+{
+    height: 20px;
+    width: 130px;
+    display: flex;
+    border-radius: 5px;
+    font-size: 11px;
+    margin-top: 25px;
+    transform: translate(64px ,50px);
+    
+}  
+#error{
+     color: red;
+    
+}  
+#errorm{
+     color: red;
+    
+}  
+
+button:hover{
+    
+    background-color: rgb(179, 245, 242);
+}
+  </style>
+  
+</head>
+     <div id="container">
+     <h2>Invia messaggio</h2> 
+
+     <form action=""  method="post" id="form" >  
+     <label for="email" id="lab"  > email:</label>
+      
+     <input type="text"   id="email"  required  autocomplete="off">
+     <div  id="error"   ></div>
+     <label for="message" id="lab" >Messaggio:</label>
+     <textarea  name="message" id="message" rows="5"  cols="30"  required></textarea>
+     <div  id="errorm"   ></div>
+      <button onclick= "cripta()" 
+      type="button" >Send</button>
+
+      <input type="text" id="data"  name="data" readonly>
+     
+     
+     
+      </form>
+      </div>
+           
+    <script>
+
+           let stringaAscii = "";
+           let stringaConverti ;
+          
+           let stringa2;
+           let conta = 0;
+            let testoMessage ="";
+            let lunghezza = 0;
+            let converti =0;
+            let ascii = "";          
+            let pari=0;
+            let lettera = "";            
+            let data ;
+            let email;
+                       
+                  data = new Date();                                                                
+                  document.getElementById('data').value = (data) ; 
+
+                  let randomNumber= Math.floor(Math.random() * 30) + 1;
+                  randomNumber = randomNumber + 10;                                                                 
+                               
+             do{	 
+               	stringaAscii +=  String.fromCharCode(conta);                   
+                 conta++;                 	
+              	}while ( conta < 255); 
+
+                  
+                 function cripta() {  
+
+                  email = document.getElementById('email').value;
+
+                 let lengemail = email.length; 
+                  conta = 0;
+                  let braMessaggi = "";
+                do {
+                   lettera = email[conta] ;                   
+                   if (lettera === '@') break
+                   braMessaggi+= email[conta] ;
+                   conta++;
+                   } while (conta <lengemail); 
+          
+                 if (lettera != '@'){
+                 document .getElementById("error").innerText = "email mancante o errata"; 
+                 return                                   
+                 } 
+
+
+                 document .getElementById("error").innerText = ""; 
+
+                testoMessage = document.getElementById('message').value;
+    
+                           
+                 stringaConverti =""; 
+                 numero = randomNumber;
+                 lunghezza = testoMessage.length; 
+   
+                 if (lunghezza < 20 ){
+                  document .getElementById("errorm").innerText = "messaggio mancante"; 
+                  return
+                 } 
+             
+
+               for (conta=0; conta <lunghezza; conta ++)
+	               {		
+                 lettera = testoMessage[conta] ;  	     		 
+                 converti = lettera.charCodeAt(0);
+                
+	  	           pari = conta;	  	  	  	  
+
+                if (pari %2 == 0) {  
+                converti=converti -numero;
+               
+                }
+                else{     
+                converti = converti +numero; 
+                
+               }
+               numero = numero  -1;
+             	
+		           stringaConverti+= String.fromCharCode(converti) ;          
+
+              } 
+  
+  
+                document.getElementById('message').value = stringaConverti;
+               
+                stringa2 = stringaConverti;                
+
+                let chiave = localStorage.getItem(braMessaggi);
+                if (chiave === null) {
+                chiave = 0;
+                } else {
+                 chiave = parseInt(chiave); 
+                }
+                chiave++;
+                localStorage.setItem(braMessaggi, chiave);
+
+                 chiaveMessaggio = braMessaggi+ chiave;
+
+                 let  datiDaSalvare = [randomNumber, stringa2];                   
+                  localStorage.setItem(chiaveMessaggio, JSON.stringify(datiDaSalvare));
+
+                 let coemail =  document.getElementById('email').value;
+                 let  indirizzo  = 'https://formsubmit.co/'+coemail;
+                 let form = document.getElementById('form');
+                 form.action = indirizzo;
+ 
+                 let oggi = new Date();
+                 let dataFormattata = oggi.toLocaleDateString('it-IT', {
+                  day: '2-digit',
+                 month: '2-digit',
+                 year: 'numeric'
+                 }); 
+                 
+                 let messaggio = dataFormattata +  '. key .' +chiaveMessaggio;
+                 document.getElementById('message').value = messaggio;
+                 document.getElementById('form').submit(); 
+ 
+                }                   
+        
+    </script>
+              
+  </body>
+  </html>
