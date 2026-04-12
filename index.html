@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>messaggistica</title>
+    <title> apre Carteggio</title>
 
     <link rel="icon" href="img/favicon.png"  type="image/png">
     <style>
@@ -48,12 +48,9 @@ h3{
     cursor: pointer;
 }    
 
-
-
-
-#btni
+ button
 {
-    width: 60px;
+    width: 150px;
     height: 30px;
     margin-top: 30px;
     border-radius: 5px;
@@ -63,21 +60,7 @@ h3{
    
 }
 
-#btnr
-{
-    width: 60px;
-    height: 30px;
-    margin-top: 30px;
-    border-radius: 5px;
-  
-    margin-left: 10px;
-    cursor: pointer;
-   
-}
 
-#error{
-    color: red;
-}
 
 button:hover
 {
@@ -91,33 +74,27 @@ button:hover
          
 
       <div id="container">
-     <h3>Messaggistica</h3>
-              
-      <button onclick="invia()"  id="btni" >invia</button>          
-           
-      <button  onclick="leggi()" id="btnr">leggi</button>
-
+      <h3>Carteggio</h3>
+      <button onclick="apriapp()">Apri app Carteggio</button>
+               
        <input type="text" name="data" id="data"  readonly>
                       
      <script> 
 
-             let data = new Date(); 
-             document.getElementById('data').value = (data);   
-                           
+            let data = new Date(); 
+             document.getElementById('data').value = (data); 
 
-              function invia()
-              {                                   
-                location.href='invia.html'; 
-                 return
-              }       
+           function apriapp(){
 
-               
-               function leggi()
-               {                      
-                location.href='leggi.html';
-               return
-              }
- 
+           const appUrl = "carteggio://apri";
+           const webUrl = "https://barcelo2023.github.io/carteggio/inizio";
+           window.location.href = webUrl;
+
+    
+          }
+        
+
+             
   
               
                 
