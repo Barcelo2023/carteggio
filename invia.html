@@ -133,6 +133,11 @@ button:hover{
             let lettera = "";            
             let data ;
             let email;
+            let key1;
+            let key2;
+            let dati1;
+            let dati2;
+            let progr;
                        
                   data = new Date();                                                                
                   document.getElementById('data').value = (data) ; 
@@ -200,32 +205,55 @@ button:hover{
              	
 		           stringaConverti+= String.fromCharCode(converti) ;          
 
-              } 
+              }     
+                document.getElementById('message').value = stringaConverti;               
+                stringa2 = stringaConverti; 
+
+                 // 1.  apro database'
+                const request = indexedDB.open("Bradigordb", 1);
+
+                 request.onsuccess = function(event) {
+                 const db = event.target.result;
   
-  
-                document.getElementById('message').value = stringaConverti;
-               
-                stringa2 = stringaConverti;                
+                  // 2. Creare la transazione 'readwrite'
+                   const transaction = db.transaction(["utenti"], "readwrite");
+                   const store = transaction.objectStore("utenti");
 
-                let chiave = localStorage.getItem(braMessaggi);
-                if (chiave === null) {
-                chiave = 0;
-                } else {
-                 chiave = parseInt(chiave); 
-                }
-                chiave++;
-                localStorage.setItem(braMessaggi, chiave);
+                   const chiaveManuale = braMessaggi + 0;
+                   const getRequest = store.get(chiaveManuale); 
 
-                 chiaveMessaggio = braMessaggi+ chiave;
+                   getRequest.onsuccess = function() {       
+                   const data=  getRequest.result;
 
-                 let  datiDaSalvare = [randomNumber, stringa2];                   
-                  localStorage.setItem(chiaveMessaggio, JSON.stringify(datiDaSalvare));
 
-                 let coemail =  document.getElementById('email').value;
-                 let  indirizzo  = 'https://formsubmit.co/'+coemail;
-                 let form = document.getElementById('form');
-                 form.action = indirizzo;
- 
+                    if (data === undefined) {
+                   key1 = braMessaggi + 0; // La tua chiave
+                   dati1 = { numero: 1 , messaggio: "Admin" }; 
+                   store.add(dati1, key1);                  
+                   
+
+                    key2 = braMessaggi + 1; // La tua chiave
+                    dati2= { numero: randomNumber, messaggio: stringa2 }; 
+                     store.add(dati2, key2);                  
+                     
+
+                   } else {
+                    progr= data.numero;
+                    progr++
+                 
+                    dati1 = { numero: progr , messaggio: "Admin" }; 
+                    key1 = braMessaggi + 0; // La tua chiave
+                    store.put(dati1, key1); 
+
+                     key2 = braMessaggi + progr; // La tua chiave
+                     dati2= { numero: randomNumber, messaggio: stringa2 }; 
+                     store.add(dati2, key2);                  
+                    }
+  };               
+   
+  };
+     
+        return        
                  let oggi = new Date();
                  let dataFormattata = oggi.toLocaleDateString('it-IT', {
                   day: '2-digit',
@@ -233,9 +261,18 @@ button:hover{
                  year: 'numeric'
                  }); 
                  
-                 let messaggio = dataFormattata +  '. key .' +chiaveMessaggio;
+                 let messaggio = dataFormattata +  '. key .' + key2;
                  document.getElementById('message').value = messaggio;
+
+                 let coemail =  document.getElementById('email').value;
+                 let  indirizzo  = 'https://formsubmit.co/'+coemail;
+                 let form = document.getElementById('form');
+                 form.action = indirizzo;
+
                  document.getElementById('form').submit(); 
+
+
+
  
                 }                   
         
