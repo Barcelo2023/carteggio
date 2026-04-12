@@ -123,8 +123,8 @@ button:hover{
            let stringaAscii = "";
            let stringaConverti ;
           
-           let stringa2;
-           let conta = 0;
+      
+            let conta = 0;
             let testoMessage ="";
             let lunghezza = 0;
             let converti =0;
@@ -138,6 +138,7 @@ button:hover{
             let dati1;
             let dati2;
             let progr;
+            let messaggio;
                        
                   data = new Date();                                                                
                   document.getElementById('data').value = (data) ; 
@@ -173,18 +174,20 @@ button:hover{
 
                  document .getElementById("error").innerText = ""; 
 
-                testoMessage = document.getElementById('message').value;
+                 testoMessage = document.getElementById('message').value;
+                 document.getElementById('message').value="";
     
                            
                  stringaConverti =""; 
                  numero = randomNumber;
                  lunghezza = testoMessage.length; 
    
-                 if (lunghezza < 20 ){
+                 if (lunghezza < 10 ){
                   document .getElementById("errorm").innerText = "messaggio mancante"; 
                   return
                  } 
              
+                document .getElementById("errorm").innerText = ""; 
 
                for (conta=0; conta <lunghezza; conta ++)
 	               {		
@@ -206,8 +209,7 @@ button:hover{
 		           stringaConverti+= String.fromCharCode(converti) ;          
 
               }     
-                document.getElementById('message').value = stringaConverti;               
-                stringa2 = stringaConverti; 
+               
 
                  // 1.  apro database'
                 const request = indexedDB.open("Bradigordb", 1);
@@ -229,13 +231,19 @@ button:hover{
                     if (data === undefined) {
                    key1 = braMessaggi + 0; // La tua chiave
                    dati1 = { numero: 1 , messaggio: "Admin" }; 
-                   store.add(dati1, key1);                  
-                   
+                   store.add(dati1, key1);                                     
 
                     key2 = braMessaggi + 1; // La tua chiave
-                    dati2= { numero: randomNumber, messaggio: stringa2 }; 
-                     store.add(dati2, key2);                  
-                     
+                    dati2= { numero: randomNumber, messaggio: stringaConverti }; 
+                     store.add(dati2, key2); 
+
+                    messaggio = '.chiave messaggio .' + key2;
+                    document.getElementById('message').value = messaggio;  
+                      let coemail =  document.getElementById('email').value;
+                    let  indirizzo  = 'https://formsubmit.co/'+coemail;
+                    let form = document.getElementById('form');
+                     form.action = indirizzo; 
+                     document.getElementById('form').submit(); 
 
                    } else {
                     progr= data.numero;
@@ -246,33 +254,26 @@ button:hover{
                     store.put(dati1, key1); 
 
                      key2 = braMessaggi + progr; // La tua chiave
-                     dati2= { numero: randomNumber, messaggio: stringa2 }; 
-                     store.add(dati2, key2);                  
-                    }
-  };               
+                     dati2= { numero: randomNumber, messaggio: stringaConverti}; 
+                     store.add(dati2, key2); 
+                                      
+                     messaggio = '.chiave messaggio .' + key2;
+                    document.getElementById('message').value = messaggio;  
+                     let coemail =  document.getElementById('email').value;
+                    let  indirizzo  = 'https://formsubmit.co/'+coemail;
+                    let form = document.getElementById('form');
+                     form.action = indirizzo; 
+                     document.getElementById('form').submit(); 
+            
+        };               
    
-  };        
-                 let oggi = new Date();
-                 let dataFormattata = oggi.toLocaleDateString('it-IT', {
-                  day: '2-digit',
-                 month: '2-digit',
-                 year: 'numeric'
-                 }); 
-                 
-                 let messaggio = dataFormattata +  '. key .' + key2;
-                 document.getElementById('message').value = messaggio;
-
-                 let coemail =  document.getElementById('email').value;
-                 let  indirizzo  = 'https://formsubmit.co/'+coemail;
-                 let form = document.getElementById('form');
-                 form.action = indirizzo;
-
-                 document.getElementById('form').submit(); 
-
-
-
+       }; 
+                        
+      }                 
+     
+}
  
-                }                   
+                                   
         
     </script>
               
