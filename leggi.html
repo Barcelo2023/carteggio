@@ -143,6 +143,8 @@ button:hover{
         let pari;     
         let stringaConverti;
         let numeroRandom;
+        let bradMessage;
+        let db;
 
 
              let data= new Date(); 
@@ -150,42 +152,47 @@ button:hover{
              
              function verifica(){
                 
-             let bradMessage = document.getElementById('key').value;       
- 
-             let datiRecuperati = localStorage.getItem(bradMessage);
-   
-          
-    
-              if (datiRecuperati === null) {
-              document .getElementById("error").innerText = "key mancante o errata";  
-              return               
-                }
-                document .getElementById("error").innerText = "";     
+              bradMessage = document.getElementById('key').value;
+             
+             
+              // 1. Apri il database
+              const request = indexedDB.open("Bradigordb", 1);
 
-                 datiArray = JSON.parse(datiRecuperati); 
-                 numeroRandom = datiArray[0];            
-                 msg    = datiArray[1]; 
-                document.getElementById('message').value = (msg) ; 
-                document.getElementById('abilita').disabled = false;  
-                
-            }        
+              request.onsuccess = function(event) {
+                db = event.target.result;
+               // 2. Avvia una transazione (readonly)
+                const transaction = db.transaction(["utenti"], "readonly");
+  
+               // 3. Ottieni l'object store
+                const store = transaction.objectStore("utenti");
+  
+               const getRequest = store.get(bradMessage);
+  
+              getRequest.onsuccess = function() {       
+              const data=  getRequest.result;
          
-        function decripta(){
-       
-                
-             let bradMessage = document.getElementById('key').value;       
 
-             let datiRecuperati = localStorage.getItem(bradMessage);
-                 
-              if (datiRecuperati === null) {
-              document .getElementById("errork").innerText = "key mancante o errata";  
-              return               
-                }
-                                           
-                 datiArray = JSON.parse(datiRecuperati); 
-                 numeroRandom = datiArray[0];            
-                 msg    = datiArray[1]; 
+              if (data === undefined) {
+              document .getElementById("error").innerText = "key mancante o errata"; 
+              return                
     
+           } else {
+
+              document .getElementById("error").innerText = ""; 
+              numeroRandom = data.numero;
+                msg    = data.messaggio; 
+
+                document.getElementById('message').value = (msg) ; 
+                document.getElementById('abilita').disabled = false;                 
+            }
+          }; 
+                  
+        };
+                                                  
+       }        
+         
+              function decripta(){
+                                                        
                 let  stringaConverti = "";
                 let  numero = numeroRandom;
                 
@@ -218,8 +225,19 @@ button:hover{
                 
       }    
                function cancella(){
-                 let bradMessage = document.getElementById('key').value; 
-                   localStorage.removeItem(bradMessage);
+
+
+                
+               const transaction = db.transaction(["utenti"], "readwrite");
+    
+               // 3. Ottieni l'object store
+               const Store = transaction.objectStore("utenti");
+    
+               // 4. Cancella il record con la chiave (es. "id_123")
+               let deleteRequest = Store.delete(bradMessage);
+
+
+                
                   document.getElementById("message").value = "";
                   document.getElementById("key").value = "";
                
