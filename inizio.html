@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carteggio</title>
+
+    <link rel="icon" href="img/favicon.png"  type="image/png">
+    <style>
+ 
+   
+
+   body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+
+    align-items: center;
+}
+   
+
+
+#container{       
+    height: 450px;
+    width:273px;
+    margin-left: 40px;
+    margin-top: 50px;  
+    background-color: cornflowerblue;
+    border-radius: 10px;
+    border: 5px;
+    text-align: center; 
+    justify-content: center;   
+    
+}
+
+h3{
+    margin-top: 30px;
+}
+#data
+{
+    height: 20px;
+    width: 130px;  
+    border-radius: 5px;   
+    font-size: 12px;
+    font-family: 'Times New Roman', serif;
+    margin-top: 80px;
+    border: groove;
+    cursor: pointer;
+}    
+
+ button
+{
+    width: 72px;
+    height: 30px;
+    margin-top: 30px;
+    border-radius: 5px;
+
+    margin-left: 10px;
+    cursor: pointer;
+   
+}
+
+
+
+button:hover
+{
+    background-color: orangered;
+}
+
+
+  </style>
+  </head>
+  <body>
+         
+
+      <div id="container">
+     <h3>Carteggio</h3>
+
+              
+      <button onclick="invia()"  id="btni" >invia</button>          
+           
+      <button  onclick="leggi()" id="btnr">leggi</button>
+
+       <input type="text" name="data" id="data"  readonly>
+                      
+     <script> 
+       
+           let data = new Date(); 
+            document.getElementById('data').value = (data); 
+
+
+              function invia()
+              {   
+                
+                
+               let db;
+               let request = indexedDB.open("Bradigordb", 1);
+
+               request.onupgradeneeded = (event) => {
+               db = event.target.result;
+               // Creazione dello store SENZA keyPath definita
+               if (!db.objectStoreNames.contains("utenti")) {
+               db.createObjectStore("utenti");
+              }
+             };
+                location.href='invia.html'; 
+                 return
+              }       
+
+               
+               function leggi()
+               {                      
+                location.href='leggi.html';
+               return
+              }
+ 
+  
+              
+                
+            
+                
+    </script>
+        
+    </body>
+    </html>                           
