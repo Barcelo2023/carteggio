@@ -6,7 +6,7 @@
     <title>Invia msg</title>
      <link rel="icon" href="img/favicon.png"  type="image/png">
     <style>
-   body{
+  body{
     margin: 0;
     padding: 0;
     display: flex;
@@ -105,11 +105,12 @@ button:hover{
       
      <input type="text"   id="email"  required  autocomplete="off">
      <div  id="error"   ></div>
+     
      <label for="message" id="lab" >Messaggio:</label>
      <textarea  name="message" id="message" rows="5"  cols="30"  required></textarea>
      <div  id="errorm"   ></div>
-      <button onclick= "cripta()" 
-      type="button" >Send</button>
+
+      <button id="btn" type="button">send</button>   
 
       <input type="text" id="data"  name="data" readonly>
      
@@ -117,13 +118,35 @@ button:hover{
      
       </form>
       </div>
-           
-    <script>
 
-           let stringaAscii = "";
-           let stringaConverti ;
+       <script type="module">   
+           
+         // Import the functions you need from the SDKs you need
+     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
+     import { getFirestore,collection, addDoc,  doc} from
+       "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+      // Your web app's Firebase configuration
+    const firebaseConfig = {
+    apiKey: "AIzaSyA_eM3aMEvqfDiQ5fPwkMPdpWh4SisVkAM",
+    authDomain: "comunicare-8b181.firebaseapp.com",
+    databaseURL: "https://comunicare-8b181-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "comunicare-8b181",
+    storageBucket: "comunicare-8b181.firebasestorage.app",
+    messagingSenderId: "789151969586",
+    appId: "1:789151969586:web:553bd996e8c46c15c3e72b"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+  // 1. Ottieni l'istanza del database
+   const db = getFirestore(app);
+  
           
-      
+    
+           
+           let stringaAscii = "";
+           let stringaConverti ;      
             let conta = 0;
             let testoMessage ="";
             let lunghezza = 0;
@@ -133,33 +156,34 @@ button:hover{
             let lettera = "";            
             let data ;
             let email;
-            let key1;
-            let key2;
-            let dati1;
-            let dati2;
-            let progr;
+            let key;          
+            let  utente;
+            
             let messaggio;
+            let lengemail;
+            let braMessaggi = "";
+            let randomNumber;
+            let numero;
                        
-                  data = new Date();                                                                
-                  document.getElementById('data').value = (data) ; 
-
-                  let randomNumber= Math.floor(Math.random() * 30) + 1;
-                  randomNumber = randomNumber + 10;                                                                 
+                 data = new Date();                                                                
+                 document.getElementById('data').value = (data) ; 
+                 randomNumber= Math.floor(Math.random() * 30) + 1;
+                randomNumber = randomNumber + 10;                                                                 
                                
-             do{	 
+               do{	 
                	stringaAscii +=  String.fromCharCode(conta);                   
                  conta++;                 	
               	}while ( conta < 255); 
 
-                  
-                 function cripta() {  
-
+                  const bottone = document.getElementById('btn');
+                 bottone.addEventListener('click', function() {  
+                          
                   email = document.getElementById('email').value;
-
-                 let lengemail = email.length; 
+            
+                  lengemail = email.length; 
                   conta = 0;
-                  let braMessaggi = "";
-                do {
+                   
+                  do {
                    lettera = email[conta] ;                   
                    if (lettera === '@') break
                    braMessaggi+= email[conta] ;
@@ -169,112 +193,66 @@ button:hover{
                  if (lettera != '@'){
                  document .getElementById("error").innerText = "email mancante o errata"; 
                  return                                   
-                 } 
+                 }                                    
+                  document .getElementById("error").innerText = ""; 
+                   testoMessage = document.getElementById('message').value;
+                   document.getElementById('message').value=""; 
 
-
-                 document .getElementById("error").innerText = ""; 
-
-                 testoMessage = document.getElementById('message').value;
-                 document.getElementById('message').value="";
-    
-                           
                  stringaConverti =""; 
                  numero = randomNumber;
                  lunghezza = testoMessage.length; 
-   
-                 if (lunghezza < 10 ){
-                  document .getElementById("errorm").innerText = "messaggio mancante"; 
-                  return
-                 } 
-             
-                document .getElementById("errorm").innerText = ""; 
+                 if(lunghezza  < 2){
+                 document .getElementById("errorm").innerText = "messaggio mancante"; 
+                 return
+                 }
+                 document.getElementById("errorm").innerText = ""; 
 
                for (conta=0; conta <lunghezza; conta ++)
 	               {		
                  lettera = testoMessage[conta] ;  	     		 
-                 converti = lettera.charCodeAt(0);
-                
+                 converti = lettera.charCodeAt(0);                
 	  	           pari = conta;	  	  	  	  
-
                 if (pari %2 == 0) {  
-                converti=converti -numero;
-               
+                converti=converti -numero;               
+                 }
+                 else{     
+                 converti = converti +numero;                 
                 }
-                else{     
-                converti = converti +numero; 
-                
-               }
-               numero = numero  -1;
-             	
-		           stringaConverti+= String.fromCharCode(converti) ;          
-
-              }     
-               
-
-                 // 1.  apro database'
-                const request = indexedDB.open("Bradigordb", 1);
-
-                 request.onsuccess = function(event) {
-                 const db = event.target.result;
-  
-                  // 2. Creare la transazione 'readwrite'
-                   const transaction = db.transaction(["utenti"], "readwrite");
-                   const store = transaction.objectStore("utenti");
-
-                   const chiaveManuale = braMessaggi + 0;
-                   const getRequest = store.get(chiaveManuale); 
-
-                   getRequest.onsuccess = function() {       
-                   const data=  getRequest.result;
-
-
-                    if (data === undefined) {
-                   key1 = braMessaggi + 0; // La tua chiave
-                   dati1 = { numero: 1 , messaggio: "Admin" }; 
-                   store.add(dati1, key1);                                     
-
-                    key2 = braMessaggi + 1; // La tua chiave
-                    dati2= { numero: randomNumber, messaggio: stringaConverti }; 
-                     store.add(dati2, key2); 
-
-                    messaggio = '.chiave messaggio .' + key2;
-                    document.getElementById('message').value = messaggio;  
-                      let coemail =  document.getElementById('email').value;
-                    let  indirizzo  = 'https://formsubmit.co/'+coemail;
-                    let form = document.getElementById('form');
-                     form.action = indirizzo; 
-                     document.getElementById('form').submit(); 
-
-                   } else {
-                    progr= data.numero;
-                    progr++
+                numero = numero  -1;            	
+		            stringaConverti+= String.fromCharCode(converti) ;          
+              }        
                  
-                    dati1 = { numero: progr , messaggio: "Admin" }; 
-                    key1 = braMessaggi + 0; // La tua chiave
-                    store.put(dati1, key1); 
+                 document.getElementById('message').value  = "";                
+                  utente = { numero: randomNumber, messaggio: stringaConverti }; 
+                // 2. Conversione in stringa JSON
+                  const jsonString = JSON.stringify(utente);
+                  var dataToSave = JSON.parse(jsonString);
+                  aggiungi();
 
-                     key2 = braMessaggi + progr; // La tua chiave
-                     dati2= { numero: randomNumber, messaggio: stringaConverti}; 
-                     store.add(dati2, key2); 
-                                      
-                     messaggio = '.chiave messaggio .' + key2;
-                    document.getElementById('message').value = messaggio;  
-                     let coemail =  document.getElementById('email').value;
-                    let  indirizzo  = 'https://formsubmit.co/'+coemail;
-                    let form = document.getElementById('form');
-                     form.action = indirizzo; 
+                  // La tua stringa JSON
+
+             async  function aggiungi(){
+                   try {
+             const docRef = await addDoc(collection(db, "users"), dataToSave);
+                
+                 messaggio = '.chiave messaggio .' + docRef.id;
+                  document.getElementById('message').value = messaggio;   
+              } catch (e) {
+                document .getElementById("errorm").innerText = "errore inserimeto"; 
+                    return
+                }
+             }
+                               
+                   let coemail =  document.getElementById('email').value;
+                   let  indirizzo  = 'https://formsubmit.co/'+coemail;
+                   let form = document.getElementById('form');
+                     form.action = indirizzo;                                     
                      document.getElementById('form').submit(); 
+       }); 
+                     
+                     
+
             
-        };               
-   
-       }; 
-                        
-      }                 
-     
-}
- 
-                                   
-        
     </script>
               
   </body>
