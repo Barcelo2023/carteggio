@@ -117,24 +117,40 @@ button:hover{
     
       <label for="message" id="labmsg" >Messaggio:</label>
       <textarea  name="message" id="message" rows="5"  cols="30" ></textarea>             
+      
+       <button  type="button" id="verifica" >Verifica key</button>
 
-      <button onclick="verifica()" 
-            type="button" id="verifica" >Verifica key</button>
-
-       <button onclick="decripta()" disabled = "disabled"; 
-            type="button" id="abilita" >Decripta msg</button>
+       <button  type="button" id="decripta"  disabled = "disabled"; >Decripta msg</button>       
+        
+      <button  type="button" id="cancella"   disabled = "disabled"; >Cancella msg</button>
             
-      <button onclick="cancella()" disabled = "disabled"; 
-            type="button" id="btc" >Cancella msg</button>
-
        <input type="text" name="data" id="data" >
 
    </div>  
+        
+           <script type="module"> 
+    
+         // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
+       import { getFirestore,collection, getDoc, deleteDoc, doc} from
+        "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+        apiKey: "AIzaSyA_eM3aMEvqfDiQ5fPwkMPdpWh4SisVkAM",
+            authDomain: "comunicare-8b181.firebaseapp.com",
+            databaseURL: "https://comunicare-8b181-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "comunicare-8b181",
+           storageBucket: "comunicare-8b181.firebasestorage.app",
+          messagingSenderId: "789151969586",
+          appId: "1:789151969586:web:553bd996e8c46c15c3e72b"
+         };
 
-    <script>
+         // Initialize Firebase
+         const app = initializeApp(firebaseConfig);
 
-
-        let numero ;        
+          // 1. Ottieni l'istanza del database
+          const db = getFirestore(app);
+         let numero ;        
         let conta;
         let msg;
         let lunghezza;
@@ -143,55 +159,74 @@ button:hover{
         let pari;     
         let stringaConverti;
         let numeroRandom;
-        let bradMessage;
-        let db;
+        let documentId;
+        let dati;
+        
+
+            
+            async function leggiDocumento() {
+            // 1. Crea il riferimento al documento (collezione, idDocumento)
+            const docRef = doc(db, "users", documentId);
+
+            // 2. Ottieni lo snapshot
+            const docSnap = await getDoc(docRef);
+  
+            // 3. Verifica se esiste e ottieni i dati
+            if (docSnap.exists()) {                                    
+            return docSnap.data();
+          } else {
+             document .getElementById("error").innerText = "controlla chiave"; 
+        }
+       }
+           
+
+
+            async function deleteRecord() {
+         try {
+         // Crea il riferimento al documento: doc(db, "collezione", "id_documento")
+          const docRef = doc(db, "users", documentId);
+    
+          // Elimina il documento
+          await deleteDoc(docRef);
+          
+           } catch (error) {
+          document .getElementById("error").innerText = "non ha cancellato il msg";
+           }
+           }
 
 
              let data= new Date(); 
              document.getElementById('data').value = (data) ; 
              
-             function verifica(){
+             const verifica = document.getElementById('verifica');
+               verifica.addEventListener('click', function() {  
                 
-              bradMessage = document.getElementById('key').value;
-             
-             
-              // 1. Apri il database
-              const request = indexedDB.open("Bradigordb", 1);
+              documentId = document.getElementById('key').value;
+              
+              lunghezza = documentId.length;
 
-              request.onsuccess = function(event) {
-                db = event.target.result;
-               // 2. Avvia una transazione (readonly)
-                const transaction = db.transaction(["utenti"], "readonly");
-  
-               // 3. Ottieni l'object store
-                const store = transaction.objectStore("utenti");
-  
-               const getRequest = store.get(bradMessage);
-  
-              getRequest.onsuccess = function() {       
-              const data=  getRequest.result;
-         
-
-              if (data === undefined) {
-              document .getElementById("error").innerText = "key mancante o errata"; 
-              return                
-    
-           } else {
-
+              if (lunghezza !=  20){
+               document .getElementById("error").innerText = "controlla chiave"; 
+               return    
+              }
               document .getElementById("error").innerText = ""; 
-              numeroRandom = data.numero;
-                msg    = data.messaggio; 
+                         
+                leggiDocumento().then(data => {
 
-                document.getElementById('message').value = (msg) ; 
-                document.getElementById('abilita').disabled = false;                 
-            }
-          }; 
-                  
-        };
-                                                  
-       }        
-         
-              function decripta(){
+                 numeroRandom  = data.numero; 
+                 msg = data.messaggio;
+                document.getElementById('message').value = data.messaggio;
+                });                
+ 
+                 
+                  document.getElementById('decripta').disabled = false;                                             
+             
+                return             
+      }) 
+       
+                const decripta = document.getElementById('decripta');
+               decripta.addEventListener('click', function() {  
+               
                                                         
                 let  stringaConverti = "";
                 let  numero = numeroRandom;
@@ -203,7 +238,7 @@ button:hover{
                  let   lettera = msg[conta] ;  	     		 
                  let  converti = lettera.charCodeAt(0);
                   
-	  	         let   pari = conta;	  	  	  	  
+	  	           let   pari = conta;	  	  	  	  
 
                  if (pari %2 == 0) {  
                   converti=converti + numero;
@@ -221,27 +256,18 @@ button:hover{
           } 
               
                  document.getElementById("message").value = stringaConverti;
-                 document.getElementById('btc').disabled = false;  
+                 document.getElementById('cancella').disabled = false;  
                 
-      }    
-               function cancella(){
+      })    
+                  const cancella = document.getElementById('cancella');
+                 cancella.addEventListener('click', function() {  
 
-
-                
-               const transaction = db.transaction(["utenti"], "readwrite");
-    
-               // 3. Ottieni l'object store
-               const Store = transaction.objectStore("utenti");
-    
-               // 4. Cancella il record con la chiave (es. "id_123")
-               let deleteRequest = Store.delete(bradMessage);
-
-
-                
+                deleteRecord();
+                        
                   document.getElementById("message").value = "";
                   document.getElementById("key").value = "";
                
-               }
+               })
 
         
     </script>
