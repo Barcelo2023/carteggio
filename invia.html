@@ -158,12 +158,13 @@ button:hover{
             let email;
             let key;          
             let  utente;
-            
+            let dataToSave;
             let messaggio;
             let lengemail;
-            let braMessaggi = "";
+            let braMessaggi ="" ;
             let randomNumber;
             let numero;
+
                        
                  data = new Date();                                                                
                  document.getElementById('data').value = (data) ; 
@@ -226,31 +227,37 @@ button:hover{
                   utente = { numero: randomNumber, messaggio: stringaConverti }; 
                 // 2. Conversione in stringa JSON
                   const jsonString = JSON.stringify(utente);
-                  var dataToSave = JSON.parse(jsonString);
-                  aggiungi();
+                  const dataToSave = JSON.parse(jsonString);
 
-                  // La tua stringa JSON
+                    aggiungi().then(chiave => {
+                      messaggio='- chiave messaggio -' + chiave;
+                     document.getElementById('message').value = messaggio; 
+                      let coemail =  document.getElementById('email').value;
+                     let  indirizzo  = 'https://formsubmit.co/'+coemail;
+                    let form = document.getElementById('form');
+                    form.action = indirizzo;                           
+                     document.getElementById('form').submit(); 
+                     
+                  });
+                 
 
-             async  function aggiungi(){
+           async  function aggiungi(){
                    try {
              const docRef = await addDoc(collection(db, "users"), dataToSave);
                 
-                 messaggio = '.chiave messaggio .' + docRef.id;
-                  document.getElementById('message').value = messaggio;   
+                 return docRef.id;   
               } catch (e) {
-                document .getElementById("errorm").innerText = "errore inserimeto"; 
+                document.getElementById("errorm").innerText = "errore inserimento: " + e.message;
+               console.error("Errore Firestore:", e);               
                     return
                 }
-             }
-                               
-                   let coemail =  document.getElementById('email').value;
-                   let  indirizzo  = 'https://formsubmit.co/'+coemail;
-                   let form = document.getElementById('form');
-                     form.action = indirizzo;                                     
-                     document.getElementById('form').submit(); 
+             }                                                          
+              
        }); 
                      
                      
+               
+
 
             
     </script>
