@@ -90,19 +90,8 @@ button:hover
 
 
               function invia()
-              {   
-                
-                
-               let db;
-               let request = indexedDB.open("Bradigordb", 1);
+              {                   
 
-               request.onupgradeneeded = (event) => {
-               db = event.target.result;
-               // Creazione dello store SENZA keyPath definita
-               if (!db.objectStoreNames.contains("utenti")) {
-               db.createObjectStore("utenti");
-              }
-             };
                 location.href='invia.html'; 
                  return
               }       
