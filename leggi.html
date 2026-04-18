@@ -74,12 +74,25 @@ margin-top: 21px;
 
 }
 button{
-    width: 60px;
+    width: 75px;
     height: 35px;
     margin-top: 18px;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 30px;
     
+}
+
+#logoutBtn{
+   
+ 
+  width: 200px;
+    height: 30px;
+    margin-top: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 30px;
+   
 }
 
 #data{
@@ -122,6 +135,8 @@ button:hover{
        <button  type="button" id="decripta"  disabled = "disabled"; >Decripta msg</button>       
         
       <button  type="button" id="cancella"   disabled = "disabled"; >Cancella msg</button>
+
+       <button id="logoutBtn">Logout</button>
             
        <input type="text" name="data" id="data" >
 
@@ -268,6 +283,11 @@ button:hover{
                
                })
 
+               document.getElementById('logoutBtn').addEventListener('click', function() {
+    
+              // 3. Reindirizza alla pagina di login
+               window.location.href = "index.html";
+              });
         
     </script>
      
