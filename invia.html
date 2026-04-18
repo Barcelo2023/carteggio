@@ -115,10 +115,10 @@ button:hover{
      <div  id="errorm"   ></div>
 
       <button id="btn" type="button">send</button>   
-
+       <button id="logoutBtn">Logout</button>
       <input type="text" id="data"  name="data" readonly>
      
-     
+      
      
       </form>
       </div>
@@ -259,10 +259,13 @@ button:hover{
               
        }); 
                      
-                     
-               
 
-
+      document.getElementById('logoutBtn').addEventListener('click', function() {
+    
+       // 3. Reindirizza alla pagina di login
+      window.location.href = "index.html";
+        });
+          
             
     </script>
               
