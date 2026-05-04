@@ -123,6 +123,8 @@ button:hover{
      
       </form>
       </div>
+      <script type="text/javascript" 
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
        <script type="module">   
            
@@ -169,6 +171,12 @@ button:hover{
             let braMessaggi ="" ;
             let randomNumber;
             let numero;
+
+  (function() {
+                    emailjs.init({
+                    publicKey: "svKgdS34_2A2u7iGc",
+                     });
+                   })();
 
                        
                  data = new Date();                                                                
@@ -235,15 +243,21 @@ button:hover{
                   const dataToSave = JSON.parse(jsonString);
 
                   aggiungi().then(chiave => {
-                   messaggio='- chiave messaggio -' + chiave;
-                   document.getElementById('message').value = messaggio; 
-                   let coemail =  document.getElementById('email').value;
-                   let  indirizzo  = 'https://formsubmit.co/'+coemail;
-                   let form = document.getElementById('form');
-                   form.action = indirizzo;                           
-                   document.getElementById('form').submit(); 
-                     
-                  });
+
+                   const templateParams ={
+                      key_message : chiave,          
+                      to_email :  document.getElementById('email').value                                   
+                   }; 
+                    document.getElementById('email').value ="" ; 
+
+                   emailjs.send('service_187h57y','template_i4q3wz7', templateParams)
+                    .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    }, function(error) {
+                     console.log('FAILED...', error);
+                 });
+
+              });
                  
 
            async  function aggiungi(){
