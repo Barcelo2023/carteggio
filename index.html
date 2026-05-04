@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> apre Carteggio</title>
+    <title> Carteggio</title>
 
     <link rel="icon" href="img/favicon.png"  type="image/png">
     <style>
@@ -14,22 +14,23 @@
     margin: 0;
     padding: 0;
     display: flex;
-
+    justify-content: center;   
     align-items: center;
 }
    
 
 
 #container{       
-    height: 450px;
-    width:273px;
-    margin-left: 40px;
+    height: 550px;
+    width:280px;
+   
+   
     margin-top: 50px;  
     background-color: cornflowerblue;
     border-radius: 10px;
     border: 5px;
     text-align: center; 
-    justify-content: center;   
+   
     
 }
 
@@ -45,7 +46,7 @@ h3{
     font-family: 'Times New Roman', serif;
     margin-top: 80px;
     border: groove;
-    cursor: pointer;
+   
 }    
 
  button
@@ -53,9 +54,7 @@ h3{
     width: 150px;
     height: 30px;
     margin-top: 30px;
-    border-radius: 5px;
-
-    margin-left: 10px;
+    border-radius: 5px;   
     cursor: pointer;
    
 }
@@ -75,8 +74,9 @@ button:hover
 
       <div id="container">
       <h3>Carteggio</h3>
-      <button onclick="apriapp()">Apri app Carteggio</button>
-               
+
+      <button onclick="apriapp()">Inizia Carteggio</button>
+      
        <input type="text" name="data" id="data"  readonly>
                       
      <script> 
