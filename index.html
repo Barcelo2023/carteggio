@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Carteggio</title>
+    <title>Carteggio</title>
 
     <link rel="icon" href="img/favicon.png"  type="image/png">
     <style>
@@ -14,7 +14,7 @@
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center;   
+    justify-content: center;
     align-items: center;
 }
    
@@ -23,14 +23,13 @@
 #container{       
     height: 550px;
     width:280px;
-   
-   
+  
     margin-top: 50px;  
     background-color: cornflowerblue;
     border-radius: 10px;
     border: 5px;
     text-align: center; 
-   
+    justify-content: center;   
     
 }
 
@@ -46,15 +45,15 @@ h3{
     font-family: 'Times New Roman', serif;
     margin-top: 80px;
     border: groove;
-   
+  
 }    
 
  button
 {
-    width: 150px;
-    height: 30px;
+    width: 110px;
+    height: 40px;
     margin-top: 30px;
-    border-radius: 5px;   
+    border-radius: 5px;
     cursor: pointer;
    
 }
@@ -63,7 +62,7 @@ h3{
 
 button:hover
 {
-    background-color: red;
+    background-color: orangered;
 }
 
 
@@ -73,28 +72,45 @@ button:hover
          
 
       <div id="container">
-      <h3>Carteggio</h3>
+     <h3>Carteggio</h3>
 
-      <button onclick="apriapp()">Inizia Carteggio</button>
-      
+              
+      <button onclick="invia()"  id="btni" >invia messaggio</button>          
+           
+      <button  onclick="leggi()" id="btnr">leggi messaggio</button>
+
        <input type="text" name="data" id="data"  readonly>
+       
+    </div> 
                       
-     <script> 
-
-            let data = new Date(); 
-             document.getElementById('data').value = (data); 
-
-           function apriapp(){
-
-           const appUrl = "carteggio://apri";
-           const webUrl = "https://barcelo2023.github.io/carteggio/inizio";
-           window.location.href = webUrl;
-
     
-          }
-        
+     <script>  
 
-             
+     
+       
+           let data = new Date(); 
+            document.getElementById('data').value = (data); 
+
+
+              function invia()
+              {                   
+               const webUrl = "https://barcelo2023.github.io/carteggio/regis";
+               window.location.href = webUrl;
+               
+               
+                 return
+              }       
+
+               
+               function leggi()
+               { 
+                
+               const webUrl = "https://barcelo2023.github.io/carteggio/leggi";
+               window.location.href = webUrl;
+               
+               return
+              }
+ 
   
               
                 
