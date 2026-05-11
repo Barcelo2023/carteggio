@@ -7,27 +7,32 @@
 
     <style>
 
-     *{
-      margin: 0;
-      padding: 0;
-      font-family: 'Times New Roman', serif;
+     body{
+       margin: 0;
+    padding: 0;
+    display: flex;
+    font-family: 'Times New Roman', serif;
+    align-items: center;
+    text-align: center;
      }
     #container{
-      width: 280px;
-      height: 550px;
-      background-color: cornflowerblue;
-      text-align: center;
-      border-radius: 9px;
-      justify-content: center;  
+     height: 550px;
+    width:280px;
+    margin-left: 40px;
+    margin-top: 50px;
+    background-color: cornflowerblue;
+    border-radius: 10px;
+    border: 5px;
     }
-     h2{
-      padding-top: 40px;
+    
+     input{
+      transform: translateY(-30px);
      }
     
    #codutente{
     width: 210px;
     height: 30px;
-    margin: 30px auto;
+    margin-top: 40px;
     border-radius: 6px; 
     cursor: pointer;
   
@@ -35,15 +40,15 @@
    #email{
     width: 210px;
     height: 30px;
-    margin: 30px auto;
+    margin-top: 30px;
     border-radius: 6px; 
     cursor: pointer;
-    transform: translateY(-25px);
+    
   
    }
    button{
    
-    width: 100px;
+    width: 120px;
      height: 30px;
      border-radius: 6px;
     cursor: pointer;  
@@ -57,12 +62,12 @@
     width: 140px;
     height: 20px;
     border-radius: 6px;
-    transform: translateY(150px);
+    transform: translateY(130px);
    }
 
    #error{
      color: red;
-     transform: translateY(-45px);
+     transform: translateY(-30px);
     
 }  
    button:hover{
@@ -79,7 +84,7 @@
      <input type="codutente"   id="codutente"
      placeholder="Codice utente per inviare"  required  autocomplete="off">
       <input type="email"   id="email"
-     placeholder="e.mail per ricevere codice"  required  autocomplete="off">
+     placeholder="e.mail per ricevere Codice utente"  required  autocomplete="off">
       <div  id="error"   ></div>
       <div>    
       <button id="invia" >Vai a invia</button>
@@ -258,7 +263,8 @@
                      console.log('FAILED...', error);
                  });
          });
-             
+                 const webUrl = "https://barcelo2023.github.io/carteggio";
+               window.location.href = webUrl;                              
               
         });
                             async  function aggiungi(){                                     
