@@ -256,10 +256,12 @@ button:hover{
                    emailjs.send('service_187h57y','template_i4q3wz7', templateParams)
                     .then(function(response) {
                     console.log('SUCCESS!', response.status, response.text);
+                     // 3. Reindirizza alla pagina di login
+                     window.location.href = "index.html";
                     }, function(error) {
                      console.log('FAILED...', error);
                  });
-
+                  
               });
                  
 
