@@ -243,7 +243,8 @@ button:hover{
              let  stringaConverti = "";
              let  numero = numeroRandom;
                 
-             let lunghezza = msg.length;  
+             let lunghezza = msg.length; 
+             if (lunghezza < 1)  return
 
              for ( let conta=0; conta <lunghezza; conta ++)
 	             {		
@@ -267,7 +268,8 @@ button:hover{
 
                 deleteRecord();                        
                   document.getElementById("message").value = "";
-                  document.getElementById("key").value = "";               
+                  document.getElementById("key").value = ""; 
+                  msg = "" ;             
                })
 
                document.getElementById('logoutBtn').addEventListener('click', function() {    
