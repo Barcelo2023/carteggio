@@ -185,7 +185,7 @@ button:hover{
                        
                  data = new Date();                                                                
                  document.getElementById('data').value = (data) ; 
-                 randomNumber= Math.floor(Math.random() * 30) + 1;
+                 randomNumber= Math.floor(Math.random() * 40) + 1;
                 randomNumber = randomNumber + 10;                                                                 
                                
                do{	 
@@ -236,11 +236,16 @@ button:hover{
                  else{     
                  converti = converti +numero;                 
                 }
-                numero = numero  -1;            	
+                numero = numero  -1; 
+                if(numero == 0){
+                  numero=randomNumber
+                }
+                
 		            stringaConverti+= String.fromCharCode(converti) ;          
               }        
                  
-                 document.getElementById('message').value  = "";                
+                 document.getElementById('message').value  = ""; 
+                 randomNumber = randomNumber + 3;              
                   utente = { numero: randomNumber, messaggio: stringaConverti }; 
                 // 2. Conversione in stringa JSON
                   const jsonString = JSON.stringify(utente);
@@ -252,16 +257,17 @@ button:hover{
                       to_email :  document.getElementById('email').value                                   
                    }; 
                     document.getElementById('email').value ="" ; 
-
+    
                    emailjs.send('service_187h57y','template_i4q3wz7', templateParams)
+  
                     .then(function(response) {
                     console.log('SUCCESS!', response.status, response.text);
-                     // 3. Reindirizza alla pagina di login
-                     window.location.href = "index.html";
+                   
                     }, function(error) {
                      console.log('FAILED...', error);
                  });
-                  
+                   // 3. Reindirizza alla pagina di login
+                   window.location.href = "index.html";  
               });
                  
 
