@@ -183,7 +183,6 @@ button:hover{
             async function leggiDocumento() {
             // 1. Crea il riferimento al documento (collezione, idDocumento)
             const docRef = doc(db, "users", documentId);
-
             // 2. Ottieni lo snapshot
             const docSnap = await getDoc(docRef);
   
@@ -195,21 +194,7 @@ button:hover{
         }
        }
            
-
-
-            async function deleteRecord() {
-         try {
-         // Crea il riferimento al documento: doc(db, "collezione", "id_documento")
-          const docRef = doc(db, "users", documentId);
-    
-          // Elimina il documento
-          await deleteDoc(docRef);
-          
-           } catch (error) {
-          document .getElementById("error").innerText = "non ha cancellato il mesaggio";
-           }
-           }
-
+           
 
              let data= new Date(); 
              document.getElementById('data').value = (data) ; 
@@ -229,6 +214,7 @@ button:hover{
             leggiDocumento().then(data => {
 
             numeroRandom  = data.numero; 
+            numeroRandom =numeroRandom -3;
             msg = data.messaggio;
             document.getElementById('message').value = data.messaggio;
              document.getElementById('decripta').disabled = false;  
@@ -257,7 +243,10 @@ button:hover{
                else{     
                  converti = converti - numero;                 
                }
-                 numero = numero  -1;            	
+                 numero = numero  -1; 
+                 if (numero == 0){
+                  numero = numeroRandom ; 
+                 }
 		         stringaConverti+=String.fromCharCode(converti) ;                                      
           }               
                  document.getElementById("message").value = stringaConverti;
@@ -265,8 +254,8 @@ button:hover{
       })    
                  const cancella = document.getElementById('cancella');
                  cancella.addEventListener('click', function() {  
-
-                deleteRecord();                        
+                deleteRecord(); 
+     return                       
                  
                   // 3. Reindirizza alla pagina di login
                window.location.href = "index.html";            
@@ -276,6 +265,21 @@ button:hover{
               // 3. Reindirizza alla pagina di login
                window.location.href = "index.html";
               });
+
+                          async function deleteRecord(){
+         try {
+         // Crea il riferimento al documento: doc(db, "collezione", "id_documento")
+          const docRef = doc(db, "users", documentId);
+console.log('documentId' ,documentId);
+  
+          // Elimina il documento
+          await deleteDoc(docRef);
+          console.log("Documento cancellato con successo!");
+           } catch (error) {
+          
+          console.error("Errore durante l'eliminazione: ", error);
+           }
+           }
         
     </script>
      
