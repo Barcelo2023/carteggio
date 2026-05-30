@@ -256,8 +256,7 @@ button:hover{
                  cancella.addEventListener('click', function() {  
                 deleteRecord();                       
                  
-                  // 3. Reindirizza alla pagina di login
-               window.location.href = "index.html";            
+                 
                })
 
                document.getElementById('logoutBtn').addEventListener('click', function() {    
@@ -273,7 +272,7 @@ button:hover{
   
           // Elimina il documento
           await deleteDoc(docRef);
-          console.log("Documento cancellato con successo!");
+          document.getElementById("message").value = "messaggio cancellato con successo!";
            } catch (error) {
           
           console.error("Errore durante l'eliminazione: ", error);
