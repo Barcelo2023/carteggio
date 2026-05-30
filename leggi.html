@@ -254,8 +254,7 @@ button:hover{
       })    
                  const cancella = document.getElementById('cancella');
                  cancella.addEventListener('click', function() {  
-                deleteRecord(); 
-     return                       
+                deleteRecord();                       
                  
                   // 3. Reindirizza alla pagina di login
                window.location.href = "index.html";            
@@ -270,7 +269,7 @@ button:hover{
          try {
          // Crea il riferimento al documento: doc(db, "collezione", "id_documento")
           const docRef = doc(db, "users", documentId);
-console.log('documentId' ,documentId);
+
   
           // Elimina il documento
           await deleteDoc(docRef);
