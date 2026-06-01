@@ -102,10 +102,10 @@ button:hover{
   </style>
   
 </head>
- 
-<body>
-  
 
+    <body>
+          
+  
      <div id="container">
      <h2>Invia messaggio</h2> 
 
@@ -122,12 +122,13 @@ button:hover{
       <button id="btn" type="button">invia</button>   
        <button id="logoutBtn">esci</button>
       <input type="text" id="data"  name="data" readonly>
-      <input type="hidden" name="_next" value="https://barcelo2023.github.io/carteggio">
      
       
      
       </form>
       </div>
+      <script type="text/javascript" 
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
        <script type="module">   
            
@@ -174,6 +175,12 @@ button:hover{
             let braMessaggi ="" ;
             let randomNumber;
             let numero;
+
+              
+                    emailjs.init({
+                    publicKey: "svKgdS34_2A2u7iGc",
+                     });
+                  
 
                        
                  data = new Date();                                                                
@@ -230,35 +237,38 @@ button:hover{
                  converti = converti +numero;                 
                 }
                 numero = numero  -1; 
-                 if(numero == 0){
+                if(numero == 0){
                   numero=randomNumber
-                }          	
+                }
+                
 		            stringaConverti+= String.fromCharCode(converti) ;          
               }        
                  
                  document.getElementById('message').value  = ""; 
-                  randomNumber = randomNumber + 3;                
+                 randomNumber = randomNumber + 3;              
                   utente = { numero: randomNumber, messaggio: stringaConverti }; 
                 // 2. Conversione in stringa JSON
                   const jsonString = JSON.stringify(utente);
-                  const dataToSave = JSON.parse(jsonString);
+                  dataToSave = JSON.parse(jsonString);
 
                   aggiungi().then(chiave => {
-                   messaggio='- chiave messaggio -' + chiave;
-                   document.getElementById('message').value = messaggio; 
-                   let coemail =  document.getElementById('email').value;
-                   let  indirizzo  = 'https://formsubmit.co/'+coemail;
-                   let form = document.getElementById('form');
-                   form.action = indirizzo;                           
-                   document.getElementById('form').submit(); 
-                   document.getElementById('email').value ="" ; 
-                   document.getElementById('message').value = ""; 
-                   
-                     
-                  });
+                   const templateParams ={
+                      key_message : chiave,          
+                      to_email :  document.getElementById('email').value                                  
+                   }; 
+               
+                   emailjs.send('service_187h57y','template_i4q3wz7',templateParams) 
+                   .then((response) => {
+                   document.getElementById('message').value  = 'email inviata con successo';
+                    }, (error) => {
+                 console.error('FAILED...', error);
+              });      
+                                            
+                
+              });
                  
 
-           async  function aggiungi(){
+           async  function aggiungi(){           
                    try {
              const docRef = await addDoc(collection(db, "users"), dataToSave);
                 
