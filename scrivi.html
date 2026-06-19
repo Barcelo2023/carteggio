@@ -287,8 +287,7 @@ button:hover{
               
                    emailjs.send('service_187h57y','template_i4q3wz7',templateParams) 
                    .then((response) => {
-                   document.getElementById('message').value  ="";
-                    document.getElementById("errorm").innerText = "chiave inviata "; 
+                    document.getElementById("message").value = "chiave inviata con successo "; 
                    document.getElementById('invia').disabled = true; 
                     }, (error) => {
                  console.error('FAILED...', error);
@@ -296,15 +295,11 @@ button:hover{
                 
            })
                               
-                document.getElementById('logoutBtn').addEventListener('click', function() {    
-              // 3. Reindirizza alla pagina di login
-               window.location.href = "index.html";
-              })
-    
+             
       async  function aggiungi(){           
                    try {
              const docRef = await addDoc(collection(db, "users"), dataToSave);
-               document.getElementById("errorm").innerText = "messaggio salvato "; 
+               document.getElementById("message").value = "messaggio salvato con successo"; 
                  return docRef.id;   
               } catch (e) {
                 document.getElementById("errorm").innerText = "errore inserimento: ";
@@ -312,7 +307,12 @@ button:hover{
                     return
                 }
              }                                                          
-                     
+                
+             
+                   document.getElementById('logoutBtn').addEventListener('click', function() {    
+              // 3. Reindirizza alla pagina di login
+               window.location.href = "index.html";
+              })
     </script>
               
   </body>
