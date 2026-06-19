@@ -49,7 +49,7 @@ h3{
 
  button
 {
-    width: 110px;
+    width: 120px;
     height: 40px;
     margin-top: 30px;
     border-radius: 5px;
@@ -74,7 +74,7 @@ button:hover
      <h3>Carteggio</h3>
 
               
-      <button onclick="invia()"  id="btni" >invia messaggio</button>          
+      <button onclick="scrivi()"  id="btni" >scivi messaggio</button>          
            
       <button  onclick="leggi()" id="btnr">leggi messaggio</button>
 
@@ -91,9 +91,9 @@ button:hover
             document.getElementById('data').value = (data); 
 
 
-              function invia()
+              function scrivi()
               {                   
-               const webUrl = "https://barcelo2023.github.io/carteggio/invia";
+               const webUrl = "https://barcelo2023.github.io/carteggio/scrivi";
                window.location.href = webUrl;
                
                
