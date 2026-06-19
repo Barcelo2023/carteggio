@@ -134,9 +134,9 @@ button:hover{
       
        <button  type="button" id="verifica" >Estrae messaggio</button>
 
-       <button  type="button" id="decripta"  disabled = "disabled"; >Decripta messaggio</button>       
+       <button  type="button" id="decripta"  disabled = "disabled" >Decripta messaggio</button>       
         
-      <button  type="button" id="cancella"   disabled = "disabled"; >Cancella messaggio</button>
+      <button  type="button" id="cancella"   disabled = "disabled" >Cancella messaggio</button>
 
        <button id="logoutBtn">esci</button>
             
@@ -194,7 +194,20 @@ button:hover{
         }
        }
            
-           
+            async function deleteRecord(){
+         try {
+         // Crea il riferimento al documento: doc(db, "collezione", "id_documento")
+          const docRef = doc(db, "users", documentId);
+
+  
+          // Elimina il documento
+          await deleteDoc(docRef);
+          document.getElementById("message").value = "messaggio cancellato con successo!";
+           } catch (error) {
+          
+          console.error("Errore durante l'eliminazione: ", error);
+           }
+       }
 
              let data= new Date(); 
              document.getElementById('data').value = (data) ; 
@@ -221,8 +234,7 @@ button:hover{
              });                
            
             
-      }) 
-       
+      })       
              const decripta = document.getElementById('decripta');
              decripta.addEventListener('click', function() {  
                                                                        
@@ -253,31 +265,18 @@ button:hover{
                  document.getElementById('cancella').disabled = false;                
       })    
                  const cancella = document.getElementById('cancella');
-                 cancella.addEventListener('click', function() {  
-                deleteRecord();                       
-                 
+                 cancella.addEventListener('click', function() { 
+
+                deleteRecord();                                        
                  
                })
 
                document.getElementById('logoutBtn').addEventListener('click', function() {    
               // 3. Reindirizza alla pagina di login
                window.location.href = "index.html";
-              });
+              })
 
-                          async function deleteRecord(){
-         try {
-         // Crea il riferimento al documento: doc(db, "collezione", "id_documento")
-          const docRef = doc(db, "users", documentId);
-
-  
-          // Elimina il documento
-          await deleteDoc(docRef);
-          document.getElementById("message").value = "messaggio cancellato con successo!";
-           } catch (error) {
-          
-          console.error("Errore durante l'eliminazione: ", error);
-           }
-           }
+ 
         
     </script>
      
