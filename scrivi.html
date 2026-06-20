@@ -131,13 +131,12 @@ button:hover{
       <button id="cripta" type="button" >Cripta Messaggio</button> 
 
       <button id="salva" type="button"  disabled = "disabled" >Salva Messaggio</button> 
-       <button id="invia" type="button" disabled = "disabled" >Invia Chiave</button>  
-       <button id="logoutBtn">Esci</button>
-      <input type="text" id="data"  name="data" readonly>
-     
-      
-     
+       <button id="invia" type="button" disabled = "disabled" >Invia Chiave</button> 
+        <button id="logoutBtn" type="button">Esci</button>
+      <input type="text" id="data"  name="data" readonly>     
+           
       </form>
+      
       </div>
       <script type="text/javascript" 
       src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -282,6 +281,7 @@ button:hover{
                    document.getElementById('invia').disabled = false;   
                   }) 
           })
+
                   const btninvia = document.getElementById('invia');
                   btninvia.addEventListener('click', function() {  
               
