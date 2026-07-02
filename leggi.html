@@ -50,8 +50,8 @@ h3{
 
 
 #error{
-    color: red;  
-    transform: translateY(-15px);      
+    color: black;  
+    transform: translateY(10px);      
 }
 
 #par{
@@ -75,16 +75,33 @@ transform: translateX(12px);
 margin-top: 21px;
 
 }
-button{
-    width: 77px;
-    height: 35px;
+#estrae{
+    width: 64px;
+    height: 37px;
     margin-top: 18px;
     border-radius: 5px;
     cursor: pointer;
     margin-top: 30px;
     
 }
-
+#decripta{
+    width: 64px;
+    height: 37px;
+    margin-top: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 30px;
+    
+}
+#cancella{
+    width: 64px;
+    height: 37px;
+    margin-top: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 30px;
+    
+}
 #logoutBtn{
    
  
@@ -103,16 +120,33 @@ button{
    
     border-radius: 5px;
     padding: 0 15px;
-    font-size: 12px;
-    
-    margin-top: 35px;
-   
+    font-size: 12px;    
+    margin-top: 35px;   
+} 
 
-}  
-button:hover{
+#segreto{
+     width: 64px;
+    height: 37px;
+     border : none;
+     background-color: cornflowerblue;
+    cursor: pointer;
+    touch-action: manipulation; /* Evita lo zoom del telefono al doppio tocco */
+    
+}
+
+
+
+
+#estrae:hover{
     background-color: orangered;
 }
 
+#decripta:hover{
+    background-color: orangered;
+}
+#cancella:hover{
+    background-color: orangered;
+}
 
   </style>
   </head>
@@ -120,53 +154,40 @@ button:hover{
         
 
     <div id="container">
-     <h3>Leggi messaggio</h3>
-          
-
-       <p id="par">Inserisci chiave</p> 
-      <input type="password" name="Key" id="key" required  autocomplete="off">     
-      
-      <p id="error" ></p>  
-      
+       <h2>Carteggio</h2> 
+     <h4>pagina leggi messaggi</h4>
+                    
     
       <p id="parm">Messaggio</p>
       <textarea  name="message" id="message" rows="5" readonly></textarea>             
-      
-       <button  type="button" id="verifica" >Estrae messaggio</button>
+       <div id="error" ></div>
+       <button  type="button" id="estrae"  disabled = "disabled"    > estrae</button>
 
-       <button  type="button" id="decripta"  disabled = "disabled" >Decripta messaggio</button>       
+       <button  type="button" id="decripta"  disabled = "disabled" > decripta</button>       
         
-      <button  type="button" id="cancella"   disabled = "disabled" >Cancella messaggio</button>
+      <button  type="button" id="cancella"   disabled = "disabled" >cancella</button>
+      <button  type="button" id="segreto" >...</button>
 
-       <button type="button" id="logoutBtn">esci</button>
-            
+       <button type="button" id="logoutBtn">Pagina iniziale</button>
+
+         
        <input type="text" name="data" id="data" >
-
-  
+        
         
            <script type="module"> 
-    
+          let chiaveAttiva = null; 
+       let chiaveDocumento = null;
+
+           // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
+                   import { db } from "./firebaseConfig.js";
          // Import the functions you need from the SDKs you need
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
-       import { getFirestore,collection, getDoc, deleteDoc, doc} from
+      
+       import { getFirestore,collection,  getDoc, getDocs, deleteDoc, doc} from
         "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-        apiKey: "AIzaSyA_eM3aMEvqfDiQ5fPwkMPdpWh4SisVkAM",
-            authDomain: "comunicare-8b181.firebaseapp.com",
-            databaseURL: "https://comunicare-8b181-default-rtdb.europe-west1.firebasedatabase.app",
-            projectId: "comunicare-8b181",
-           storageBucket: "comunicare-8b181.firebasestorage.app",
-          messagingSenderId: "789151969586",
-          appId: "1:789151969586:web:553bd996e8c46c15c3e72b"
-         };
-
-         // Initialize Firebase
-         const app = initializeApp(firebaseConfig);
-
-          // 1. Ottieni l'istanza del database
-          const db = getFirestore(app);
-         let numero ;        
+       
+      
+    
+        let numero ;        
         let conta;
         let msg;
         let lunghezza;
@@ -175,66 +196,64 @@ button:hover{
         let pari;     
         let stringaConverti;
         let numeroRandom;
-        let documentId;
         let dati;
         
 
-            
-            async function leggiDocumento() {
-            // 1. Crea il riferimento al documento (collezione, idDocumento)
-            const docRef = doc(db, "users", documentId);
-            // 2. Ottieni lo snapshot
-            const docSnap = await getDoc(docRef);
-  
-            // 3. Verifica se esiste e ottieni i dati
-            if (docSnap.exists()) {                                    
-            return docSnap.data();
-          } else {
-             document .getElementById("error").innerText = "chiave mancante o errata"; 
-        }
-       }
-           
-            async function deleteRecord(){
-         try {
-         // Crea il riferimento al documento: doc(db, "collezione", "id_documento")
-          const docRef = doc(db, "users", documentId);
-
-  
-          // Elimina il documento
-          await deleteDoc(docRef);
-          document.getElementById("message").value = "messaggio cancellato con successo!";
-           } catch (error) {
-          
-          console.error("Errore durante l'eliminazione: ", error);
-           }
-       }
-
              let data= new Date(); 
              document.getElementById('data').value = (data) ; 
-             
-             const verifica = document.getElementById('verifica');
-             verifica.addEventListener('click', function() {  
+
+
+          
+            
+
+             let ultimaVolta = 0;
+              const segreto = document.getElementById('segreto');
+            // 1. Gestione per Telefono (Touch)
+             segreto.addEventListener('touchend', function(event) {
+              let tempoCorrente = new Date().getTime();
+              let tempoTrascorso = tempoCorrente - ultimaVolta;
+  
+              if (tempoTrascorso < 300 && tempoTrascorso > 0) {
+                 eseguiAzione();
+                }
+             ultimaVolta = tempoCorrente;
+             });
+
+           // 2. Gestione per PC (Mouse)
+              segreto.addEventListener('dblclick', function(event) {
+               eseguiAzione();
+            });
+
+            // 3. La funzione con l'azione da eseguire
+             function eseguiAzione() {
+           
+            document.getElementById('estrae').disabled = false; 
                 
-             documentId = document.getElementById('key').value;
+            }
+        
 
-             lunghezza = documentId.length;          
-             if (lunghezza === 0 ){
-              document .getElementById("error").innerText = "chiave mancante o errata";               
-               return
-             }
-            document.getElementById("error").innerText = ""; 
-                         
-            leggiDocumento().then(data => {
 
+
+             
+             const estrae = document.getElementById('estrae');
+             estrae.addEventListener('click', function() { 
+
+             chiaveAttiva = localStorage.getItem('id_casella_postale');  
+
+             
+    
+             leggiUtenti().then(data => {
+              if (chiaveDocumento === 'nonce') return    
             numeroRandom  = data.numero; 
             numeroRandom =numeroRandom -3;
             msg = data.messaggio;
             document.getElementById('message').value = data.messaggio;
-             document.getElementById('decripta').disabled = false;  
-             });                
-           
+             document.getElementById('decripta').disabled = false; 
+             document.getElementById('estrae').disabled = true;  
+             });              
+          
             
-      })       
+      })      
              const decripta = document.getElementById('decripta');
              decripta.addEventListener('click', function() {  
                                                                        
@@ -260,28 +279,85 @@ button:hover{
                   numero = numeroRandom ; 
                  }
 		         stringaConverti+=String.fromCharCode(converti) ;                                      
-          }               
+            }               
                  document.getElementById("message").value = stringaConverti;
-                 document.getElementById('cancella').disabled = false;                
-      })    
+                 document.getElementById('cancella').disabled = false; 
+                 document.getElementById('decripta').disabled = true;                
+          })    
                  const cancella = document.getElementById('cancella');
-                 cancella.addEventListener('click', function() { 
-
+       cancella.addEventListener('click', function() { 
+    
                 deleteRecord();                                        
-                 
+               
+               
+              document.getElementById('cancella').disabled = false;  
                })
+           
 
-               document.getElementById('logoutBtn').addEventListener('click', function() {    
+        
+              async function leggiUtenti() {         
+          // 1. Crea il riferimento al documento specifico passando la chiave
+           const ricevutiRef = collection(db, "casella_postale", chiaveAttiva, "ricevuti");
+
+          // 2. Esegui la lettura
+           const snapshotRicevuti = await getDocs(ricevutiRef);
+
+             if (snapshotRicevuti.empty) {
+             document.getElementById("error").innerText = "Non ci sono messaggi"; 
+              chiaveDocumento = 'nonce';
+              return  ;
+            }                   
+          const primoDocRicevuto = snapshotRicevuti.docs[0];
+           chiaveDocumento  = primoDocRicevuto.id; // Questo è l'ID del messaggio
+                  
+                       
+            // 1. Crea il riferimento al documento (collezione, idDocumento)
+            const docRef = doc(db, "messaggi", chiaveDocumento);
+            // 2. Ottieni lo snapshot
+             const docSnap = await getDoc(docRef);
+  
+            // 3. Verifica se esiste e ottieni i dati
+            if (docSnap.exists()) {                                    
+           return docSnap.data();
+          } else {
+             document .getElementById("error").innerText = "non ci sono messaggi  "; 
+        }
+       }
+           
+            async function deleteRecord(){
+                  
+         try {
+         // Crea il riferimento al documento: doc(db, "collezione", "id_documento")
+            const docRef = doc(db, "messaggi", chiaveDocumento.trim());
+
+          // Elimina il documento
+          await deleteDoc(docRef);
+        
+          
+  // 5. Cancella l'idDocumento dalla sottocollezione "ricevuti"
+        const riferimentoRicevutoDaCancellare = doc(db, "casella_postale", chiaveAttiva, "ricevuti", chiaveDocumento);
+        await deleteDoc(riferimentoRicevutoDaCancellare);
+        
+         document.getElementById("message").value = "messaggio cancellato con successo!";
+
+       } catch (error) {
+        console.error("Errore durante il processo:", error);
+         document.getElementById("message").value = "errore durante il processo";
+    }
+}
+
+         document.getElementById('logoutBtn').addEventListener('click', function() {    
               // 3. Reindirizza alla pagina di login
                window.location.href = "index.html";
               })
-
- 
         
     </script>
      
         
  </body>
  </html>
+
+
  
- 
+
+
