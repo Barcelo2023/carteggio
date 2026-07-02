@@ -95,12 +95,9 @@ button{
     transform: translate(64px ,50px);
     
 }  
-#error{
-     color: red;
-    
-}  
+
 #errorm{
-     color: red;
+     color: black;
     
 }  
 
@@ -116,60 +113,45 @@ button:hover{
           
   
      <div id="container">
-     <h2>Scrivi messaggio</h2> 
+      <h2>Carteggio</h2>
+     <h4>pagina scrivi messaggi</h4> 
 
      <form action=""  method="post" id="form" >  
      <label for="email" id="lab"  > email destinatario</label>
       
      <input type="text"   id="email"  required  autocomplete="off">
-     <div  id="error"   ></div>
+    
      
      <label for="message" id="lab" >Messaggio:</label>
-     <textarea  name="message" id="message" rows="5"   required></textarea>
+     <textarea  disabled = "disabled"name="message" id="message" rows="5"   required></textarea>
      <div  id="errorm"   ></div>
-    
-      <button id="cripta" type="button" >Cripta Messaggio</button> 
+       <button id="verifica" type="button">ricerca casella</button> 
+      <button id="cripta" type="button"  disabled = "disabled">Cripta Messaggio</button> 
 
       <button id="salva" type="button"  disabled = "disabled" >Salva Messaggio</button> 
-       <button id="invia" type="button" disabled = "disabled" >Invia Chiave</button> 
-        <button id="logoutBtn" type="button">Esci</button>
+       
+        <button id="logoutBtn" type="button">Pagina iniziale</button>
       <input type="text" id="data"  name="data" readonly>     
            
       </form>
       
       </div>
-      <script type="text/javascript" 
-      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
-       <script type="module">   
+      
+       <script type="module"> 
+     let chiaveUtenti= "null";
+     let chiaveDocumento = "null" ;
            
-         // Import the functions you need from the SDKs you need
-     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
-     import { getFirestore,collection, addDoc,  doc} from
-       "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
-      // Your web app's Firebase configuration
-    const firebaseConfig = {
-    apiKey: "AIzaSyA_eM3aMEvqfDiQ5fPwkMPdpWh4SisVkAM",
-    authDomain: "comunicare-8b181.firebaseapp.com",
-    databaseURL: "https://comunicare-8b181-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "comunicare-8b181",
-    storageBucket: "comunicare-8b181.firebasestorage.app",
-    messagingSenderId: "789151969586",
-    appId: "1:789151969586:web:553bd996e8c46c15c3e72b"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-
-  // 1. Ottieni l'istanza del database
-   const db = getFirestore(app);
-  
-          
+         // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
+      import { db } from "./firebaseConfig.js";
+          // 2. Importi solo le funzioni di cui questa pagina ha bisogno  
     
+     import { getFirestore,collection, getDoc, setDoc, addDoc,  doc} from
+       "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+      
            
            let stringaAscii = "";
            let stringaConverti ;      
-            let conta = 0;
+            let conta ;
             let testoMessage ="";
             let lunghezza = 0;
             let converti =0;
@@ -189,42 +171,42 @@ button:hover{
             let templateParams;
 
               
-                    emailjs.init({
-                    publicKey: "svKgdS34_2A2u7iGc",
-                     });
-                  
+      
 
                        
                  data = new Date();                                                                
                  document.getElementById('data').value = (data) ; 
                  randomNumber= Math.floor(Math.random() * 40) + 1;
                 randomNumber = randomNumber + 10;                                                                 
-                               
+                 conta = 0;              
                do{	 
                	stringaAscii +=  String.fromCharCode(conta);                   
                  conta++;                 	
               	}while ( conta < 255); 
+             
+
+                 const btnverifica = document.getElementById('verifica');
+                   btnverifica.addEventListener('click', function() {  
+
+                       
+                  email = document.getElementById('email').value;
+                  lunghezza = email.length;
+                  if (lunghezza < 10){
+                    document .getElementById("errorm").innerText = "email errata o mancante"; 
+                    return 
+                  }
+              
+                  
+                  const emailPulita = String(email).trim().toLowerCase();
+                  chiaveUtenti = emailPulita.replaceAll(".", "-");
+                  leggiCasellaPostale()                    
+                  
+                 
+                })           
 
                   const btncripta = document.getElementById('cripta');
                    btncripta.addEventListener('click', function() {  
-                          
-                  email = document.getElementById('email').value;
-            
-                  lengemail = email.length; 
-                  conta = 0;
-                   
-                  do {
-                   lettera = email[conta] ;                   
-                   if (lettera === '@') break
-                   braMessaggi+= email[conta] ;
-                   conta++;
-                   } while (conta <lengemail); 
-          
-                 if (lettera != '@'){
-                 document .getElementById("error").innerText = "email mancante o errata"; 
-                 return                                   
-                 }                                    
-                  document .getElementById("error").innerText = ""; 
+                           
                    testoMessage = document.getElementById('message').value;
                    document.getElementById('message').value=""; 
 
@@ -267,47 +249,86 @@ button:hover{
                  stringaConverti = document.getElementById ('message').value;
         
                  randomNumber = randomNumber + 3;              
-                  utente = { numero: randomNumber, messaggio: stringaConverti }; 
+                  utente = { numero: randomNumber, messaggio: stringaConverti, creato :new Date() }; 
                 // 2. Conversione in stringa JSON
                   const jsonString = JSON.stringify(utente);
                   dataToSave = JSON.parse(jsonString);
 
-                  aggiungi().then(chiave => {
-                     templateParams ={
-                      key_message : chiave,          
-                      to_email :  document.getElementById('email').value                                  
-                   };
-                   document.getElementById('salva').disabled = true;
-                   document.getElementById('invia').disabled = false;   
-                  }) 
-          })
-
-                  const btninvia = document.getElementById('invia');
-                  btninvia.addEventListener('click', function() {  
-              
-                   emailjs.send('service_187h57y','template_i4q3wz7',templateParams) 
-                   .then((response) => {
-                    document.getElementById("message").value = "chiave inviata con successo "; 
-                   document.getElementById('invia').disabled = true; 
-                    }, (error) => {
-                 console.error('FAILED...', error);
-              });                                                  
+                   aggiungiMessaggi().then(chiave => {
                 
-           })
+                    chiaveDocumento = chiave ; 
+    
                               
-             
-      async  function aggiungi(){           
+                     aggiungiRicevuti() 
+                     
+                     document.getElementById('salva').disabled = true;
+                   
+                                                
+                   })            
+                                                           
+                   
+
+                 })      
+                  
+
+          
+              async  function aggiungiMessaggi(){           
                    try {
-             const docRef = await addDoc(collection(db, "users"), dataToSave);
+             const docRef = await addDoc(collection(db, "messaggi"), dataToSave);
                document.getElementById("message").value = "messaggio salvato con successo"; 
-                 return docRef.id;   
+               document.getElementById('message').disabled = true;
+               return docRef.id; 
               } catch (e) {
-                document.getElementById("errorm").innerText = "errore inserimento: ";
+                document.getElementById("errorm").innerText = "errore inserimento messaggio ";
                             
                     return
                 }
              }                                                          
-                
+                                                                                       
+             async  function aggiungiRicevuti(){ 
+
+              try {
+            // Il percorso punta al documento che ha come ID il valore di chiaveDocumento
+            const docRef = doc(db, "casella_postale", chiaveUtenti, "ricevuti", chiaveDocumento);
+  
+          // Salviamo il documento inserendo anche solo un timestamp (comodo per ordinarli per data)
+            await setDoc(docRef, { 
+           creatoIl: new Date() 
+           });
+
+           document.getElementById("message").value = "messaggio salvato con successo!"; 
+             return chiaveDocumento;   
+
+         } catch (firebaseError) {
+           document.getElementById("errorm").innerText = "errore inserimento chiave messaggio";
+          console.log("Errore testuale:", String(firebaseError));
+          return;
+         }
+
+       
+      }
+
+              async function leggiCasellaPostale() {  
+                    
+               // 1. Crea il riferimento al documento specifico passando la chiave
+                const docRef = doc(db, "casella_postale", chiaveUtenti);
+
+                             // 2. Esegui la lettura
+                 const docSnap = await getDoc(docRef);
+
+                  // 3. Controlla se il documento esiste prima di leggerlo
+                 if (docSnap.exists()) {  
+                    document.getElementById('message').disabled = false;
+                    document.getElementById('verifica').disabled = true;
+                    document.getElementById('cripta').disabled = false;
+                    document.getElementById("errorm").innerText = "";     
+                    return docSnap.data();
+           
+                  } else {        
+                 document .getElementById("errorm").innerText = "Utente senza casella";                  
+                return 
+                }
+              }     
              
                    document.getElementById('logoutBtn').addEventListener('click', function() {    
               // 3. Reindirizza alla pagina di login
