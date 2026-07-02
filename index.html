@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carteggio</title>
 
-    <link rel="icon" href="img/favicon.png"  type="image/png">
+    <link rel="icon" href="img/logo.png"  type="image/png">
     <style>
  
    
@@ -46,23 +46,70 @@ h3{
     border: groove;
   
 }    
-
- button
-{
-    width: 121px;
-    height: 40px;
-    margin-top: 30px;
-    border-radius: 5px;
-    cursor: pointer;
-   
+#pulsanti{
+    margin-top: 70px;
 }
 
 
+#descri{
+    margin-top: 30px;
+    color: black;
+}
+ button
+{
+    width: 150px;
+    height: 30px;
+    margin-left: 60px;
+    border-radius: 5px;
+    cursor: pointer;
+     align-items: center;
+     justify-content: center;
+    display: flex;
+    flex-direction: column;
+    gap : 30px;
+    
+   
+}
+#btnscrivi{
+    margin-top: 10px;
+}
 
+#btnleggi{
+    margin-top: 10px;
+}
+
+#btninfo{
+    margin-top: 10px;
+}
 button:hover
 {
     background-color: orangered;
 }
+
+       /* Stile accattivante quando il bottone si attiva */
+.bottone-notifica-attiva {
+  background-color: #d9383a !important; /* Rosso deciso */
+  color: #ffffff !important;
+  font-weight: bold !important;
+  border: 2px solid #a61c1e !important;
+  animation: pulsazioneNotifica 1.2s infinite alternate; /* Avvia l'effetto */
+}
+
+/* Animazione fluida di lampeggiamento */
+@keyframes pulsazioneNotifica {
+  from {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 5px rgba(217, 56, 58, 0.6);
+  }
+  to {
+    opacity: 0.85;
+    transform: scale(1.02); /* Crea un leggero effetto battito */
+    box-shadow: 0 0 15px rgba(217, 56, 58, 0.9);
+  }
+}
+
+
 
 
   </style>
@@ -72,44 +119,100 @@ button:hover
 
       <div id="container">
      <h3>Carteggio</h3>
-
-              
-      <button onclick="scrivi()"  id="btni" >scrivi messaggio</button>          
-           
-      <button  onclick="leggi()" id="btnr">leggi messaggio</button>
-
+     <h4>Pagina iniziale</h4>
+      <div id="pulsanti">
+      <button  id="btncasella" type="button">Crea casella postale</button> 
+                     
+      <button  id="btnscrivi" type="button">Scrivi messaggi</button> 
+                       
+      <button  id="btnleggi" type="button" >Leggi messaggi</button>
+        <button id="btninfo" type="button" >Info app</button>
+      </div> 
+     
        <input type="text" name="data" id="data"  readonly>
        
     </div> 
-                      
-    
-     <script>  
-
+                          
      
+                <script type="module">
+                  // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
+                   import { db } from "./firebaseConfig.js";
+                 // 2. Importi solo le funzioni di cui questa pagina ha bisogno
+                
+                import { getFirestore,collection,onSnapshot } from
+                 "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+                let unsubscribeFaro = null
+
+                function avviaControlloFaro(chiaveAttiva) {
+               const ricevutiRef = collection(db, "casella_postale", chiaveAttiva, "ricevuti");
+
+                  unsubscribeFaro = onSnapshot(ricevutiRef, (snapshot) => {
+               const btnLeggi = document.getElementById("btnleggi");
+                   if (!btnLeggi) return;
+
+                 if (!snapshot.empty) {
+                    btnLeggi.classList.add("bottone-notifica-attiva"); // Lampeggia
+                } else {
+                btnLeggi.classList.remove("bottone-notifica-attiva"); // Normale
+              }
+            });
+          }
+                  function disattivaSegnalazioneIniziale() {
+           if (unsubscribeSegnalazione) {
+           unsubscribeSegnalazione();
+         unsubscribeSegnalazione = null;
+        }
+      }
+
+
+          // 1. Recupera l'ID specifico salvato nel localStorage di questo dispositivo
+        const chiaveDinamica = localStorage.getItem("id_casella_postale"); 
+
+      // 2. Verifica che la casella sia effettivamente configurata sul telefono/PC
+        if (chiaveDinamica) {
+         console.log("Faro avviato con successo per la casella:", chiaveDinamica);
+  
+         // Avvia il controllo in tempo reale per questo utente specifico
+           avviaControlloFaro(chiaveDinamica);
+  
+         } else {
+          console.log("Nessuna casella postale configurata su questo dispositivo.");
+  
+         // Se non c'è una casella, disabilitiamo il bottone per evitare clic inutili
+         const btnLeggi = document.getElementById("btnleggi");
+         if (btnLeggi) {
+         btnLeggi.disabled = true;
+        }
+      }
+
+
        
            let data = new Date(); 
             document.getElementById('data').value = (data); 
 
-
-              function scrivi()
-              {                   
-            
-               window.location.href = "scrivi.html";
-               
-               
-              }       
-
-               
-               function leggi()
-               { 
-                
-              window.location.href = "leggi.html";
-            
-              }
- 
-  
               
-                
+               const casella= document.getElementById('btncasella');
+             casella.addEventListener('click', function() { 
+               window.location.href = "casella.html";
+             }) 
+               
+                     
+                   const scrivi = document.getElementById('btnscrivi');
+             scrivi.addEventListener('click', function() { 
+               window.location.href = "scrivi.html";
+             })  
+               
+             
+                    const leggi = document.getElementById('btnleggi');
+             leggi.addEventListener('click', function() { 
+               window.location.href = "leggi.html";
+             })  
+  
+             
+                    const info = document.getElementById('btninfo');
+             info.addEventListener('click', function() { 
+               window.location.href = "info.html";
+             })    
             
                 
     </script>
