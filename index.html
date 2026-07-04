@@ -21,7 +21,7 @@
 
 
 #container{       
-    height: 550px;
+    height: 600px;
     width:280px;
   
     margin-top: 50px;  
@@ -37,7 +37,7 @@ h3{
 }
 #data
 {
-    height: 20px;
+    height: 30px;
     width: 125px;  
     border-radius: 5px;   
     font-size: 12px;
@@ -57,8 +57,8 @@ h3{
 }
  button
 {
-    width: 150px;
-    height: 30px;
+    width: 160px;
+    height: 40px;
     margin-left: 60px;
     border-radius: 5px;
     cursor: pointer;
@@ -66,7 +66,8 @@ h3{
      justify-content: center;
     display: flex;
     flex-direction: column;
-    gap : 30px;
+    gap : 35px;
+    font-size: 15px;
     
    
 }
@@ -78,7 +79,9 @@ h3{
     margin-top: 10px;
 }
 
-
+#btninfo{
+    margin-top: 10px;
+}
 button:hover
 {
     background-color: orangered;
@@ -124,7 +127,8 @@ button:hover
       <button  id="btnscrivi" type="button">Scrivi messaggi</button> 
                        
       <button  id="btnleggi" type="button" >Leggi messaggi</button>
-        
+
+        <button  id="btninfo" type="button" >Info app</button>
       </div> 
      
        <input type="text" name="data" id="data"  readonly>
@@ -141,20 +145,27 @@ button:hover
                  "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
                 let unsubscribeFaro = null
 
+                 let data = new Date(); 
+              document.getElementById('data').value = (data); 
+
                 function avviaControlloFaro(chiaveAttiva) {
-               const ricevutiRef = collection(db, "casella_postale", chiaveAttiva, "ricevuti");
+                const ricevutiRef = collection(db, "casella_postale", chiaveAttiva, "ricevuti");
 
-                  unsubscribeFaro = onSnapshot(ricevutiRef, (snapshot) => {
+                unsubscribeFaro = onSnapshot(ricevutiRef, (snapshot) => {
                const btnLeggi = document.getElementById("btnleggi");
-                   if (!btnLeggi) return;
+                if (!btnLeggi) return;
 
-                 if (!snapshot.empty) {
-                    btnLeggi.classList.add("bottone-notifica-attiva"); // Lampeggia
-                } else {
-                btnLeggi.classList.remove("bottone-notifica-attiva"); // Normale
-              }
-            });
-          }
+              if (!snapshot.empty) {
+               btnLeggi.classList.add("bottone-notifica-attiva"); // Lampeggia
+            
+
+            } else {
+          btnLeggi.classList.remove("bottone-notifica-attiva"); // Normale
+         }
+          });
+      }
+
+              
                   function disattivaSegnalazioneIniziale() {
            if (unsubscribeSegnalazione) {
            unsubscribeSegnalazione();
@@ -185,9 +196,7 @@ button:hover
 
 
        
-           let data = new Date(); 
-            document.getElementById('data').value = (data); 
-
+       
               
                const casella= document.getElementById('btncasella');
              casella.addEventListener('click', function() { 
@@ -207,10 +216,13 @@ button:hover
              })  
   
              
-           
+                    const info = document.getElementById('btninfo');
+             info.addEventListener('click', function() { 
+               window.location.href = "info.html";
+             })         
             
                 
     </script>
         
     </body>
-    </html>                           
+    </html>                            
