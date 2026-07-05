@@ -59,16 +59,14 @@ h3{
 {
     width: 160px;
     height: 40px;
-    margin-left: 60px;
-    border-radius: 5px;
+    margin-left: 60px;    border-radius: 5px;
     cursor: pointer;
      align-items: center;
      justify-content: center;
     display: flex;
     flex-direction: column;
     gap : 35px;
-    font-size: 15px;
-    
+    font-size: 15px;    
    
 }
 #btnscrivi{
@@ -80,6 +78,10 @@ h3{
 }
 
 #btninfo{
+    margin-top: 10px;
+}
+
+#btncancella{
     margin-top: 10px;
 }
 button:hover
@@ -123,12 +125,14 @@ button:hover
      <h4>Pagina iniziale</h4>
       <div id="pulsanti">
       <button  id="btncasella" type="button">Crea casella postale</button> 
-                     
+                 
       <button  id="btnscrivi" type="button">Scrivi messaggi</button> 
                        
       <button  id="btnleggi" type="button" >Leggi messaggi</button>
 
         <button  id="btninfo" type="button" >Info app</button>
+
+        <button  id="btncancella" type="button">Cancella casella postale</button> 
       </div> 
      
        <input type="text" name="data" id="data"  readonly>
@@ -196,18 +200,9 @@ button:hover
            avviaControlloFaro(chiaveDinamica);
   
          } else {
-          console.log("Nessuna casella postale configurata su questo dispositivo.");
-  
-         // Se non c'è una casella, disabilitiamo il bottone per evitare clic inutili
-         const btnLeggi = document.getElementById("btnleggi");
-         if (btnLeggi) {
-         btnLeggi.disabled = true;
-        }
-      }
-
-
-       
-       
+          console.log("Nessuna casella postale configurata su questo dispositivo."); 
+         
+      }             
               
                const casella= document.getElementById('btncasella');
              casella.addEventListener('click', function() { 
@@ -232,7 +227,10 @@ button:hover
                window.location.href = "info.html";
              })         
             
-                
+                     const cancella = document.getElementById('btncancella');
+             cancella.addEventListener('click', function() { 
+               window.location.href = "cancella.html";
+             })           
     </script>
         
     </body>
