@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carteggio</title>
+
+    <link rel="icon" href="img/logo.png"  type="image/png">
+    <style>
+    
+
+   body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+   
+
+#container{       
+    height: 600px;
+    width:280px;
+  
+    margin-top: 50px;  
+    background-color: cornflowerblue;
+    border-radius: 10px;
+    text-align: center; 
+    justify-content: center;   
+    
+}
+
+h3{
+    margin-top: 30px;
+
+}
+#elimina{
+   color: red;
+   font-size: medium;
+   transform: translateY(30px);
+  
+
+}
+#data
+{
+    height: 20px;
+    width: 125px;  
+    border-radius: 5px;   
+    font-size: 12px;
+    font-family: 'Times New Roman', serif;
+    margin-top: 80px;
+    border: groove;
+  
+}    
+
+ button
+{
+    width: 150px;
+    height: 30px;
+    margin-top: 50px;
+    border-radius: 5px;
+    cursor: pointer;
+   
+}
+#error {
+   margin-top: 5px;
+    color:black;
+}
+
+
+button:hover{
+
+    background-color: orangered;
+}
+
+
+  </style>
+  </head>
+  <body>
+         
+
+      <div id="container">
+     <h3>Carteggio</h3>
+     <h4>Pagina cancella casella</h4>
+     <p id="elimina"> Sei sicuro di voler cancellare la casella</p>
+
+       <div>
+       <button   type="button"  id="btncancella" >Cancella casella</button> 
+       <p id="error"></p>          
+        <button id="logoutBtn" type="button">Pagina iniziale</button>
+
+       <input type="text" name="data" id="data"  readonly>
+       
+      </div> 
+         <script type="module"> 
+     let mioIdCasella;
+          // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
+      import { db } from "./firebaseConfig.js";
+           // Import the functions you need from the SDKs you need
+    
+     import { getFirestore,collection, getDoc, setDoc, addDoc,  doc} from
+       "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+     
+ 
+            let data = new Date(); 
+            document.getElementById('data').value = (data); 
+
+
+            document.getElementById('btncancella').addEventListener('click', function() { 
+           
+               // Controlla la memoria interna del telefono 
+                 mioIdCasella = localStorage.getItem("id_casella_postale");          
+                 if (mioIdCasella) {
+                // se esiste c ancella chiave casella dal telefono  
+                // e dalla collezione casell postale               
+                   localStorage.removeItem("id_casella_postale", mioIdCasella);
+
+                    cancellaCasella()                                 
+                      
+                } else {
+                                // non c'è una casella da cancellare
+                  document .getElementById("error").innerText = "utente senza casella"; 
+                }                           
+                   
+               })   
+                       
+
+        async function cancellaCasella() {
+       // 1. Riferimento al documento usando il valore come ID
+        const docRef = doc(db, "casella_postale", mioIdCasella);
+  
+        // 2. Cerca la casella e se esiste la cancella
+        const docSnap = await getDoc(docRef);
+
+       // 3. Verifica l'esistenza usando .exists()
+       if (docSnap.exists()) {
+                    await deleteDoc(docRef);
+
+       document .getElementById("error").innerText = "cancellazione  effettuata"; 
+       return true;
+        }
+
+         // 4. Se NON esiste, procedi con l'inserimento
+            
+         document .getElementById("error").innerText = "casella non presente";    
+           return false;
+}
+
+           document.getElementById('logoutBtn').addEventListener('click', function() {    
+           // 3. Reindirizza alla pagina di login
+            window.location.href = "index.html";
+              })
+
+  </script> 
+  
+  </body>
+  </html>          
+    
+
+ 
+
