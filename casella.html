@@ -64,6 +64,10 @@ input{
     cursor: pointer;
    
 }
+ p
+ {
+ transform: translateY(15px);
+}
 #error {
    margin-top: 5px;
     color:black;
@@ -85,9 +89,14 @@ button:hover{
      <h3>Carteggio</h3>
      <h4>pagina crea casella postale</h4>
 
-     <label for="email" id="lab"  > email utente</label>
+       <p>Scrivi due volte la tua email</p>
       
-     <input type="text"   id="email"  required  autocomplete="off">
+     <input type="text"   id="email" onpaste="return false;" ondrop="return false;"
+      required  autocomplete="off">
+     <input type="text"   id="emailRipeti" onpaste="return false;" ondrop="return false;" 
+      required  autocomplete="off">
+     
+
      <div  id="error"   ></div> 
        <button   type="button"  id="btnv" >crea casella</button>           
         <button id="logoutBtn" type="button">Pagina iniziale</button>
@@ -111,7 +120,8 @@ button:hover{
 
             document.getElementById('btnv').addEventListener('click', function() { 
 
-            let email;            
+            let email; 
+            let emailRipeti;           
             let lengemail;
             let conta;
             let lettera;
@@ -120,28 +130,43 @@ button:hover{
              document .getElementById("error").value = ""; 
         
              email = document.getElementById('email').value; 
-
-             // istruzioni da togliere
+             emailRipeti = document.getElementById('emailRipeti').value; 
 
            
                   lengemail = email.length;
-                  if (lengemail < 10){
+                  if (lengemail < 5){
                   document .getElementById("error").innerText = "inserisci una email valida"; 
                  return                              
-                  }                  
+                  } 
+                  
+                   lengemail = emailRipeti.length;
+                  if (lengemail < 5){
+                  document .getElementById("error").innerText = "inserisci una email valida"; 
+                 return                              
+                  }  
+                  
+                   if (email !== emailRipeti){
+                   document .getElementById("error").innerText = "le due email non concordano"; 
+                   return 
+                 }
                   conta = 0;                
                   do {
-                   lettera = email[conta] ;                 
+                   lettera = email[conta] ; 
+                   if (lettera === ',') {
+                    document .getElementById("error").innerText = "inserisci una email valida"
+                    return
+                   }               
                           
                    if (lettera === '@')  chioc = lettera ; 
                                                      
                    conta++;
                    } while (conta <lengemail); 
       
-                 if (chioc != '@'){
+                 if (chioc !== '@'){
                  document .getElementById("error").innerText = "inserisci una email valida"; 
                  return                              
                  } 
+                 
                  
                  const emailPulita = String(email).trim().toLowerCase();                
                   const emailPulitaBis = emailPulita.replaceAll(".", "a");                 
