@@ -19,7 +19,7 @@
    
 
 #container{       
-    height: 550px;
+    height: 600px;
     width:280px;
   
     margin-top: 50px;  
@@ -140,10 +140,11 @@ button:hover{
                  return                              
                  } 
                  
-                 const emailPulita = String(email).trim().toLowerCase();
-                 const chiaveCasella = emailPulita.replaceAll(".", "-");
+                 const emailPulita = String(email).trim().toLowerCase();                
+                  const emailPulitaBis = emailPulita.replaceAll(".", "a");                 
+                  const chiaveCasella = emailPulitaBis.replaceAll("i", "a");   
+                                 
                  document.getElementById("error").innerText = ""; 
-
 
                // Controlla la memoria interna del telefono
                  mioIdCasella = localStorage.getItem("id_casella_postale");
