@@ -18,7 +18,7 @@
 
 
 #container{       
-    height: 550px;
+    height: 600px;
     width:280px;
     margin-left: 40px;
     margin-top: 50px;
@@ -38,7 +38,7 @@
     font-size: 13px;
     margin-top: 15px;
     cursor: pointer;
-    
+    font-size: 18px;
     
 }    
 
@@ -198,7 +198,9 @@ button:hover{
               
                   
                   const emailPulita = String(email).trim().toLowerCase();
-                  chiaveUtenti = emailPulita.replaceAll(".", "-");
+                  const emailPulitaBis = emailPulita.replaceAll(".", "a");                 
+                  chiaveUtenti = emailPulitaBis.replaceAll("i", "a");  
+     
                   leggiCasellaPostale()                    
                   
                  
