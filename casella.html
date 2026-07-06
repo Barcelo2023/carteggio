@@ -121,6 +121,12 @@ button:hover{
         
              email = document.getElementById('email').value; 
 
+             // istruzioni da togliere
+
+              mioIdCasella = localStorage.getItem("id_casella_postale");  
+                 localStorage.removeItem("id_casella_postale", mioIdCasella); 
+                 return 
+              //      fino a qui
                   lengemail = email.length;
                   if (lengemail < 10){
                   document .getElementById("error").innerText = "inserisci una email valida"; 
