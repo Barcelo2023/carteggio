@@ -156,7 +156,7 @@ button:hover{
                  if (!mioIdCasella) {
                  // Prima volta in assoluto: genera un ID unico e lo salva sul telefono
                    mioIdCasella = chiaveCasella;
-                   localStorage.setItem("id_casella_postale", mioIdCasella);
+                   
                     
                  // Controlla se casella  esiste                                   
 
@@ -179,15 +179,17 @@ button:hover{
 
        // 3. Verifica l'esistenza usando .exists()
        if (docSnap.exists()) {
-       document .getElementById("error").innerText = "creazione effettuata"; 
+       document .getElementById("error").innerText = "la casella esiste già"; 
        return false;
         }
 
          // 4. Se NON esiste, procedi con l'inserimento
                await setDoc(docRef, { 
            creatoIl: new Date() 
+           
            });
-         document .getElementById("error").innerText = "creazione effettuata";    
+           localStorage.setItem("id_casella_postale", mioIdCasella)
+           document .getElementById("error").innerText = "creazione effettuata";    
            return true;
 }
 
