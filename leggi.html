@@ -5,161 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leggi msg</title>
      <link rel="icon" href="img/favicon.png"  type="image/png">
-    <style>
+       <link rel="stylesheet" href="style-leggi.css"> <!-- Il file CSS --> 
 
-body
-{
-    margin: 0;
-    padding: 0;
-    display: flex;
-    font-family: 'Times New Roman', serif;
-    align-items: center;
-    text-align: center;
-}
-   
-
-
-#container{       
-    height: 550px;
-    width:280px;
-    margin-left: 40px;
-    margin-top: 50px;
-    background-color: cornflowerblue;
-    border-radius: 10px;
-    border: 5px;
-   
-   
-    
-} 
-
-h3{
-    
-    margin-top: 40px;
-    
-}
-
-  
-#key{
-   height: 30px;
-    width: 180px;   
-    border-radius: 5px;   
-    font-size: 14px;
-    cursor: pointer;
-
-}    
-
-
-#error{
-    color: black;  
-    transform: translateY(10px);      
-}
-
-#par{
-
-    transform: translateY(16px);
-}
-#parm{
-    margin-top: 15px;
-    transform: translateY(17px);
-}
-
-textarea {
-display: block;
-width: 90%;
-font-size: 14px;
-box-sizing: border-box;
-resize: none;
-overflow: auto;
-min-height: 50px;
-transform: translateX(12px);
-margin-top: 21px;
-
-}
-#estrae{
-    width: 64px;
-    height: 37px;
-    margin-top: 18px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 30px;
-    
-}
-#decripta{
-    width: 64px;
-    height: 37px;
-    margin-top: 18px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 30px;
-    
-}
-#cancella{
-    width: 64px;
-    height: 37px;
-    margin-top: 18px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 30px;
-    
-}
-#logoutBtn{
-   
- 
-  width: 200px;
-    height: 30px;
-    margin-top: 18px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 30px;
-   
-}
-
-#data{
-     height: 20px;
-    width: 140px;
-   
-    border-radius: 5px;
-    padding: 0 15px;
-    font-size: 12px;    
-    margin-top: 35px;   
-} 
-
-#segreto{
-     width: 64px;
-    height: 37px;
-     border : none;
-     background-color: cornflowerblue;
-    cursor: pointer;
-    touch-action: manipulation; /* Evita lo zoom del telefono al doppio tocco */
-    
-}
-
-
-
-
-#estrae:hover{
-    background-color: orangered;
-}
-
-#decripta:hover{
-    background-color: orangered;
-}
-#cancella:hover{
-    background-color: orangered;
-}
-
-  </style>
   </head>
   <body>
         
 
-    <div id="container">
+    <div class="container">
        <h2>Carteggio</h2> 
      <h4>pagina leggi messaggi</h4>
                     
     
       <p id="parm">Messaggio</p>
-      <textarea  name="message" id="message" rows="5" readonly></textarea>             
+      <textarea  name="message" id="message" rows="4" readonly></textarea>             
        <div id="error" ></div>
        <button  type="button" id="estrae"  disabled = "disabled"    > estrae</button>
 
@@ -173,7 +31,7 @@ margin-top: 21px;
          
        <input type="text" name="data" id="data" >
         
-        
+       </div>
            <script type="module"> 
           let chiaveAttiva = null; 
        let chiaveDocumento = null;
