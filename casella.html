@@ -105,7 +105,9 @@
 
                // Controlla la memoria interna del telefono
                  mioIdCasella = localStorage.getItem("id_casella_postale");
-
+    console.log(mioIdCasella) ;            
+                 document.getElementById("error").innerText = mioIdCasella
+     return
                  if (!mioIdCasella) {
                  // Prima volta in assoluto: genera un ID unico e lo salva sul telefono
                    mioIdCasella = chiaveCasella;
