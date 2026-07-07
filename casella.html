@@ -97,14 +97,17 @@
                  
                  
                  const emailPulita = String(email).trim().toLowerCase();                
-                  const emailPulitaBis = emailPulita.replaceAll(".", "a");                 
-                  const chiaveCasella = emailPulitaBis.replaceAll("i", "a");   
-                                 
+                  const emailPulitaBis = emailPulita.replaceAll(".", "a");
+                  const emailPulitaTris  =  emailPulitaBis.replaceAll("@", "t");             
+                  const chiaveCasella = emailPulitaTris.replaceAll("i", "a");   
+           
                  document.getElementById("error").innerText = ""; 
 
                // Controlla la memoria interna del telefono
                  mioIdCasella = localStorage.getItem("id_casella_postale");
-           
+
+                 localStorage.removeItem('mioIdCasella');
+         return
 
                  if (!mioIdCasella) {
                  // Prima volta in assoluto: genera un ID unico e lo salva sul telefono
@@ -124,6 +127,7 @@
                        
 
         async function insertCasella() {
+                
 
 
        // 1. Riferimento al documento usando il valore come ID
