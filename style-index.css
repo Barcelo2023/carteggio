@@ -1,0 +1,135 @@
+ /* Reset globale per mobile */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Blocca lo scroll per un effetto App nativa */
+  font-family: sans-serif;
+}
+
+/* Il contenitore principale che gestisce lo spazio verticale */
+.container {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between;   /* Separa i titoli/pulsanti sopra dal download sotto */
+  align-items: center;
+  height: 100vh;                     /* Prende tutto lo schermo del telefono */
+  width: 100vw;
+  padding: 20px 15px 10px 15px;      /* Spazi interni bilanciati per il display */
+  box-sizing: border-box;
+  background-color: cornflowerblue;         /* Cambialo con il colore di sfondo della tua app */
+}
+
+/* Allineamento dei titoli in alto */
+.container h3, .container h4 {
+  margin: 0;
+  text-align: center;
+}
+
+/* Il sotto-contenitore che racchiude i tuoi 4 pulsanti */
+/* Il sotto-contenitore che racchiude i tuoi 5 pulsanti */
+#pulsanti {
+  display: flex;
+  flex-direction: column;            /* Dispone i bottoni uno sotto l'altro */
+  width: 100%;
+  align-items: center;
+  gap: 12px;                         /* Aumentato a 12px per dare più respiro e non schiacciarli */
+  margin-top: 30px;                  /* Distanzia i bottoni dal titolo, spingendoli verso il basso */
+  margin-bottom: auto;               /* Spinge tutto il blocco centrale lontano dal footer in fondo */
+}
+
+/* Modifica leggermente il blocco dei titoli per spingerlo più in basso */
+.container h3 {
+  margin-top: 50px;                  /* Crea un polmone di spazio in alto per non attaccarsi al bordo del telefono */
+}
+
+
+/* Stile comune per tutti i pulsanti e l'input data */
+.container input, 
+.container button {
+  width: 90%;
+  max-width: 360px;
+  padding: 11px;                     /* Padding compatto per ottimizzare l'altezza su mobile */
+  font-size: 16px;                   /* Ottimale per evitare zoom su iOS */
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Colori personalizzati per i tuoi bottoni principali */
+#btncasella { background-color: #007bff; color: white; }
+#btnscrivi   { background-color: #17a2b8; color: white; }
+#btnleggi    { background-color: #28a745; color: white; }
+#btninfo     { background-color: #6c757d; color: white; }
+
+
+
+
+/* Il blocco finale in fondo (Contiene APK + Nota) */
+.container > div:last-of-type {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0 !important;              /* Sovrascrive il margin inline dell'HTML */
+  padding-bottom: 5px;
+}
+
+/* Il bottone verde per il download dell'APK */
+.container > div:last-of-type a {
+  display: inline-block;
+  width: 85%;
+  max-width: 340px;
+  text-align: center;
+  padding: 12px 20px !important;     /* Leggermente ridotto per non rubare troppo spazio */
+  background-color: #28a745; 
+  color: white; 
+  text-decoration: none; 
+  font-size: 16px !important;        /* 16px ottimale per mobile */
+  font-weight: bold; 
+  border-radius: 6px; 
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+}
+
+/* La nota sulla privacy scritta in piccolo */
+.container > div:last-of-type p {
+  width: 90%;
+  max-width: 340px;
+  font-size: 11px !important;        /* Molto piccola e discreta */
+  color: #666; 
+  text-align: center;
+  margin-top: 6px !important;
+  line-height: 1.3;
+}
+/* --- GESTIONE DINAMICA DEL BOTTONE LEGGI --- */
+
+/* 1. Stile di default del bottone (Verde classico) */
+#btnleggi {
+  background-color: #28a745;
+  color: white;
+}
+
+/* 2. Il tuo stile accattivante quando il listener aggiunge la classe .bottone-notifica-attiva */
+.bottone-notifica-attiva {
+  background-color: #d9383a !important; /* Rosso deciso */
+  color: #ffffff !important;
+  font-weight: bold !important;
+  border: 2px solid #a61c1e !important;
+  animation: pulsazioneNotifica 1.2s infinite alternate; /* Avvia l'effetto */
+}
+
+/* 3. Animazione fluida di lampeggiamento (il battito) */
+@keyframes pulsazioneNotifica {
+  from {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 5px rgba(217, 56, 58, 0.6);
+  }
+  to {
+    opacity: 0.85;
+    transform: scale(1.02); /* Crea un leggero effetto battito */
+    box-shadow: 0 0 15px rgba(217, 56, 58, 0.9);
+  }
+}
