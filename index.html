@@ -6,136 +6,25 @@
     <title>Carteggio</title>
 
     <link rel="icon" href="img/logo.png"  type="image/png">
-    <style>
- 
-   
+      <link rel="stylesheet" href="style-index.css"> <!-- Il file CSS --> 
 
-   body{
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-   
-
-
-#container{       
-    height: 600px;
-    width:280px;
-  
-    margin-top: 50px;  
-    background-color: cornflowerblue;
-    border-radius: 10px;
-    text-align: center; 
-    justify-content: center;   
-    
-}
-
-h3{
-    margin-top: 30px;
-}
-#data
-{
-    height: 30px;
-    width: 125px;  
-    border-radius: 5px;   
-    font-size: 12px;
-    font-family: 'Times New Roman', serif;
-    margin-top: 50px;
-    border: groove;
-  
-}    
-#pulsanti{
-    margin-top: 40px;
-}
-
-
-#descri{
-    margin-top: 30px;
-    color: black;
-}
- button
-{
-    width: 160px;
-    height: 40px;
-    margin-left: 60px;    border-radius: 5px;
-    cursor: pointer;
-     align-items: center;
-     justify-content: center;
-    display: flex;
-    flex-direction: column;
-    gap : 35px;
-    font-size: 15px;    
-   
-}
-#btnscrivi{
-    margin-top: 10px;
-}
-
-#btnleggi{
-    margin-top: 10px;
-}
-
-#btninfo{
-    margin-top: 10px;
-}
-
-#btncancella{
-    margin-top: 10px;
-}
-button:hover
-{
-    background-color: orangered;
-}
-
-       /* Stile accattivante quando il bottone si attiva */
-.bottone-notifica-attiva {
-  background-color: #d9383a !important; /* Rosso deciso */
-  color: #ffffff !important;
-  font-weight: bold !important;
-  border: 2px solid #a61c1e !important;
-  animation: pulsazioneNotifica 1.2s infinite alternate; /* Avvia l'effetto */
-}
-
-/* Animazione fluida di lampeggiamento */
-@keyframes pulsazioneNotifica {
-  from {
-    opacity: 1;
-    transform: scale(1);
-    box-shadow: 0 0 5px rgba(217, 56, 58, 0.6);
-  }
-  to {
-    opacity: 0.85;
-    transform: scale(1.02); /* Crea un leggero effetto battito */
-    box-shadow: 0 0 15px rgba(217, 56, 58, 0.9);
-  }
-}
-
-
-
-
-  </style>
   </head>
   <body>
          
 
-      <div id="container">
+      <div class="container">
      <h3>Carteggio</h3>
      <h4>Pagina iniziale</h4>
       <div id="pulsanti">
-      <button  id="btncasella" type="button">Crea casella postale</button> 
-                 
-      <button  id="btnscrivi" type="button">Scrivi messaggi</button> 
-                       
-      <button  id="btnleggi" type="button" >Leggi messaggi</button>
-
+      <button  id="btncasella" type="button">Crea casella postale</button>                  
+      <button  id="btnscrivi" type="button">Scrivi messaggi</button>                             
+      <button id="btnleggi" type="button"  disabled >Se rosso ci sono messaggi</button>
         <button  id="btninfo" type="button" >Info app</button>
 
-        
+        <input type="text" name="data" id="data"  readonly>
       </div> 
      
-       <input type="text" name="data" id="data"  readonly>
+      
 
 
        <div style="text-align: center; margin: 30px 0;">
@@ -170,13 +59,16 @@ button:hover
                const btnLeggi = document.getElementById("btnleggi");
                 if (!btnLeggi) return;
 
-              if (!snapshot.empty) {
-               btnLeggi.classList.add("bottone-notifica-attiva"); // Lampeggia
-            
+                 if (!snapshot.empty) {
+           
+                 btnLeggi.disabled = false;  
+           btnLeggi.classList.add("bottone-notifica-attiva"); // Avvia il lampeggiamento rosso
+           } else {
+              btnLeggi.disabled = true; 
+            btnLeggi.classList.remove("bottone-notifica-attiva"); // Rimuove il lampeggiamento
 
-            } else {
-          btnLeggi.classList.remove("bottone-notifica-attiva"); // Normale
-         }
+}
+
           });
       }
 
@@ -227,10 +119,8 @@ button:hover
                window.location.href = "info.html";
              })         
             
-                     const cancella = document.getElementById('btncancella');
-             cancella.addEventListener('click', function() { 
-               window.location.href = "cancella.html";
-             })           
+           
+                       
     </script>
         
     </body>
