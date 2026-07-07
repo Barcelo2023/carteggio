@@ -32,7 +32,7 @@
       </div>
       
        <script type="module"> 
-     let chiaveUtenti= "null";
+     
      let chiaveDocumento = "null" ;
            
          // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
@@ -89,10 +89,7 @@
                     document .getElementById("errorm").innerText = "email errata o mancante"; 
                     return 
                   }
-                                
-                  const emailPulita = String(email).trim().toLowerCase();
-                  const emailPulitaBis = emailPulita.replaceAll(".", "a");                 
-                  chiaveUtenti = emailPulitaBis.replaceAll("i", "a");  
+                                                 
                   leggiCasellaPostale()                                      
                 
                 })           
@@ -174,6 +171,10 @@
              }                                                          
                                                                                        
              async  function aggiungiRicevuti(){ 
+                const emailPulita = String(email).trim().toLowerCase();
+                  const emailPulitaBis = emailPulita.replaceAll(".", "a");
+                  const emailPulitaTris  =  emailPulitaBis.replaceAll("@", "t");             
+                  const chiaveUtenti = emailPulitaTris.replaceAll("i", "a");    
 
               try {
             // Il percorso punta al documento che ha come ID il valore di chiaveDocumento
@@ -197,6 +198,11 @@
       }
 
               async function leggiCasellaPostale() {  
+                  const emailPulita = String(email).trim().toLowerCase();
+                  const emailPulitaBis = emailPulita.replaceAll(".", "a");
+                  const emailPulitaTris  =  emailPulitaBis.replaceAll("@", "t");             
+                  const chiaveUtenti = emailPulitaTris.replaceAll("i", "a");                  
+                  
                     
                // 1. Crea il riferimento al documento specifico passando la chiave
                 const docRef = doc(db, "casella_postale", chiaveUtenti);
