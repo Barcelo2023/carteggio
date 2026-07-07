@@ -1,0 +1,104 @@
+/* Reset globale mobile */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: sans-serif;
+}
+
+/* Contenitore principale */
+.container {
+  display: flex !important;
+  flex-direction: column !important; /* Disposizione verticale totale */
+  justify-content: center;           /* Centra verticalmente */
+  align-items: center;               /* Centra orizzontalmente */
+  min-height: 100vh;                 /* Tutta l'altezza dello schermo */
+  width: 100vw;                      /* Tutta la larghezza dello schermo */
+  padding: 15px;                     /* Padding leggermente ridotto per recuperare spazio */
+  gap: 8px;                          /* Spazio compatto (8px) per far stare comodamente tutti i 5 bottoni */
+  box-sizing: border-box;
+  background-color: cornflowerblue;         /* Usa pure il tuo colore personalizzato */
+}
+
+/* Stile testi */
+.container h2, .container h4, .container p {
+  margin: 0;
+  text-align: center;
+}
+
+/* Uniforma input, bottoni e textarea */
+.container input, 
+.container textarea,
+.container button {
+  width: 90%;
+  max-width: 360px;
+  padding: 11px;                     /* Padding compatto per ottimizzare l'altezza su mobile */
+  font-size: 16px;                   /* Ottimale per evitare zoom su iOS */
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Textarea bloccata in lettura */
+.container textarea {
+  resize: none;
+  font-family: sans-serif;
+  background-color: #f0f0f0;         /* Colore leggermente diverso per far capire che è solo testo da leggere */
+}
+
+/* Gestione elementi disabilitati (disabled) */
+.container [disabled] {
+  background-color: #e9ecef !important;
+  color: #6c757d !important;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Stile di base per i pulsanti */
+.container button {
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s;
+}
+
+/* Colori specifici per i pulsanti di questa pagina */
+#estrae {
+  background-color: #17a2b8; /* Turchese */
+  color: white;
+}
+
+#decripta {
+  background-color: #007bff; /* Blu */
+  color: white;
+}
+
+#cancella {
+  background-color: #dc3545; /* Rosso (azione distruttiva) */
+  color: white;
+}
+
+#segreto {
+  background-color: cornflowerblue; /* Giallo/Arancio per opzioni extra */
+  color: white;
+}
+
+#logoutBtn {
+  background-color: #6c757d; /* Grigio */
+  color: white;
+}
+
+/* Input data in fondo */
+#data {
+  background-color: #eee;
+  text-align: center;
+}
+
+/* Div di errore */
+#error {
+  color: red;
+  font-size: 14px;
+  text-align: center;
+}
