@@ -6,104 +6,32 @@
     <title>Carteggio</title>
 
     <link rel="icon" href="img/logo.png"  type="image/png">
-    <style>
-    
-
-   body{
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-   
-
-#container{       
-    height: 600px;
-    width:280px;
+    <link rel="stylesheet" href="style-casella.css"> <!-- Il file CSS -->   
   
-    margin-top: 50px;  
-    background-color: cornflowerblue;
-    border-radius: 10px;
-    text-align: center; 
-    justify-content: center;   
-    
-}
-
-h3{
-    margin-top: 30px;
-
-}
-input{
-   height: 30px;
-    width: 200px;  
-    border-radius: 5px;   
-    font-size: 18px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; 
-    margin-top: 10px;
-    cursor: pointer;
-}
-#data
-{
-    height: 20px;
-    width: 125px;  
-    border-radius: 5px;   
-    font-size: 12px;
-    font-family: 'Times New Roman', serif;
-    margin-top: 80px;
-    border: groove;
-  
-}    
-
- button
-{
-    width: 150px;
-    height: 30px;
-    margin-top: 50px;
-    border-radius: 5px;
-    cursor: pointer;
-   
-}
- p
- {
- transform: translateY(15px);
-}
-#error {
-   margin-top: 5px;
-    color:black;
-}
-
-
-button:hover{
-
-    background-color: orangered;
-}
-
-
-  </style>
   </head>
   <body>
          
+        <div class="container">
+  <h3>Carteggio</h3>
+  <h4>pagina crea casella postale</h4>
 
-      <div id="container">
-     <h3>Carteggio</h3>
-     <h4>pagina crea casella postale</h4>
+  <p>Scrivi due volte la tua email</p>
+ 
+  <input type="text" id="email" onpaste="return false;" 
+  ondrop="return false;" required autocomplete="off">
+  <input type="text" id="emailRipeti" onpaste="return false;"
+  ondrop="return false;" required autocomplete="off">
 
-       <p>Scrivi due volte la tua email</p>
+  <div id="error"></div> 
+  
+  <button type="button" id="btnv">crea casella</button>           
+  <button id="logoutBtn" type="button">Pagina iniziale</button>
+
+  <input type="text" name="data" id="data" readonly>
+</div>
+
       
-     <input type="text"   id="email" onpaste="return false;" ondrop="return false;"
-      required  autocomplete="off">
-     <input type="text"   id="emailRipeti" onpaste="return false;" ondrop="return false;" 
-      required  autocomplete="off">
-     
-
-     <div  id="error"   ></div> 
-       <button   type="button"  id="btnv" >crea casella</button>           
-        <button id="logoutBtn" type="button">Pagina iniziale</button>
-
-       <input type="text" name="data" id="data"  readonly>
-       
-      </div> 
+    
          <script type="module"> 
      let mioIdCasella;
           // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
@@ -182,7 +110,7 @@ button:hover{
                  // Prima volta in assoluto: genera un ID unico e lo salva sul telefono
                    mioIdCasella = chiaveCasella;
                    
-                    
+                  
                  // Controlla se casella  esiste                                   
 
                     insertCasella()
@@ -196,6 +124,8 @@ button:hover{
                        
 
         async function insertCasella() {
+
+
        // 1. Riferimento al documento usando il valore come ID
         const docRef = doc(db, "casella_postale", mioIdCasella);
   
