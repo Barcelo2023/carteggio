@@ -54,7 +54,14 @@
             let conta;
             let lettera;
             let chioc;
-            
+
+     //    da rimuovere       
+             mioIdCasella = localStorage.getItem("id_casella_postale");
+
+                 localStorage.removeItem('mioIdCasella');
+            document .getElementById("error").innerText = "ho cancellato";       
+         return
+     //     fino a qui   
              document .getElementById("error").value = ""; 
         
              email = document.getElementById('email').value; 
@@ -105,9 +112,6 @@
 
                // Controlla la memoria interna del telefono
                  mioIdCasella = localStorage.getItem("id_casella_postale");
-
-                 localStorage.removeItem('mioIdCasella');
-         return
 
                  if (!mioIdCasella) {
                  // Prima volta in assoluto: genera un ID unico e lo salva sul telefono
