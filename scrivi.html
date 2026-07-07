@@ -5,125 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scrivi msg</title>
      <link rel="icon" href="img/favicon.png"  type="image/png">
-    <style>
-  body{
-    margin: 0;
-    padding: 0;
-    display: flex;
-    font-family: 'Times New Roman', serif;
-    align-items: center;
-    text-align: center;
-}
-   
-
-
-#container{       
-    height: 600px;
-    width:280px;
-    margin-left: 40px;
-    margin-top: 50px;
-    background-color: cornflowerblue;
-    border-radius: 10px;
-    border: 5px;
-    text-align: center; 
-    justify-content: center;   
-    
-} 
-
-#email
-{
-    height: 30px;
-    width: 200px;
-    border-radius: 5px;
-    font-size: 13px;
-    margin-top: 15px;
-    cursor: pointer;
-    font-size: 18px;
-    
-}    
-
-
-textarea {
-  display: block;
-   width: 90%;
-   box-sizing: border-box;
-   resize: none;
-   font-size: 14px;
-   min-height: 50px;
-   transform: translateX(12px);
-   margin-top: 21px;
-   overflow: auto;
-   cursor: pointer;
-}
-
-#lab{
-    display: inline-block;
-    transform: translateY(16px);
-}
-
-
-button{
-   width: 77px;
-    height: 35px;
-    margin-top: 18px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 30px;
-  
-   
-}
-
-#logoutBtn{
-   
- 
-  width: 200px;
-    height: 30px;
-    margin-top: 18px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 30px;
-   
-}
-#data
-{
-    height: 20px;
-    width: 132px;
-    display: flex;
-    border-radius: 5px;
-    font-size: 11px;
-    margin-top: 25px;
-    transform: translate(64px ,50px);
-    
-}  
-
-#errorm{
-     color: black;
-    
-}  
-
-button:hover{
-    
-    background-color: red;
-}
-  </style>
+      <link rel="stylesheet" href="style-scrivi.css"> <!-- Il file CSS -->  
   
 </head>
 
     <body>
-          
-  
-     <div id="container">
+            
+     <div class="container">
       <h2>Carteggio</h2>
-     <h4>pagina scrivi messaggi</h4> 
-
-     <form action=""  method="post" id="form" >  
-     <label for="email" id="lab"  > email destinatario</label>
-      
+     <h4>pagina scrivi messaggi</h4>     
+      <p>Scrivi email destinatario</p>
      <input type="text"   id="email"  required  autocomplete="off">
     
+      <p>Scrivi messaggio</p>
      
-     <label for="message" id="lab" >Messaggio:</label>
-     <textarea  disabled = "disabled"name="message" id="message" rows="5"   required></textarea>
+     <textarea  disabled = "disabled"name="message" id="message" rows="4"   required></textarea>
      <div  id="errorm"   ></div>
        <button id="verifica" type="button">ricerca casella</button> 
       <button id="cripta" type="button"  disabled = "disabled">Cripta Messaggio</button> 
@@ -132,9 +28,7 @@ button:hover{
        
         <button id="logoutBtn" type="button">Pagina iniziale</button>
       <input type="text" id="data"  name="data" readonly>     
-           
-      </form>
-      
+                
       </div>
       
        <script type="module"> 
@@ -176,7 +70,7 @@ button:hover{
                        
                  data = new Date();                                                                
                  document.getElementById('data').value = (data) ; 
-                 randomNumber= Math.floor(Math.random() * 40) + 1;
+                 randomNumber= Math.floor(Math.random() * 35) + 1;
                 randomNumber = randomNumber + 10;                                                                 
                  conta = 0;              
                do{	 
@@ -195,15 +89,12 @@ button:hover{
                     document .getElementById("errorm").innerText = "email errata o mancante"; 
                     return 
                   }
-              
-                  
+                                
                   const emailPulita = String(email).trim().toLowerCase();
                   const emailPulitaBis = emailPulita.replaceAll(".", "a");                 
                   chiaveUtenti = emailPulitaBis.replaceAll("i", "a");  
-     
-                  leggiCasellaPostale()                    
-                  
-                 
+                  leggiCasellaPostale()                                      
+                
                 })           
 
                   const btncripta = document.getElementById('cripta');
@@ -264,16 +155,11 @@ button:hover{
                      aggiungiRicevuti() 
                      
                      document.getElementById('salva').disabled = true;
-                   
-                                                
-                   })            
-                                                           
-                   
+                                                                   
+                   })                                                                                         
 
                  })      
-                  
-
-          
+                            
               async  function aggiungiMessaggi(){           
                    try {
              const docRef = await addDoc(collection(db, "messaggi"), dataToSave);
