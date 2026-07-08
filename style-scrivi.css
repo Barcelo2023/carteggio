@@ -19,26 +19,30 @@ html, body {
   padding: 20px;
   gap: 12px;                         /* Gap leggermente ridotto (10px) per far stare comodamente 4 bottoni e la textarea senza scrollare */
   box-sizing: border-box;
-  background-color: cornflowerblue;         /* Cambialo pure con il tuo colore personalizzato */
+   background-color: #242433;             /* Cambialo pure con il tuo colore personalizzato */
 }
 
 /* Allineamento testi */
 .container h2, .container h4, .container p {
   margin: 0;
   text-align: center;
+  color: aliceblue;
 }
 
 /* Uniforma la larghezza di input, bottoni E della textarea */
 .container input, 
 .container textarea,
 .container button {
-  width: 90%;                        /* Larghezza perfetta per i pollici su mobile */
-  max-width: 360px;                  /* Limite massimo per PC/Tablet */
-  padding: 12px;                     /* Padding compatto per ottimizzare lo spazio verticale */
-  font-size: 16px;                   /* Evita lo zoom automatico della tastiera su iOS */
+ width: 90%;                    /* Larghezza ideale per i pollici su mobile */
+  max-width: 360px;              /* Impedisce che diventino troppo larghi su tablet/PC */
+  padding: 14px;                  /* Dimensione comoda da cliccare su touchscreen */
+  font-size: 16px;                   /* Evita lo zoom automatico fastidioso su iOS */
   border-radius: 8px;
   border: 1px solid #ccc;
   box-sizing: border-box;
+   background-color:#6c757d; 
+   color: whitesmoke; 
+ 
 }
 
 /* Stile specifico per la Textarea */
@@ -52,12 +56,22 @@ html, body {
   background-color: #e9ecef !important;
   color: #6c757d !important;
   cursor: not-allowed;
-  opacity: 0.6;
+  opacity: 0.8;
+}
+#message{
+ background-color: hsl(0, 8%, 87%); 
+ color: black;
+}
+
+#email{
+background-color: hsl(0, 8%, 87%); 
+color: black;
+
 }
 
 /* Input data nascosto o formattato in fondo */
 #data {
-  background-color: #eee;
+  margin-top: 40px;
   text-align: center;
 }
 
@@ -69,21 +83,7 @@ html, body {
   transition: background 0.2s;
 }
 
-/* Colori specifici per i tuoi bottoni (modificali a piacimento) */
-#verifica {
-  background-color: #28a745; /* Verde per l'azione di ricerca/verifica */
-  color: white;
-}
 
-#cripta {
-  background-color: #007bff; /* Blu per l'azione principale di criptazione */
-  color: white;
-}
-
-#salva {
-  background-color: #17a2b8; /* Turchese per il salvataggio */
-  color: white;
-}
 
 #logoutBtn {
   background-color: #6c757d; /* Grigio per la pagina iniziale */
@@ -93,6 +93,6 @@ html, body {
 /* Messaggio di errore dedicato alla pagina messaggi */
 #errorm {
   color: red;
-  font-size: 14px;
+  font-size: 16px;
   text-align: center;
 }
