@@ -25,7 +25,7 @@ html, body {
 .container h2, .container h4, .container p {
   margin: 0;
   text-align: center;
-  color: bisque;
+  color: white;
 }
 
 /* Uniforma la larghezza di tutti gli input e i bottoni */
@@ -38,6 +38,14 @@ html, body {
   border-radius: 8px;
   border: 1px solid #ccc;
   box-sizing: border-box;
+}
+
+#email{
+  background-color: hsl(0, 4%, 75%); 
+}
+
+#emailRipeti{
+  background-color: hsl(0, 4%, 75%); 
 }
 
 /* Nasconde o formatta l'input "data" se serve solo come dato di background */
