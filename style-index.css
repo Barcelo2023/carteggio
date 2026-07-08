@@ -19,18 +19,20 @@ html, body {
   width: 100vw;
   padding: 15px;
   box-sizing: border-box;
-  background-color: cornflowerblue;         /* Colore di sfondo della tua app */
+  background-color: #242433;         /* Colore di sfondo della tua app */
 }
 
 /* ==========================================================================
    2. TITOLI E POSIZIONAMENTO VERTICALE
    ========================================================================== */
 .container h2 {
-  margin-top: 40px;                  /* Distanza dal bordo superiore del telefono */
+  margin-top: 40px; 
+  color: aliceblue;                 /* Distanza dal bordo superiore del telefono */
 }
 .container h4 {
   transform: translateY(-25px);
   margin-bottom: 55px;
+  color: aliceblue;  
 }
 
 /* Il blocco centrale che racchiude i 5 pulsanti e la DATA */
@@ -57,21 +59,14 @@ html, body {
 }
 
 /* Colori statici dei bottoni */
-#btncasella  { background-color: #007bff; color: white; }
-#btnscrivi   { background-color: #17a2b8; color: white; }
+#btncasella  { background-color:#6c757d; ; color: white; }
+#btnscrivi   { background-color:#6c757d; ; color: white; }
+#btnleggi   { background-color:#6c757d; ; color: white; }
 #btninfo     { background-color: #6c757d; color: white; }
-#btncancella { background-color: #dc3545; color: white; }
 
 
-/* ==========================================================================
-   4. GESTIONE DINAMICA DEL BOTTONE LEGGI (MANTENUTO E INTEGRATO)
-   ========================================================================== */
 
-/* Stato di default del bottone (Verde classico) o disabilitato iniziale */
-#btnleggi {
-  background-color: #28a745;
-  color: white;
-}
+
 
 
 /* Il tuo stile quando il listener aggiunge la classe .bottone-notifica-attiva */
