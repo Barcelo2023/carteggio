@@ -19,13 +19,14 @@ html, body {
   padding: 15px;                     /* Padding leggermente ridotto per recuperare spazio */
   gap: 8px;                          /* Spazio compatto (8px) per far stare comodamente tutti i 5 bottoni */
   box-sizing: border-box;
-  background-color: cornflowerblue;         /* Usa pure il tuo colore personalizzato */
-}
+   background-color: #242433;  
+}   
 
 /* Stile testi */
 .container h2, .container h4, .container p {
   margin: 0;
   text-align: center;
+  color: white;
 }
 
 /* Uniforma input, bottoni e textarea */
@@ -64,24 +65,10 @@ html, body {
   transition: background 0.2s;
 }
 
-/* Colori specifici per i pulsanti di questa pagina */
-#estrae {
-  background-color: #17a2b8; /* Turchese */
-  color: white;
-}
 
-#decripta {
-  background-color: #007bff; /* Blu */
-  color: white;
-}
-
-#cancella {
-  background-color: #dc3545; /* Rosso (azione distruttiva) */
-  color: white;
-}
 
 #segreto {
-  background-color: cornflowerblue; /* Giallo/Arancio per opzioni extra */
+  background-color: #242433; /* Giallo/Arancio per opzioni extra */
   color: white;
 }
 
@@ -92,13 +79,15 @@ html, body {
 
 /* Input data in fondo */
 #data {
-  background-color: #eee;
+  margin-top: 30px;
   text-align: center;
+  background-color: #6c757d; /* Grigio */
+  color: white;
 }
 
 /* Div di errore */
 #error {
   color: red;
-  font-size: 14px;
+  font-size: 16px;
   text-align: center;
 }
