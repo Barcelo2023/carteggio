@@ -26,12 +26,13 @@ html, body {
    2. TITOLI E POSIZIONAMENTO VERTICALE
    ========================================================================== */
 .container h2 {
-  margin-top: 40px; 
-  color: aliceblue;                 /* Distanza dal bordo superiore del telefono */
+   transform: translateY(35px);
+   color: aliceblue;  
 }
+
 .container h4 {
-  transform: translateY(-25px);
-  margin-bottom: 55px;
+  
+  
   color: aliceblue;  
 }
 
@@ -63,11 +64,7 @@ html, body {
 #btnscrivi   { background-color:#6c757d; ; color: white; }
 #btnleggi   { background-color:#6c757d; ; color: white; }
 #btninfo     { background-color: #6c757d; color: white; }
-
-
-
-
-
+#data   { background-color: #6c757d; color: white; }
 
 /* Il tuo stile quando il listener aggiunge la classe .bottone-notifica-attiva */
 .bottone-notifica-attiva {
