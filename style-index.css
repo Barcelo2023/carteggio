@@ -57,14 +57,14 @@ html, body {
   border-radius: 8px;
   border: 1px solid #ccc;
   box-sizing: border-box;
+   background-color:#6c757d; 
+   color: whitesmoke;
 }
 
-/* Colori statici dei bottoni */
-#btncasella  { background-color:#6c757d; ; color: white; }
-#btnscrivi   { background-color:#6c757d; ; color: white; }
-#btnleggi   { background-color:#6c757d; ; color: white; }
-#btninfo     { background-color: #6c757d; color: white; }
-#data   { background-color: #6c757d; color: white; }
+
+#data   { 
+   margin-top: 40px;
+   }
 
 /* Il tuo stile quando il listener aggiunge la classe .bottone-notifica-attiva */
 .bottone-notifica-attiva {
