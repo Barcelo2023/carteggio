@@ -19,8 +19,8 @@
  
   <input type="text" id="email" onpaste="return false;" 
   ondrop="return false;" required autocomplete="off">
-  <input type="text" id="emailRipeti" onpaste="return false;"
-  ondrop="return false;" required autocomplete="off">
+  <input type="text" id="emailRipeti"  required autocomplete="off">
+
 
   <div id="error"></div> 
   
@@ -46,21 +46,22 @@
             document.getElementById('data').value = (data); 
 
 
-            document.getElementById('btnv').addEventListener('click', function() { 
+            document.getElementById('btnv').addEventListener('click', function(event) { 
 
-            let email; 
+            event.preventDefault(); 
+            let  email; 
             let emailRipeti;           
             let lengemail;
             let conta;
             let lettera;
             let chioc;
      
-
-             document .getElementById("error").value = ""; 
         
              email = document.getElementById('email').value; 
+
              emailRipeti = document.getElementById('emailRipeti').value; 
 
+ 
            
                   lengemail = email.length;
                   if (lengemail < 5){
@@ -95,38 +96,31 @@
                  document .getElementById("error").innerText = "inserisci una email valida"; 
                  return                              
                  } 
-                 
-                 
-                 const emailPulita = String(email).trim().toLowerCase();                
-                  const emailPulitaBis = emailPulita.replaceAll(".", "a");
-                  const emailPulitaTris  =  emailPulitaBis.replaceAll("@", "t");             
-                  const chiaveCasella = emailPulitaTris.replaceAll("i", "a");   
-           
-                 document.getElementById("error").innerText = ""; 
+                                 
+                         const emailPulita1 = String(email).trim().toLowerCase(); 
+             const emailPulita2 =  emailPulita1.replaceAll(".", "a");
+             const emailPulita3  = emailPulita2.replaceAll("@", "t"); 
+             const emailPulita4  = emailPulita3.replaceAll("i", "a");            
+             const chiaveUtenti  = emailPulita4.replaceAll("g", "z");    
 
-               // Controlla la memoria interna del telefono
-                 mioIdCasella = localStorage.getItem("id_casella_postale");
-    
-                 if (!mioIdCasella) {
-                 // Prima volta in assoluto: genera un ID unico e lo salva sul telefono
-                   mioIdCasella = chiaveCasella;
-                   
-                  
-                 // Controlla se casella  esiste                                   
 
                     insertCasella()
                       
-                } else {
-                                // Utente già noto
-                  document .getElementById("error").innerText = "creazione già effettuata"; 
-                }                           
+        })        
 
-               })   
-                       
+           async function insertCasella() {
 
-        async function insertCasella() {
-                
+   
+            // Controlla la memoria interna del telefono
+            mioIdCasella = localStorage.getItem("id_casella_postale");
+    
+            if (mioIdCasella) {
+            document .getElementById("error").innerText = "la casella è già stata creata"; 
+            
+             }
 
+             // Prima volta in assoluto: genera un ID unico e lo salva sul telefono
+               mioIdCasella = chiaveCasella;                                   
 
        // 1. Riferimento al documento usando il valore come ID
         const docRef = doc(db, "casella_postale", mioIdCasella);
@@ -136,7 +130,7 @@
 
        // 3. Verifica l'esistenza usando .exists()
        if (docSnap.exists()) {
-       document .getElementById("error").innerText = "la casella esiste già"; 
+       document .getElementById("error").innerText = "la casella è già stata creata"; 
        return false;
         }
 
