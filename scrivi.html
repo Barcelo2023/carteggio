@@ -35,6 +35,7 @@
        <script type="module"> 
      
      let chiaveDocumento = "null" ;
+     let chiaveUtenti = "null";
            
          // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
       import { db } from "./firebaseConfig.js";
@@ -90,7 +91,12 @@
                     document .getElementById("errorm").innerText = "email errata o mancante"; 
                     return 
                   }
-                                                 
+                     const emailPulita1 = String(email).trim().toLowerCase(); 
+                    const emailPulita2 =  emailPulita1.replaceAll(".", "a");
+                    const emailPulita3  = emailPulita2.replaceAll("@", "t"); 
+                     const emailPulita4  = emailPulita3.replaceAll("i", "a");            
+                     chiaveUtenti  = emailPulita4.replaceAll("g", "z");               
+                                              
                   leggiCasellaPostale()                                      
                 
                 })           
@@ -172,14 +178,8 @@
              }                                                          
                                                                                        
              async  function aggiungiRicevuti(){ 
-             const emailPulita1 = String(email).trim().toLowerCase(); 
-             const emailPulita2 =  emailPulita1.replaceAll(".", "a");
-             const emailPulita3  = emailPulita2.replaceAll("@", "t"); 
-             const emailPulita4  = emailPulita3.replaceAll("i", "a");            
-             const chiaveUtenti  = emailPulita4.replaceAll("g", "z");    
-
-
-              try {
+           
+           try {
             // Il percorso punta al documento che ha come ID il valore di chiaveDocumento
             const docRef = doc(db, "casella_postale", chiaveUtenti, "ricevuti", chiaveDocumento);
   
@@ -201,12 +201,15 @@
       }
 
               async function leggiCasellaPostale() {  
-                  const emailPulita = String(email).trim().toLowerCase();
-                  const emailPulitaBis = emailPulita.replaceAll(".", "a");
-                  const emailPulitaTris  =  emailPulitaBis.replaceAll("@", "t");             
-                  const chiaveUtenti = emailPulitaTris.replaceAll("i", "a");                  
+                 
                   
-                    
+                  const emailPulita1 = String(email).trim().toLowerCase(); 
+                  const emailPulita2 =  emailPulita1.replaceAll(".", "a");
+                   const emailPulita3  = emailPulita2.replaceAll("@", "t"); 
+                   const emailPulita4  = emailPulita3.replaceAll("i", "a");            
+                  const chiaveUtenti  = emailPulita4.replaceAll("g", "z");   
+                   
+
                // 1. Crea il riferimento al documento specifico passando la chiave
                 const docRef = doc(db, "casella_postale", chiaveUtenti);
 
