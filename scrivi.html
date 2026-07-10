@@ -15,12 +15,13 @@
       <h2>Carteggio</h2>
      <h4>pagina scrivi messaggi</h4>     
       <p>Scrivi email destinatario</p>
+      
      <input type="text"   id="email"  required  autocomplete="off">
     
       <p>Scrivi messaggio</p>
      
-     <textarea  disabled = "disabled"name="message" id="message" rows="4"   required></textarea>
-     <div  id="errorm"   ></div>
+      <textarea  disabled = "disabled"name="message" id="message" rows="4"   required></textarea>
+      <p  id="errorm"   ></p>
        <button id="verifica" type="button">ricerca casella</button> 
       <button id="cripta" type="button"  disabled = "disabled">Cripta Messaggio</button> 
 
@@ -171,10 +172,12 @@
              }                                                          
                                                                                        
              async  function aggiungiRicevuti(){ 
-                const emailPulita = String(email).trim().toLowerCase();
-                  const emailPulitaBis = emailPulita.replaceAll(".", "a");
-                  const emailPulitaTris  =  emailPulitaBis.replaceAll("@", "t");             
-                  const chiaveUtenti = emailPulitaTris.replaceAll("i", "a");    
+             const emailPulita1 = String(email).trim().toLowerCase(); 
+             const emailPulita2 =  emailPulita1.replaceAll(".", "a");
+             const emailPulita3  = emailPulita2.replaceAll("@", "t"); 
+             const emailPulita4  = emailPulita3.replaceAll("i", "a");            
+             const chiaveUtenti  = emailPulita4.replaceAll("g", "z");    
+
 
               try {
             // Il percorso punta al documento che ha come ID il valore di chiaveDocumento
