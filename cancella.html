@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carteggio</title>
+
+    <link rel="icon" href="img/logo.png"  type="image/png">
+    <link rel="stylesheet" href="style.cancella.css"  >
+  </head>
+  <body>
+         
+
+         <div class="container">
+        <h2>Carteggio</h2>
+         <h4>Pagina cancella casella postale</h4>
+      
+                 
+        <p id="error"></p> 
+        
+         <button type="button" id="btnCasella">Cancella casella postale</button>           
+         <button id="logoutBtn" type="button">Pagina iniziale</button>
+          <input type="text" name="data" id="data" readonly>
+           
+     </div>  
+         <script type="module"> 
+     let mioIdCasella;
+          // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
+      import { db } from "./firebaseConfig.js";
+           // Import the functions you need from the SDKs you need
+    
+     import { getFirestore,collection, deleteDoc,   doc} from
+       "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+     
+ 
+            let data = new Date(); 
+            document.getElementById('data').value = (data); 
+     
+
+            document.getElementById('btnCasella').addEventListener('click', function() { 
+           
+                
+                 cancellaCasella();
+                                           
+            })           
+             
+
+             async function cancellaCasella() {
+            // 1. Recupera l'ID salvato nel localStorage
+            const mioIdCasella = localStorage.getItem("id_casella_postale");
+
+             // Sicurezza: se l'ID non esiste nel localStorage, si ferma subito
+            if (!mioIdCasella) {
+             document.getElementById("error").innerText = "Non esiste casella postale";
+            return false;
+            }
+
+           // 2. Crea il riferimento al documento
+           const docRef = doc(db, "casella_postale", mioIdCasella);
+
+            try {
+            // 3. Cancella direttamente (Firestore gestisce da solo se esiste o meno)
+              await deleteDoc(docRef);                   
+        
+            // 4. Pulisce il localStorage e aggiorna l'interfaccia
+              localStorage.removeItem("id_casella_postale");
+              document.getElementById("error").innerText = "Cancellata casella postale";    
+             return true;
+
+           } catch (error) {
+            // Gestione di eventuali errori reali (es. problemi di connessione o permessi)
+               console.error("Errore durante la cancellazione:", error);
+              document.getElementById("error").innerText = "Errore durante l'eliminazione";
+            return false;
+          }
+      }
+
+       
+           document.getElementById('logoutBtn').addEventListener('click', function() {    
+           // 3. Reindirizza alla pagina di login
+            window.location.href = "index.html";
+              })
+
+  </script> 
+  
+  </body>
+  </html>          
+    
+
+ 
+
