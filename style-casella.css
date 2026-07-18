@@ -16,8 +16,8 @@ html, body {
   align-items: center;               /* Centra orizzontalmente tutti gli elementi */
   min-height: 100vh;                 /* Occupa l'altezza dello schermo del telefono */
   width: 100vw;                      /* Occupa la larghezza dello schermo del telefono */
-  padding: 20px;
-  gap: 19px;                         /* Spazio verticale uniforme tra ogni singolo elemento */
+  padding: 15px;
+   gap: 19px;              /* Spazio verticale uniforme tra ogni singolo elemento */
   box-sizing: border-box;
   background-color: #242433;  
 }
@@ -29,28 +29,30 @@ html, body {
 }
 
 /* Uniforma la larghezza di tutti gli input e i bottoni */
+
 .container input, 
 .container button {
-  width: 90%;                        /* Larghezza ideale per i pollici su mobile */
-  max-width: 360px;                  /* Impedisce che diventino troppo larghi su tablet/PC */
-  padding: 14px;                     /* Dimensione comoda da cliccare su touchscreen */
-  font-size: 16px;                   /* Evita lo zoom automatico fastidioso su iOS */
+  width: 90%;                    
+  max-width: 360px;              
+  padding: 14px;                  
+  font-size: 16px;                   
   border-radius: 8px;
   border: 1px solid #ccc;
   box-sizing: border-box;
+  background-color: #6c757d; 
+  color: black;
+  
 }
 
 #email{
   background-color: hsl(0, 4%, 75%); 
 }
 
-#emailRipeti{
-  background-color: hsl(0, 4%, 75%); 
-}
+
 
 /* Nasconde o formatta l'input "data" se serve solo come dato di background */
 #data {
-  background-color: #6c757d;
+  
   color: white;
   text-align: center;  
    margin-top: 40px;
