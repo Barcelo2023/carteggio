@@ -15,16 +15,13 @@
   <h2>Carteggio</h2>
   <h4>pagina crea casella postale</h4>
 
-  <p>Scrivi due volte la tua email</p>
+  <p>Scrivi la tua email</p>
  
-  <input type="text" id="email" onpaste="return false;" 
-  ondrop="return false;" required autocomplete="off">
-  <input type="text" id="emailRipeti"  required autocomplete="off">
-
+  <input type="text" id="email"  required autocomplete="off">
 
   <div id="error"></div> 
   
-  <button type="button" id="btnv">crea casella</button>           
+  <button type="button" id="btnv">Crea casella</button>           
   <button id="logoutBtn" type="button">Pagina iniziale</button>
 
   <input type="text" name="data" id="data" readonly>
@@ -50,8 +47,7 @@
             document.getElementById('btnv').addEventListener('click', function(event) { 
 
             event.preventDefault(); 
-            let  email; 
-            let emailRipeti;           
+            let  email;                    
             let lengemail;
             let conta;
             let lettera;
@@ -60,26 +56,14 @@
         
              email = document.getElementById('email').value; 
 
-             emailRipeti = document.getElementById('emailRipeti').value; 
-
- 
+                  chioc = " ";
            
                   lengemail = email.length;
                   if (lengemail < 5){
                   document .getElementById("error").innerText = "inserisci una email valida"; 
                  return                              
                   } 
-                  
-                   lengemail = emailRipeti.length;
-                  if (lengemail < 5){
-                  document .getElementById("error").innerText = "inserisci una email valida"; 
-                 return                              
-                  }  
-                  
-                   if (email !== emailRipeti){
-                   document .getElementById("error").innerText = "le due email non concordano"; 
-                   return 
-                 }
+                                  
                   conta = 0;                
                   do {
                    lettera = email[conta] ; 
