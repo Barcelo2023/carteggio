@@ -65,7 +65,7 @@ html, body {
   background-color: #e9ecef !important;
   color: #6c757d !important;
   cursor: not-allowed;
-  opacity: 0.8;
+  opacity: 0.6;
 }
 #message{
  background-color: hsl(0, 8%, 87%); 
@@ -81,7 +81,7 @@ color: black;
 
 /* Input data nascosto o formattato in fondo */
 #data {
-  margin-top: 40px;
+  margin-top: 34px;
   text-align: center;
   color:#83abd8 ;
 }
