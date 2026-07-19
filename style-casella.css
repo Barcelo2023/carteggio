@@ -22,10 +22,19 @@ html, body {
   background-color: #242433;  
 }
 /* Rende i testi centrati e ordinati */
-.container h2, .container h4, .container p {
-  margin: 0;
-  text-align: center;
-  color: white;
+.container h1 {
+   transform: translateY(35px);
+   color: #83abd8;  
+}
+
+.container h2 {
+   transform: translateY(-15px);  
+  color:#83abd8;  
+}
+
+.container p {
+   transform: translateY(15px);  
+  color:#83abd8;  
 }
 
 /* Uniforma la larghezza di tutti gli input e i bottoni */
@@ -35,7 +44,7 @@ html, body {
   width: 90%;                    
   max-width: 360px;              
   padding: 14px;                  
-  font-size: 16px;                   
+  font-size: 22px;                   
   border-radius: 8px;
   border: 1px solid #ccc;
   box-sizing: border-box;
@@ -53,7 +62,7 @@ html, body {
 /* Nasconde o formatta l'input "data" se serve solo come dato di background */
 #data {
   
-  color: white;
+  color: #83abd8;
   text-align: center;  
    margin-top: 40px;
   
@@ -70,13 +79,13 @@ html, body {
 /* Bottone principale */
 #btnv {
   background-color: #6c757d;
-  color: white;
+  color: #83abd8;
 }
 
 /* Bottone "Pagina iniziale" (colore secondario per distinguerlo) */
 #logoutBtn {
   background-color: #6c757d;
-  color: white;
+  color: #83abd8;
 }
 
 /* Spazio per il div di errore se si attiva */
