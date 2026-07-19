@@ -23,32 +23,41 @@ html, body {
 }
 
 /* Allineamento testi */
-.container h2, .container h4, .container p {
+.container h1, .container h2, .container p {
   margin: 0;
   text-align: center;
-  color: aliceblue;
+  color: #83abd8;
 }
 
 /* Uniforma la larghezza di input, bottoni E della textarea */
 .container input, 
-.container textarea,
 .container button {
  width: 90%;                    /* Larghezza ideale per i pollici su mobile */
   max-width: 360px;              /* Impedisce che diventino troppo larghi su tablet/PC */
   padding: 14px;                  /* Dimensione comoda da cliccare su touchscreen */
-  font-size: 16px;                   /* Evita lo zoom automatico fastidioso su iOS */
+  font-size: 22px;                   /* Evita lo zoom automatico fastidioso su iOS */
   border-radius: 8px;
   border: 1px solid #ccc;
   box-sizing: border-box;
    background-color:#6c757d; 
-   color: whitesmoke; 
+   color: #83abd8; 
  
 }
 
 /* Stile specifico per la Textarea */
 .container textarea {
   resize: none;                      /* Impedisce all'utente di ridimensionarla deformando il layout */
-  font-family: sans-serif;           /* Mantiene lo stesso font degli altri campi */
+  font-family: sans-serif;   
+  width: 90%;                    /* Larghezza ideale per i pollici su mobile */
+  max-width: 360px;              /* Impedisce che diventino troppo larghi su tablet/PC */
+  padding: 14px;                  /* Dimensione comoda da cliccare su touchscreen */
+  font-size: 14px;                   /* Evita lo zoom automatico fastidioso su iOS */
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+   background-color:#6c757d; 
+   color: #83abd8; 
+  /* Mantiene lo stesso font degli altri campi */
 }
 
 /* Stile quando la textarea o i bottoni sono disabilitati (disabled) */
@@ -64,6 +73,7 @@ html, body {
 }
 
 #email{
+font-size: 16px;
 background-color: hsl(0, 8%, 87%); 
 color: black;
 
@@ -73,6 +83,7 @@ color: black;
 #data {
   margin-top: 40px;
   text-align: center;
+  color:#83abd8 ;
 }
 
 /* Stile base comune per tutti i 4 bottoni */
@@ -87,7 +98,7 @@ color: black;
 
 #logoutBtn {
   background-color: #6c757d; /* Grigio per la pagina iniziale */
-  color: white;
+  color: #83abd8;
 }
 
 /* Messaggio di errore dedicato alla pagina messaggi */
