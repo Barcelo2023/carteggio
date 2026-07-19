@@ -25,15 +25,14 @@ html, body {
 /* ==========================================================================
    2. TITOLI E POSIZIONAMENTO VERTICALE
    ========================================================================== */
-.container h2 {
+.container h1 {
    transform: translateY(35px);
-   color: aliceblue;  
+   color: #83abd8;  
 }
 
-.container h4 {
-  
-  
-  color: aliceblue;  
+.container h2 {
+    
+  color:#83abd8;  
 }
 
 /* Il blocco centrale che racchiude i 5 pulsanti e la DATA */
@@ -43,22 +42,22 @@ html, body {
   width: 100%;
   align-items: center;
   gap: 10px; 
-  margin-top: 20px;                        /* Spazio uniforme tra gli elementi interni */
+  margin-top: 60px;                        /* Spazio uniforme tra gli elementi interni */
   margin-bottom: auto;               /* Spinge il blocco APK e le note verso il fondo dello schermo */
 }
 
 /* Uniforma la larghezza di tutti gli input e i bottoni */
 .container input, 
 .container button {
-  width: 90%;                        /* Larghezza ideale per i pollici su mobile */
-  max-width: 360px;                  /* Impedisce che diventino troppo larghi su tablet/PC */
-  padding: 14px;                     /* Dimensione comoda da cliccare su touchscreen */
-  font-size: 16px;                   /* Evita lo zoom automatico fastidioso su iOS */
+  width: 90%;                    /* Larghezza ideale per i pollici su mobile */
+  max-width: 360px;              /* Impedisce che diventino troppo larghi su tablet/PC */
+  padding: 14px;                  /* Dimensione comoda da cliccare su touchscreen */
+  font-size: 22px;                   /* Evita lo zoom automatico fastidioso su iOS */
   border-radius: 8px;
   border: 1px solid #ccc;
   box-sizing: border-box;
    background-color:#6c757d; 
-   color: whitesmoke;
+   color: #83abd8;
 }
 
 
@@ -89,42 +88,3 @@ html, body {
   }
 }
 
-/* ==========================================================================
-   5. BLOCCO INFERIORE (SCARICA APK + NOTA SULLA PRIVACY)
-   ========================================================================== */
-.container > div:last-of-type {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  margin: 0 !important;              
-  padding-bottom: 15px;              /* Spazio di sicurezza dal bordo inferiore dello schermo */
-}
-
-/* Il bottone per scaricare il file APK */
-.container > div:last-of-type a {
-  display: inline-block;
-  width: 85%;
-  max-width: 340px;
-  text-align: center;
-  padding: 12px 20px !important;
-  background-color: #28a745; 
-  color: white; 
-  text-decoration: none; 
-  font-size: 16px !important;
-  font-weight: bold; 
-  border-radius: 6px; 
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  box-sizing: border-box;
-}
-
-/* La nota piccola sulla privacy */
-.container > div:last-of-type p {
-  width: 90%;
-  max-width: 340px;
-  font-size: 11px !important;
-  color: #666; 
-  text-align: center;
-  margin-top: 8px !important;
-  line-height: 1.3;
-}
