@@ -19,40 +19,50 @@ html, body {
   padding: 15px;                     /* Padding leggermente ridotto per recuperare spazio */
   gap: 8px;                          /* Spazio compatto (8px) per far stare comodamente tutti i 5 bottoni */
   box-sizing: border-box;
-   background-color: #242433;  
+   background-color: #242433;   
+   color: #83abd8; 
 }   
 
 /* Stile testi */
-.container h2, .container h4, .container p {
+.container h1, .container h2, .container p {
   margin: 0;
   text-align: center;
-  color: white;
+  color: #83abd8;
 }
 
 /* Uniforma input, bottoni e textarea */
 .container input, 
-.container textarea,
 .container button {
   width: 90%;
   max-width: 360px;
   padding: 11px;                     /* Padding compatto per ottimizzare l'altezza su mobile */
-  font-size: 16px;                   /* Ottimale per evitare zoom su iOS */
+  font-size: 22px;                   /* Ottimale per evitare zoom su iOS */
   border-radius: 8px;
   border: 1px solid #ccc;
   box-sizing: border-box;
+  background-color:#6c757d  ;
+  color:#83abd8 ;
 }
 
 /* Textarea bloccata in lettura */
 .container textarea {
   resize: none;
   font-family: sans-serif;
-  background-color: #f0f0f0;         /* Colore leggermente diverso per far capire che è solo testo da leggere */
+  background-color: #f0f0f0; 
+  width: 90%;
+  max-width: 360px;
+  padding: 11px;                     /* Padding compatto per ottimizzare l'altezza su mobile */
+  font-size: 14px;                   /* Ottimale per evitare zoom su iOS */
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+          /* Colore leggermente diverso per far capire che è solo testo da leggere */
 }
 
 /* Gestione elementi disabilitati (disabled) */
 .container [disabled] {
   background-color: #e9ecef !important;
-  color: #6c757d !important;
+  color: #6c757d  !important;
   cursor: not-allowed;
   opacity: 0.6;
 }
@@ -69,12 +79,12 @@ html, body {
 
 #segreto {
   background-color: #242433; /* Giallo/Arancio per opzioni extra */
-  color: white;
-}
+  color:#83abd8 ;
+}#83abd8
 
 #logoutBtn {
   background-color: #6c757d; /* Grigio */
-  color: white;
+  color: ;
 }
 
 /* Input data in fondo */
@@ -82,7 +92,7 @@ html, body {
   margin-top: 30px;
   text-align: center;
   background-color: #6c757d; /* Grigio */
-  color: white;
+  color: #83abd8;
 }
 
 /* Div di errore */
