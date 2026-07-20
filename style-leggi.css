@@ -40,7 +40,7 @@ html, body {
   border-radius: 8px;
   border: 1px solid #ccc;
   box-sizing: border-box;
-  background-color:#6c757d  ;
+  background-color:#35393d;
   color:#83abd8 ;
 }
 
@@ -62,7 +62,7 @@ html, body {
 /* Gestione elementi disabilitati (disabled) */
 .container [disabled] {
   background-color: #e9ecef !important;
-  color: #6c757d  !important;
+  color: #35393d !important;
   cursor: not-allowed;
   opacity: 0.6;
 }
@@ -83,15 +83,15 @@ html, body {
 }#83abd8
 
 #logoutBtn {
-  background-color: #6c757d; /* Grigio */
-  color: ;
+  background-color: #35393d; /* Grigio */
+  color:#83abd8 ;
 }
 
 /* Input data in fondo */
 #data {
   margin-top: 30px;
   text-align: center;
-  background-color: #6c757d; /* Grigio */
+  background-color: #35393d; /* Grigio */
   color: #83abd8;
 }
 
