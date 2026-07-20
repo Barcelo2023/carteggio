@@ -39,7 +39,7 @@ html, body {
   border-radius: 8px;
   border: 1px solid #ccc;
   box-sizing: border-box;
-  background-color: #6c757d; 
+  background-color: #35393d; 
   color: #83abd8;
   
 }
@@ -65,13 +65,12 @@ html, body {
 
 /* Bottone principale */
 #btncasella {
-  background-color: #6c757d;
-  color: white;
+  background-color: #35393d;
 }
 
 /* Bottone "Pagina iniziale" (colore secondario per distinguerlo) */
 #logoutBtn {
-  background-color: #6c757d;
+  background-color: #35393d;
   color: #83abd8;
 }
 
