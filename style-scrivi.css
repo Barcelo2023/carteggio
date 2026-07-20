@@ -39,7 +39,7 @@ html, body {
   border-radius: 8px;
   border: 1px solid #ccc;
   box-sizing: border-box;
-   background-color:#6c757d; 
+   background-color:#35393d;
    color: #83abd8; 
  
 }
@@ -63,7 +63,7 @@ html, body {
 /* Stile quando la textarea o i bottoni sono disabilitati (disabled) */
 .container [disabled] {
   background-color: #e9ecef !important;
-  color: #6c757d !important;
+  color: #35393d !important;
   cursor: not-allowed;
   opacity: 0.6;
 }
