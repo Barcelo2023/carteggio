@@ -49,23 +49,13 @@ html, body {
 /* Nasconde o formatta l'input "data" se serve solo come dato di background */
 #data {
   
-  color: #83abd8;
+  
   text-align: center;  
    margin-top: 40px;
   
 }
 
 
-/* Bottone principale */
-#btncasella {
-  background-color: #35393d;
-}
-
-/* Bottone "Pagina iniziale" (colore secondario per distinguerlo) */
-#logoutBtn {
-  background-color: #35393d;
-  color: #83abd8;
-}
 
 /* Spazio per il div di errore se si attiva */
 #error {
