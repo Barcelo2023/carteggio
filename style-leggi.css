@@ -67,32 +67,22 @@ html, body {
   opacity: 0.6;
 }
 
-/* Stile di base per i pulsanti */
-.container button {
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
-  transition: background 0.2s;
-}
 
 
 
 #segreto {
   background-color: #242433; /* Giallo/Arancio per opzioni extra */
-  color:#83abd8 ;
-}#83abd8
-
-#logoutBtn {
-  background-color: #35393d; /* Grigio */
-  color:#83abd8 ;
+  color:#35393d ;
+  border: none;
 }
+
+
 
 /* Input data in fondo */
 #data {
   margin-top: 30px;
   text-align: center;
-  background-color: #35393d; /* Grigio */
-  color: #83abd8;
+ 
 }
 
 /* Div di errore */
