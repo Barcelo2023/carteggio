@@ -83,23 +83,10 @@ color: black;
 #data {
   margin-top: 34px;
   text-align: center;
-  color:#83abd8 ;
-}
 
-/* Stile base comune per tutti i 4 bottoni */
-.container button {
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
-  transition: background 0.2s;
 }
 
 
-
-#logoutBtn {
-  background-color: #35393d;/* Grigio per la pagina iniziale */
-  color: #83abd8;
-}
 
 /* Messaggio di errore dedicato alla pagina messaggi */
 #errorm {
