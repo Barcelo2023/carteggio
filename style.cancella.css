@@ -55,13 +55,6 @@ html, body {
   
 }
 
-/* Stile per i tuoi 2 bottoni specifici */
-#btnCasella, #logoutBtn {
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
-  transition: background 0.2s;
-}
 
 /* Bottone principale */
 #btncasella {
