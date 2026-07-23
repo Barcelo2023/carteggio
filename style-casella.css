@@ -46,9 +46,9 @@ html, body {
   padding: 14px;                  
   font-size: 22px;                   
   border-radius: 8px;
-  border: 1px solid #ccc;
+  
   box-sizing: border-box;
-  background-color: #35393d; 
+  background-color: #35393d; ; 
   color: #83abd8;
   
 }
@@ -62,24 +62,14 @@ html, body {
 /* Nasconde o formatta l'input "data" se serve solo come dato di background */
 #data {
   
-  color: #83abd8;
+
   text-align: center;  
    margin-top: 40px;
   
 }
 
 
-/* Bottone principale */
-#btnv {
-  background-color: #35393d;
-  color: #83abd8;
-}
 
-/* Bottone "Pagina iniziale" (colore secondario per distinguerlo) */
-#logoutBtn {
-  background-color: #35393d;
-  color: #83abd8;
-}
 
 /* Spazio per il div di errore se si attiva */
 #error {
