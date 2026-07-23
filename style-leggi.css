@@ -38,7 +38,7 @@ html, body {
   padding: 11px;                     /* Padding compatto per ottimizzare l'altezza su mobile */
   font-size: 22px;                   /* Ottimale per evitare zoom su iOS */
   border-radius: 8px;
-  border: 1px solid #ccc;
+  
   box-sizing: border-box;
   background-color:#35393d;
   color:#83abd8 ;
