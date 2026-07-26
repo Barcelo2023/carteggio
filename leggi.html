@@ -96,7 +96,13 @@
              const estrae = document.getElementById('estrae');
              estrae.addEventListener('click', function() { 
 
-             chiaveAttiva = localStorage.getItem('id_casella_postale');  
+             chiaveAttiva = localStorage.getItem('id_casella_postale'); 
+             
+              // Sicurezza: se l'ID non esiste nel localStorage, si ferma subito
+            if (!chiaveAttiva) {
+             document.getElementById("error").innerText = "Non ci sono messaggi";
+            return false;
+            }
 
              
     
