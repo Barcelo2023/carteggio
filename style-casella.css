@@ -54,7 +54,8 @@ html, body {
 }
 
 #email{
-  background-color: hsl(0, 4%, 75%); 
+  background-color: hsl(0, 4%, 75%);
+  color: black; 
 }
 
 
