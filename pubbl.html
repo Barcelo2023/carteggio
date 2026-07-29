@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operazione Completata</title>
+    <!-- Riusiamo lo stesso CSS della index per mantenere la grafica coerente -->
+    <link rel="stylesheet" href="style-index.css"> 
+</head>
+<body>
+
+    <div class="container">
+        <h1>Carteggio</h1>
+        <!-- Messaggio di conferma per l'utente -->
+        <h2 style="color: #28a745; margin-top: 50px;">Operazione Completata!</h2>
+        <p style="color: #83abd8; font-size: 18px; text-align: center; padding: 0 20px;">
+            I tuoi dati sono stati elaborati con successo.
+        </p>
+
+        <div id="pulsanti" style="margin-top: 40px;">
+            <!-- Questo pulsante sposta l'utente alla Home. -->
+            <!-- AppyPie intercetterà questo cambio pagina e mostrerà la pubblicità sul telefono! -->
+            <button id="btnRitornaHome" type="button">Pagina iniziale</button>
+        </div>
+    </div>
+
+    <script>
+        // Gestiamo il clic sul pulsante per tornare alla index reale
+        document.getElementById('btnRitornaHome').addEventListener('click', function() {
+            window.location.href = "index.html";
+        });
+    </script>
+
+</body>
+</html>
