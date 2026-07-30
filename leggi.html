@@ -6,6 +6,7 @@
     <title>Leggi msg</title>
      <link rel="icon" href="img/favicon.png"  type="image/png">
        <link rel="stylesheet" href="style-leggi.css"> <!-- Il file CSS --> 
+        <script src="pubblicita.js"></script>
 
   </head>
   <body>
@@ -202,8 +203,8 @@
         const riferimentoRicevutoDaCancellare = doc(db, "casella_postale", chiaveAttiva, "ricevuti", chiaveDocumento);
         await deleteDoc(riferimentoRicevutoDaCancellare);
         
-         window.location.href = "pubbl.html";
-
+   //      window.location.href = "pubbl.html";
+            mostraAnnuncioEVaiAvanti();
        } catch (error) {
         console.error("Errore durante il processo:", error);
          document.getElementById("message").value = "errore durante il processo";
