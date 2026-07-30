@@ -1,1 +1,16 @@
-ca-app-pub-7064918153021324~1146063265  
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="io.github.barcelo2023.carteggio" version="1.0.0" xmlns="http://w3.org" xmlns:cdv="http://apache.org">
+    <name>Carteggio</name>
+    <description>Applicazione per messaggi criptati</description>
+    <author email="ibradicich@virgilio.it">Igor</author>
+    
+    <content src="index.html" />
+    <access origin="*" />
+
+    <plugin name="cordova-plugin-admob-plus">
+      <variable name="APP_ID_ANDROID" value="ca-app-pub-7064918153021324~1146063265" />
+
+    </plugin>
+</widget>
+
+
