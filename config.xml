@@ -7,10 +7,11 @@
     <content src="index.html" />
     <access origin="*" />
 
+    <!-- Plugin AdMob modificato con la chiusura corretta dei tag -->
     <plugin name="cordova-plugin-admob-plus">
-      <variable name="APP_ID_ANDROID" value="ca-app-pub-7064918153021324~1146063265" />
-
+        <variable name="APP_ID_ANDROID" value="ca-app-pub-7064918153021324~114606326" />
     </plugin>
+
+    <!-- Specifica la piattaforma Android per VoltBuilder -->
+    <platform name="android"></platform>
 </widget>
-
-
