@@ -5,114 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carteggio</title>
 
-    <link rel="icon" href="img/logo.png"  type="image/png">
-      <link rel="stylesheet" href="style-index.css"> <!-- Il file CSS --> 
+    <link rel="icon" href="img/logo.png" type="image/png">
+    <link rel="stylesheet" href="style-index.css"> <!-- Il file CSS --> 
 
-  </head>
-  <body>
-         
+   
+</head>
+<body>
 
-      <div class="container">
-     <h1>Carteggio</h1>
-     <h2>Pagina iniziale</h2>
-      <div id="pulsanti">
-      <button  id="btncasella" type="button">Crea casella postale</button>                  
-      <button  id="btnscrivi" type="button">Scrivi messaggi</button>                             
-      <button id="btnleggi" type="button"  >Se rosso ci sono messaggi</button>
-      <button id="btncancella" type="button">Cancella casella postale</button>
-       <button  id="btninfo" type="button" >Info app</button>
-       <input type="text" name="data" id="data"  readonly>
-      </div> 
-           
-       </div>  
-                            
-     
-                <script type="module">
-                  // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
-                   import { db } from "./firebaseConfig.js";
-                 // 2. Importi solo le funzioni di cui questa pagina ha bisogno
-                
-                import { getFirestore,collection,onSnapshot } from
-                 "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
-                let unsubscribeFaro = null
+    <div class="container">
+        <h1>Carteggio</h1>
+        <h2>Pagina iniziale</h2>
+        <div id="pulsanti">
+            <button id="btncasella" type="button">Crea casella postale</button>                  
+            <button id="btnscrivi" type="button">Scrivi messaggi</button>                             
+            <button id="btnleggi" type="button">Se rosso ci sono messaggi</button>
+            <button id="btncancella" type="button">Cancella casella postale</button>
+            <button id="btninfo" type="button">Info app</button>
+            <input type="text" name="data" id="data" readonly>
+        </div> 
+    </div>  
+                        
+    <script type="module">
+        // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
+        import { db } from "./firebaseConfig.js";
+        
+        // 2. Importi solo le funzioni di cui questa pagina ha bisogno (corretto l'URL con www.)
+        import { getFirestore, collection, onSnapshot } from 
+        "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+        
+        let unsubscribeFaro = null;
 
-                 let data = new Date(); 
-              document.getElementById('data').value = (data); 
+        let data = new Date(); 
+        document.getElementById('data').value = (data); 
 
-                function avviaControlloFaro(chiaveAttiva) {
-                const ricevutiRef = collection(db, "casella_postale", chiaveAttiva, "ricevuti");
+        function avviaControlloFaro(chiaveAttiva) {
+            const ricevutiRef = collection(db, "casella_postale", chiaveAttiva, "ricevuti");
 
-                unsubscribeFaro = onSnapshot(ricevutiRef, (snapshot) => {
-               const btnLeggi = document.getElementById("btnleggi");
+            unsubscribeFaro = onSnapshot(ricevutiRef, (snapshot) => {
+                const btnLeggi = document.getElementById("btnleggi");
                 if (!btnLeggi) return;
 
-                 if (!snapshot.empty) {
-           
-                
-           btnLeggi.classList.add("bottone-notifica-attiva"); // Avvia il lampeggiamento rosso
-           } else {
-              
-            btnLeggi.classList.remove("bottone-notifica-attiva"); // Rimuove il lampeggiamento
-
-}
-
-          });
-      }
-
-              
-                  function disattivaSegnalazioneIniziale() {
-           if (unsubscribeSegnalazione) {
-           unsubscribeSegnalazione();
-         unsubscribeSegnalazione = null;
+                if (!snapshot.empty) {
+                    btnLeggi.classList.add("bottone-notifica-attiva"); // Avvia il lampeggiamento rosso
+                } else {
+                    btnLeggi.classList.remove("bottone-notifica-attiva"); // Rimuove il lampeggiamento
+                }
+            });
         }
-      }
 
-
-          // 1. Recupera l'ID specifico salvato nel localStorage di questo dispositivo
+        // 1. Recupera l'ID specifico salvato nel localStorage di questo dispositivo
         const chiaveDinamica = localStorage.getItem("id_casella_postale"); 
 
-      // 2. Verifica che la casella sia effettivamente configurata sul telefono/PC
+        // 2. Verifica che la casella sia effettivamente configurata sul telefono/PC
         if (chiaveDinamica) {
-         console.log("Faro avviato con successo per la casella:", chiaveDinamica);
-  
-         // Avvia il controllo in tempo reale per questo utente specifico
-           avviaControlloFaro(chiaveDinamica);
-  
-         } else {
-          console.log("Nessuna casella postale configurata su questo dispositivo."); 
-         
-      }             
-              
-               const casella= document.getElementById('btncasella');
-             casella.addEventListener('click', function() { 
-               window.location.href = "casella.html";
-             }) 
-               
-                     
-                   const scrivi = document.getElementById('btnscrivi');
-             scrivi.addEventListener('click', function() { 
-               window.location.href = "scrivi.html";
-             })  
-               
-             
-                    const leggi = document.getElementById('btnleggi');
-             leggi.addEventListener('click', function() { 
-               window.location.href = "leggi.html";
-             })  
-
-                   const cancella = document.getElementById('btncancella');
-             cancella.addEventListener('click', function() { 
-               window.location.href = "cancella.html";
-             })  
-             
-                    const info = document.getElementById('btninfo');
-             info.addEventListener('click', function() { 
-               window.location.href = "info.html";
-             })         
-            
-           
-                       
-    </script>
+            console.log("Faro avviato con successo per la casella:", chiaveDinamica);
+            // Avvia il controllo in tempo reale per questo utente specifico
+            avviaControlloFaro(chiaveDinamica);
+        } else {
+            console.log("Nessuna casella postale configurata su questo dispositivo."); 
+        }             
         
-    </body>
-    </html>                            
+        // GESTIONE DEI PULSANTI ORIGINALI
+        const casella = document.getElementById('btncasella');
+        casella.addEventListener('click', function() { 
+            window.location.href = "casella.html";
+        }); 
+          
+        const scrivi = document.getElementById('btnscrivi');
+        scrivi.addEventListener('click', function() { 
+            window.location.href = "scrivi.html";
+        });  
+          
+        const leggi = document.getElementById('btnleggi');
+        leggi.addEventListener('click', function() { 
+            window.location.href = "leggi.html";
+        });  
+
+        const cancella = document.getElementById('btncancella');
+        cancella.addEventListener('click', function() { 
+            window.location.href = "cancella.html";
+        });  
+        
+        const info = document.getElementById('btninfo');
+        info.addEventListener('click', function() { 
+            window.location.href = "info.html";
+        });         
+    </script>
+    
+</body>
+</html>
