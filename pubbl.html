@@ -4,27 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Operazione Completata</title>
-    <!-- Riusiamo lo stesso CSS della index per mantenere la grafica coerente -->
-    <link rel="stylesheet" href="style-index.css"> 
+    <!-- Usiamo un percorso relativo sicuro per il CSS -->
+    <link rel="stylesheet" href="./style-index.css"> 
+    <style>
+        /* Blocco di sicurezza se il CSS principale dovesse perdersi */
+        .pulsante-admob {
+            display: inline-block;
+            background-color: #28a745;
+            color: white !important;
+            padding: 12px 30px;
+            font-size: 18px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 
     <div class="container">
         <h1>Carteggio</h1>
-        <!-- Messaggio di conferma per l'utente -->
         <h2 style="color: #28a745; margin-top: 50px;">Operazione Completata!</h2>
         <p style="color: #83abd8; font-size: 18px; text-align: center; padding: 0 20px;">
             I tuoi dati sono stati elaborati con successo.
         </p>
 
         <div id="pulsanti" style="margin-top: 40px;">
-            <!-- Sostituito il button con un link reale (a). Prenderà lo stile dal tuo CSS grazie all'id -->
-            <!-- AppyPie vedrà questo link diretto a index.html e farà scattare l'interstiziale prima di cambiare pagina! -->
-            <a href="index.html" id="btnRitornaHome" style="display: inline-block; text-decoration: none; text-align: center;">Pagina iniziale</a>
+            <!-- Usiamo la classe protetta per evitare che diventi viola e piccolo -->
+            <a href="index.html" class="pulsante-admob" id="btnRitornaHome">Pagina iniziale</a>
         </div>
     </div>
 
-    <!-- Il blocco <script> è stato completamente rimosso perché non serve più JavaScript manuale -->
-
 </body>
 </html>
+
