@@ -6,6 +6,37 @@
     <title>Operazione Completata</title>
     <!-- Riusiamo lo stesso CSS della index per mantenere la grafica coerente -->
     <link rel="stylesheet" href="./style-index.css"> 
+    
+    <!-- 1. Carica la libreria pubblicitaria ufficiale di Google AdMob / AdSense via Web -->
+    <script async src="https://doubleclick.net"></script>
+    <script>
+        window.googletag = window.googletag || { cmd: [] };
+        let interstitialSlot;
+
+        // Inizializza l'annuncio interstiziale di test appena la pagina si apre
+        googletag.cmd.push(() => {
+            interstitialSlot = googletag.defineOutOfPageSlot(
+                '/6499/example/interstitial', // Percorso dell'interstiziale di prova universale di Google
+                googletag.enums.OutOfPageFormat.INTERSTITIAL
+            );
+
+            if (interstitialSlot) {
+                interstitialSlot.addService(googletag.pubads());
+                console.log("AdMob Web: Annuncio interstiziale registrato in background.");
+            }
+            
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+
+        // Ascolta quando l'annuncio viene chiuso sul display per cambiare pagina
+        googletag.cmd.push(() => {
+            googletag.pubads().addEventListener('slotRenderEnded', (event) => {
+                console.log("AdMob Web: Annuncio visualizzato correttamente.");
+            });
+        });
+    </script>
+
     <style>
         .pulsante-admob {
             display: inline-block;
@@ -18,6 +49,7 @@
             font-weight: bold;
             margin-top: 20px;
             cursor: pointer;
+            border: none;
         }
     </style>
 </head>
@@ -32,58 +64,25 @@
         </p>
 
         <div id="pulsanti" style="margin-top: 40px;">
-            <!-- Il pulsante ora chiama la funzione combinata di AdMob + Navigazione -->
-            <button type="button" onclick="mostraPubblicitaEChiudi()" class="pulsante-admob" id="btnRitornaHome">Pagina iniziale</button>
+            <!-- Il pulsante ora chiama l'attivazione della pubblicità web -->
+            <button type="button" onclick="mostraPubblicitaWeb()" class="pulsante-admob" id="btnRitornaHome">Pagina iniziale</button>
         </div>
     </div>
 
     <script>
-        // 1. Forza il collegamento con il file cordova di sistema fornito da Appy Pie
-        if (typeof window.cordova === 'undefined') {
-            const script = document.createElement('script');
-            script.src = 'cordova.js';
-            document.head.appendChild(script);
-        }
+        function mostraPubblicitaWeb() {
+            console.log("AdMob Web: Clic sul pulsante rilevato.");
+            
+            // Forza Google a mostrare l'interstiziale preparato in memoria
+            googletag.cmd.push(() => {
+                const mostrato = googletag.display(interstitialSlot);
+                console.log("AdMob Web: Tentativo di apertura a schermo intero...");
+            });
 
-        // 2. Funzione principale eseguita al clic sul pulsante verde
-        function mostraPubblicitaEChiudi() {
-            console.log("AdMob: Clic rilevato. Tento il recupero dei plugin di Appy Pie...");
-
-            // Controlliamo se i plugin AdMob di Cordova inseriti da Appy Pie sono attivi nella memoria globale
-            const admobPlugin = window.admob || (window.cordova && window.cordova.plugins && window.cordova.plugins.AdMob) || window.AdMob;
-
-            if (admobPlugin) {
-                try {
-                    console.log("AdMob: Plugin rilevato con successo! Tento la visualizzazione forzata...");
-                    
-                    // Comandi standard di mostratura per i vari plugin Cordova usati dai creatori no-code
-                    if (typeof admobPlugin.showInterstitial === 'function') {
-                        admobPlugin.showInterstitial();
-                    } else if (typeof admobPlugin.interstitial?.show === 'function') {
-                        admobPlugin.interstitial.show();
-                    } else if (typeof admobPlugin.showInterstitialAd === 'function') {
-                        admobPlugin.showInterstitialAd();
-                    }
-
-                    // Ascolta la chiusura dell'annuncio per cambiare pagina senza interromperlo
-                    document.addEventListener('onDismissInterstitialAd', andareAllaHome);
-                    document.addEventListener('admob.interstitial.dismiss', andareAllaHome);
-                    
-                    // Timer di sicurezza: se l'utente chiude la pubblicità o se si blocca, cambia pagina comunque dopo 4 secondi
-                    setTimeout(andareAllaHome, 4000);
-
-                } catch (err) {
-                    console.error("AdMob: Errore durante l'esecuzione del plugin nativo", err);
-                    andareAllaHome();
-                }
-            } else {
-                console.log("AdMob: Nessun plugin nativo trovato nella pagina web, cambio pagina diretto.");
-                andareAllaHome();
-            }
-        }
-
-        function andareAllaHome() {
-            window.location.href = "index.html";
+            // Sposta l'utente alla Home dopo un piccolo ritardo per permettere il caricamento
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 800); 
         }
     </script>
 
