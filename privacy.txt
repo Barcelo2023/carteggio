@@ -23,11 +23,17 @@
 
  . Salvataggio e Notifica: Il messaggio cifrato viene ospitato temporaneamente sul database cloud Cloud Firestore 
    (Google Firebase). Una chiave identificativa (ID del messaggio) viene associata al campo dei messaggi ricevuti 
-   del destinatario. Un sistema di notifica automatica visiva ("faro") avverte il destinatario della presenza di un
-   nuovo messaggio.
+   del destinatario. Un sistema di notifica automatica visiva ("faro") avverte il destinatario della presenza  di 
+   un nuovo messaggio.
 
    Cancellazione immediata: Una volta che il destinatario decodifica e legge il messaggio sul proprio dispositivo,
-   il messaggio viene eliminato definitivamente dai server di Cloud Firestore, senza conservazione di copie di backup.
+   il messaggio viene eliminato definitivamente dai server di Cloud Firestore, senza  conservazione di  copie  di 
+   backup.
+
+ . Protezione dell'Interfaccia Locale (Antispiamento): Per impedire la lettura non autorizzata dei messaggi da parte 
+   di terzi che abbiano accesso fisico al dispositivo, le funzioni di estrazione, decrittazione e cancellazione
+   all'interno della pagina di lettura rimangono disabilitate di default. L'attivazione di tali comandi è subordinata
+   a un meccanismo di sblocco intenzionale e discreto integrato nell'interfaccia dell'Applicazione.
 
 3. Servizi pubblicitari di terze parti (Google AdMob)L'Applicazione integra il servizio Google AdMob per l'erogazione
   di annunci pubblicitari di tipo Interstiziale (a schermo intero). Google AdMob può raccogliere identificativi del 
@@ -41,6 +47,13 @@
   Questa funzione può essere utilizzata anche nel caso in cui l'utente abbia commesso un errore di digitazione durante 
   l'inserimento della propria email in fase di creazione, consentendogli di azzerare i dati locali e procedere a una 
   nuova configurazione corretta.
+
+. Procedura obbligatoria in caso di cambio telefono: Per garantire  l'assoluta sicurezza   ed evitare  rischi  di 
+  appropriazione dell'identità da parte di terzi, non è previsto un sistema di recupero o trasferimento della stessa
+  casella casella postale su un nuovo dispositivo. In caso di cambio di smartphone, l'utente è tenuto a effettuare un
+  ultimo accesso dal vecchio dispositivo per scaricare ed eliminare eventuali messaggi residui ancora presenti sul 
+  server cloud, e successivamente a eliminare la casella tramite la pagina "Cancella Casella". Sul nuovo dispositivo,
+   l'utente potrà poi procedere alla creazione di una nuova casella postale virtuale.
 
 5. ContattiPer domande o segnalazioni sulla privacy, contatta il titolare all'indirizzo: ibradicich@virgilio.it
 
