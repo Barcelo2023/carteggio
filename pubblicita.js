@@ -8,7 +8,8 @@ document.addEventListener('deviceready', async () => {
             
             // Crea l'oggetto dell'annuncio (Usa il tuo ID reale con lo slash "/")
             interstitial = new admob.InterstitialAd({
-                adUnitId: 'ca-app-pub-7064918153021324/2239653080'  
+        //      adUnitId: 'ca-app-pub-7064918153021324/2239653080'   originale
+                adUnitId: 'ca-app-pub-3940256099942544/1033173712'
 
             });
 
