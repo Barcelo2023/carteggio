@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Operazione Completata</title>
-    <!-- Utilizziamo il percorso relativo corretto per il CSS -->
     <link rel="stylesheet" href="./style-index.css"> 
     <style>
         .pulsante-admob {
@@ -26,28 +25,16 @@
 
     <div class="container">
         <h1>Carteggio</h1>
-        <!-- Messaggio di conferma per l'utente -->
         <h2 style="color: #28a745; margin-top: 50px;">Operazione Completata!</h2>
         <p style="color: #83abd8; font-size: 18px; text-align: center; padding: 0 20px;">
             I tuoi dati sono stati elaborati con successo.
         </p>
 
         <div id="pulsanti" style="margin-top: 40px;">
-            <!-- Il pulsante ora chiama la funzione di chiusura nativa della cronologia -->
-            <button type="button" onclick="tornaAllaHomeNativa()" class="pulsante-admob" id="btnRitornaHome">Pagina iniziale</button>
+            <!-- Ritorniamo a pubbl.html così AdMob si sblocca come nel primo test -->
+            <a href="pubbl.html" class="pulsante-admob" id="btnRitornaHome">Pagina iniziale</a>
         </div>
     </div>
-
-    <script>
-        function tornaAllaHomeNativa() {
-            console.log("Appy Pie: Comando di chiusura sessione remota.");
-            
-            // Invece di caricare un file manualmente, diciamo alla WebView del Realme 
-            // di chiudere la pagina attuale di GitHub e tornare indietro nella cronologia dell'applicazione.
-            // Questo movimento forzerà Appy Pie a riattivarsi, mostrando l'annuncio interstiziale salvato in memoria.
-            window.history.go(-1);
-        }
-    </script>
 
 </body>
 </html>
