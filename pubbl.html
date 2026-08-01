@@ -18,18 +18,13 @@
         </p>
 
         <div id="pulsanti" style="margin-top: 40px;">
-            <!-- Questo pulsante sposta l'utente alla Home. -->
-            <!-- AppyPie intercetterà questo cambio pagina e mostrerà la pubblicità sul telefono! -->
-            <button id="btnRitornaHome" type="button">Pagina iniziale</button>
+            <!-- Sostituito il button con un link reale (a). Prenderà lo stile dal tuo CSS grazie all'id -->
+            <!-- AppyPie vedrà questo link diretto a index.html e farà scattare l'interstiziale prima di cambiare pagina! -->
+            <a href="index.html" id="btnRitornaHome" style="display: inline-block; text-decoration: none; text-align: center;">Pagina iniziale</a>
         </div>
     </div>
 
-    <script>
-        // Gestiamo il clic sul pulsante per tornare alla index reale
-        document.getElementById('btnRitornaHome').addEventListener('click', function() {
-            window.location.href = "index.html";
-        });
-    </script>
+    <!-- Il blocco <script> è stato completamente rimosso perché non serve più JavaScript manuale -->
 
 </body>
 </html>
