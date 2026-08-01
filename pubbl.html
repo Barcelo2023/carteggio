@@ -1,40 +1,25 @@
+<!-- Questo è il tuo VERO file pubbl.html su GitHub -->
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operazione Completata</title>
-    <link rel="stylesheet" href="./style-index.css"> 
-    <style>
-        .pulsante-admob {
-            display: inline-block;
-            background-color: #28a745;
-            color: white !important;
-            padding: 12px 30px;
-            font-size: 18px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            margin-top: 20px;
-            cursor: pointer;
-            border: none;
-        }
-    </style>
+    <title>Caricamento Home</title>
+    <link rel="stylesheet" href="./style-index.css">
 </head>
 <body>
-
     <div class="container">
         <h1>Carteggio</h1>
-        <h2 style="color: #28a745; margin-top: 50px;">Operazione Completata!</h2>
-        <p style="color: #83abd8; font-size: 18px; text-align: center; padding: 0 20px;">
-            I tuoi dati sono stati elaborati con successo.
+        <p style="color: #83abd8; font-size: 18px; text-align: center; margin-top: 50px;">
+            Ritorno alla pagina iniziale in corso...
         </p>
-
-        <div id="pulsanti" style="margin-top: 40px;">
-            <!-- Ritorniamo a pubbl.html così AdMob si sblocca come nel primo test -->
-            <a href="pubbl.html" class="pulsante-admob" id="btnRitornaHome">Pagina iniziale</a>
-        </div>
     </div>
-
+    <script>
+        window.onload = function() {
+            setTimeout(function() {
+                window.location.replace("index.html");
+            }, 300);
+        };
+    </script>
 </body>
 </html>
