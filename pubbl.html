@@ -4,39 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Operazione Completata</title>
-    <!-- Riusiamo lo stesso CSS della index per mantenere la grafica coerente -->
+    <!-- Utilizziamo il percorso relativo corretto per il CSS -->
     <link rel="stylesheet" href="./style-index.css"> 
-    
-    <!-- 1. Carica la libreria pubblicitaria ufficiale di Google AdMob / AdSense via Web -->
-    <script async src="https://doubleclick.net"></script>
-    <script>
-        window.googletag = window.googletag || { cmd: [] };
-        let interstitialSlot;
-
-        // Inizializza l'annuncio interstiziale di test appena la pagina si apre
-        googletag.cmd.push(() => {
-            interstitialSlot = googletag.defineOutOfPageSlot(
-                '/6499/example/interstitial', // Percorso dell'interstiziale di prova universale di Google
-                googletag.enums.OutOfPageFormat.INTERSTITIAL
-            );
-
-            if (interstitialSlot) {
-                interstitialSlot.addService(googletag.pubads());
-                console.log("AdMob Web: Annuncio interstiziale registrato in background.");
-            }
-            
-            googletag.pubads().enableSingleRequest();
-            googletag.enableServices();
-        });
-
-        // Ascolta quando l'annuncio viene chiuso sul display per cambiare pagina
-        googletag.cmd.push(() => {
-            googletag.pubads().addEventListener('slotRenderEnded', (event) => {
-                console.log("AdMob Web: Annuncio visualizzato correttamente.");
-            });
-        });
-    </script>
-
     <style>
         .pulsante-admob {
             display: inline-block;
@@ -64,25 +33,19 @@
         </p>
 
         <div id="pulsanti" style="margin-top: 40px;">
-            <!-- Il pulsante ora chiama l'attivazione della pubblicità web -->
-            <button type="button" onclick="mostraPubblicitaWeb()" class="pulsante-admob" id="btnRitornaHome">Pagina iniziale</button>
+            <!-- Il pulsante ora chiama la funzione di chiusura nativa della cronologia -->
+            <button type="button" onclick="tornaAllaHomeNativa()" class="pulsante-admob" id="btnRitornaHome">Pagina iniziale</button>
         </div>
     </div>
 
     <script>
-        function mostraPubblicitaWeb() {
-            console.log("AdMob Web: Clic sul pulsante rilevato.");
+        function tornaAllaHomeNativa() {
+            console.log("Appy Pie: Comando di chiusura sessione remota.");
             
-            // Forza Google a mostrare l'interstiziale preparato in memoria
-            googletag.cmd.push(() => {
-                const mostrato = googletag.display(interstitialSlot);
-                console.log("AdMob Web: Tentativo di apertura a schermo intero...");
-            });
-
-            // Sposta l'utente alla Home dopo un piccolo ritardo per permettere il caricamento
-            setTimeout(() => {
-                window.location.href = "index.html";
-            }, 800); 
+            // Invece di caricare un file manualmente, diciamo alla WebView del Realme 
+            // di chiudere la pagina attuale di GitHub e tornare indietro nella cronologia dell'applicazione.
+            // Questo movimento forzerà Appy Pie a riattivarsi, mostrando l'annuncio interstiziale salvato in memoria.
+            window.history.go(-1);
         }
     </script>
 
