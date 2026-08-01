@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Operazione Completata</title>
-    <!-- Usiamo un percorso relativo sicuro per il CSS -->
+    <!-- Riusiamo lo stesso CSS della index per mantenere la grafica coerente -->
     <link rel="stylesheet" href="./style-index.css"> 
     <style>
-        /* Blocco di sicurezza se il CSS principale dovesse perdersi */
         .pulsante-admob {
             display: inline-block;
             background-color: #28a745;
@@ -18,6 +17,7 @@
             border-radius: 5px;
             font-weight: bold;
             margin-top: 20px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -25,18 +25,26 @@
 
     <div class="container">
         <h1>Carteggio</h1>
+        <!-- Messaggio di conferma per l'utente -->
         <h2 style="color: #28a745; margin-top: 50px;">Operazione Completata!</h2>
         <p style="color: #83abd8; font-size: 18px; text-align: center; padding: 0 20px;">
             I tuoi dati sono stati elaborati con successo.
         </p>
 
         <div id="pulsanti" style="margin-top: 40px;">
-            <!-- Usiamo la classe protetta per evitare che diventi viola e piccolo -->
-            <a href="appypie://home" class="pulsante-admob" id="btnRitornaHome">Pagina iniziale</a>
-
+            <!-- Usiamo un finto link con javascript per forzare il sistema -->
+            <a onclick="forzaUscitaEMostraAd()" class="pulsante-admob" id="btnRitornaHome">Pagina iniziale</a>
         </div>
     </div>
 
+    <script>
+        function forzaUscitaEMostraAd() {
+            // Questo comando forza la WebView di Appy Pie a resettare la sessione.
+            // Il sistema nativo dell'app rileverà la chiusura della pagina web esterna
+            // e attiverà l'annuncio interstiziale di AdMob prima di ricaricare la index.
+            window.location.replace("index.html");
+        }
+    </script>
+
 </body>
 </html>
-
