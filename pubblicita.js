@@ -1,19 +1,17 @@
 let interstitial;
 
-// 1. Non appena l'app è pronta sul telefono, inizializza AdMob e carica l'annuncio
+// 1. Inizializza AdMob e avvia il pre-caricamento dell'annuncio
 document.addEventListener('deviceready', async () => {
     if (typeof admob !== 'undefined') {
         try {
             await admob.start();
             
-            // Crea l'oggetto dell'annuncio (Usa il tuo ID reale con lo slash "/")
             interstitial = new admob.InterstitialAd({
-        //      adUnitId: 'ca-app-pub-7064918153021324/2239653080'   originale
-                adUnitId: 'ca-app-pub-3940256099942544/1033173712'
-
+                adUnitId: 'ca-app-pub-3940256099942544/1033173712' // ID di prova Android
+                //      adUnitId: 'ca-app-pub-7064918153021324/2239653080'   originale
             });
 
-            // Carica l'annuncio in background per averlo pronto nel punto morto
+            // Avvia il caricamento in background
             await interstitial.load();
             console.log("AdMob: Inizializzato e annuncio in caricamento...");
         } catch (errore) {
@@ -22,22 +20,50 @@ document.addEventListener('deviceready', async () => {
     }
 });
 
-// 2. Questa è la funzione unica che richiamerai alla fine dei tuoi bottoni
+// 2. Gestore globale dell'evento di chiusura dell'annuncio
+document.addEventListener('admob.interstitial.dismiss', () => {
+    console.log("AdMob: Annuncio chiuso dall'utente. Vado alla pagina finale.");
+    window.location.href = "pubbl.html";
+});
+
+// 3. Funzione da agganciare al click dei tuoi pulsanti di Scrittura/Lettura
 async function mostraAnnuncioEVaiAvanti() {
     console.log("AdMob: Richiesta attivazione nel punto morto.");
     
-    // Controlla se l'annuncio è stato caricato con successo
-    if (typeof admob !== 'undefined' && interstitial && await interstitial.isLoaded()) {
-        await interstitial.show(); // Mostra l'annuncio a schermo intero
+    if (typeof admob !== 'undefined' && interstitial) {
+        try {
+            // Controlla se è pronto
+            const pronto = await interstitial.isLoaded();
+            
+            if (pronto) {
+                console.log("AdMob: Annuncio pronto! Lo mostro a schermo intero.");
+                await interstitial.show();
+                // NOTA: Non mettere window.location.href qui! 
+                // Il cambio pagina avverrà automaticamente nell'evento 'dismiss' sopra quando l'utente clicca sulla "X".
+            } else {
+                // Se l'utente è stato fulmineo e l'annuncio non è ancora pronto, 
+                // attendiamo un secondo extra per dargli un'ultima possibilità prima di saltare
+                console.log("AdMob: Annuncio non ancora pronto, attendo un istante...");
+                await new Promise(resolve => setTimeout(resolve, 1500)); 
+                
+                // Ricontrolla dopo la breve attesa
+                if (await interstitial.isLoaded()) {
+                    await interstitial.show();
+                } else {
+                    console.log("AdMob: Annuncio ancora non pronto, salto alla pagina finale.");
+                    window.location.href = "pubbl.html";
+                }
+            }
+        } catch (err) {
+            console.error("AdMob: Errore durante la verifica o la mostra dell'annuncio", err);
+            window.location.href = "pubbl.html";
+        }
     } else {
-        // Se l'annuncio non è pronto, passa subito alla pagina finale per non bloccare l'utente
-        console.log("AdMob: Annuncio non pronto, salto alla pagina finale.");
+        console.log("AdMob non disponibile, vado avanti.");
         window.location.href = "pubbl.html";
     }
 }
 
-// 3. Gestore dell'evento di chiusura: quando l'utente clicca sulla "X", va alla pagina finale
-document.addEventListener('admob.interstitial.dismiss', () => {
-    console.log("AdMob: Annuncio chiuso dall'utente.");
-    window.location.href = "pubbl.html";
-});
+  
+
+ 
