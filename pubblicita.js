@@ -8,7 +8,7 @@ document.addEventListener('deviceready', async () => {
             
             interstitial = new admob.InterstitialAd({
                 adUnitId: 'ca-app-pub-3940256099942544/1033173712' // ID di prova Android
-                //      adUnitId: 'ca-app-pub-7064918153021324/2239653080'   originale
+                
             });
 
             // Avvia il caricamento in background
@@ -51,19 +51,19 @@ async function mostraAnnuncioEVaiAvanti() {
                     await interstitial.show();
                 } else {
                     console.log("AdMob: Annuncio ancora non pronto, salto alla pagina finale.");
-                    window.location.href = "pubbl.html";
+                    window.location.href = "successo.html";
                 }
             }
         } catch (err) {
             console.error("AdMob: Errore durante la verifica o la mostra dell'annuncio", err);
-            window.location.href = "pubbl.html";
+            window.location.href = "successo.html";
         }
     } else {
         console.log("AdMob non disponibile, vado avanti.");
-        window.location.href = "pubbl.html";
+        window.location.href = "successo.html";
     }
 }
 
   
-
+//      adUnitId: 'ca-app-pub-7064918153021324/2239653080'   originale
  
