@@ -1,4 +1,3 @@
-<!-- Questo è il tuo VERO file pubbl.html su GitHub -->
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -8,18 +7,27 @@
     <link rel="stylesheet" href="./style-index.css">
 </head>
 <body>
+
     <div class="container">
         <h1>Carteggio</h1>
+        <!-- Animazione o testo di attesa per l'utente -->
         <p style="color: #83abd8; font-size: 18px; text-align: center; margin-top: 50px;">
-            Ritorno alla pagina iniziale in corso...
+            Caricamento della pubblicità in corso...
+        </p>
+        <p style="color: #aeaeae; font-size: 14px; text-align: center;">
+            Attendi un istante.
         </p>
     </div>
+
     <script>
+        // Aumentiamo il timer a 5000ms (5 secondi) per dare tempo ad Appy Pie di mostrare l'annuncio
         window.onload = function() {
             setTimeout(function() {
+                console.log("Timer scaduto: ritorno alla pagina iniziale.");
                 window.location.replace("index.html");
-            }, 300);
+            }, 5000); 
         };
     </script>
+
 </body>
 </html>
