@@ -32,17 +32,58 @@
         </p>
 
         <div id="pulsanti" style="margin-top: 40px;">
-            <!-- Usiamo un finto link con javascript per forzare il sistema -->
-            <a onclick="forzaUscitaEMostraAd()" class="pulsante-admob" id="btnRitornaHome">Pagina iniziale</a>
+            <!-- Il pulsante ora chiama la funzione combinata di AdMob + Navigazione -->
+            <button type="button" onclick="mostraPubblicitaEChiudi()" class="pulsante-admob" id="btnRitornaHome">Pagina iniziale</button>
         </div>
     </div>
 
     <script>
-        function forzaUscitaEMostraAd() {
-            // Questo comando forza la WebView di Appy Pie a resettare la sessione.
-            // Il sistema nativo dell'app rileverà la chiusura della pagina web esterna
-            // e attiverà l'annuncio interstiziale di AdMob prima di ricaricare la index.
-            window.location.replace("index.html");
+        // 1. Forza il collegamento con il file cordova di sistema fornito da Appy Pie
+        if (typeof window.cordova === 'undefined') {
+            const script = document.createElement('script');
+            script.src = 'cordova.js';
+            document.head.appendChild(script);
+        }
+
+        // 2. Funzione principale eseguita al clic sul pulsante verde
+        function mostraPubblicitaEChiudi() {
+            console.log("AdMob: Clic rilevato. Tento il recupero dei plugin di Appy Pie...");
+
+            // Controlliamo se i plugin AdMob di Cordova inseriti da Appy Pie sono attivi nella memoria globale
+            const admobPlugin = window.admob || (window.cordova && window.cordova.plugins && window.cordova.plugins.AdMob) || window.AdMob;
+
+            if (admobPlugin) {
+                try {
+                    console.log("AdMob: Plugin rilevato con successo! Tento la visualizzazione forzata...");
+                    
+                    // Comandi standard di mostratura per i vari plugin Cordova usati dai creatori no-code
+                    if (typeof admobPlugin.showInterstitial === 'function') {
+                        admobPlugin.showInterstitial();
+                    } else if (typeof admobPlugin.interstitial?.show === 'function') {
+                        admobPlugin.interstitial.show();
+                    } else if (typeof admobPlugin.showInterstitialAd === 'function') {
+                        admobPlugin.showInterstitialAd();
+                    }
+
+                    // Ascolta la chiusura dell'annuncio per cambiare pagina senza interromperlo
+                    document.addEventListener('onDismissInterstitialAd', andareAllaHome);
+                    document.addEventListener('admob.interstitial.dismiss', andareAllaHome);
+                    
+                    // Timer di sicurezza: se l'utente chiude la pubblicità o se si blocca, cambia pagina comunque dopo 4 secondi
+                    setTimeout(andareAllaHome, 4000);
+
+                } catch (err) {
+                    console.error("AdMob: Errore durante l'esecuzione del plugin nativo", err);
+                    andareAllaHome();
+                }
+            } else {
+                console.log("AdMob: Nessun plugin nativo trovato nella pagina web, cambio pagina diretto.");
+                andareAllaHome();
+            }
+        }
+
+        function andareAllaHome() {
+            window.location.href = "index.html";
         }
     </script>
 
