@@ -3,39 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operazione Completata</title>
-    <link rel="stylesheet" href="./style-index.css"> 
+    <title>Operazione Completata!</title>
     <style>
-        .pulsante-admob {
-            display: inline-block;
-            background-color: #28a745;
-            color: white !important;
-            padding: 12px 30px;
-            font-size: 18px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            margin-top: 20px;
-            cursor: pointer;
-            border: none;
-        }
+        body { font-family: sans-serif; text-align: center; margin-top: 20%; background-color: #f4f7f6; color: #333; padding: 10px; }
+        .box { display: inline-block; padding: 25px; background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 90%; max-width: 400px; }
+        h1 { color: #2ecc71; font-size: 24px; }
+        button { padding: 12px 24px; font-size: 16px; background-color: #3498db; color: white; border: none; border-radius: 4px; width: 100%; margin-top: 20px; }
     </style>
 </head>
 <body>
-
-    <div class="container">
-        <h1>Carteggio</h1>
-        <h2 style="color: #28a745; margin-top: 50px;">Operazione Completata!</h2>
-        <p style="color: #83abd8; font-size: 18px; text-align: center; padding: 0 20px;">
-            I tuoi dati sono stati elaborati con successo.
-        </p>
-
-        <div id="pulsanti" style="margin-top: 40px;">
-            <!-- Questo link punta a pubbl.html. Quando l'utente lo preme, Appy Pie fa scattare AdMob! -->
-            <a href="pubbl.html" class="pulsante-admob" id="btnRitornaHome">Pagina iniziale</a>
-        </div>
+    <div class="box">
+        <h1>Operazione Riuscita!</h1>
+        <p>I dati sono stati elaborati correttamente sullo smartphone.</p>
+        <p style="color: #7f8c8d; font-size: 14px;">Reindirizzamento automatico in corso...</p>
+        <button onclick="window.location.replace('index.html')">Torna alla Home</button>
     </div>
 
+    <script>
+        // Ritorna alla Home dell'app automaticamente dopo 4 secondi usando replace per non sporcare la cronologia
+        setTimeout(() => {
+            window.location.replace("index.html");
+        }, 4000);
+    </script>
 </body>
 </html>
-
