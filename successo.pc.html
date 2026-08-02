@@ -2,40 +2,27 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operazione Completata</title>
-    <link rel="stylesheet" href="./style-index.css"> 
+    <title>Operazione Completata!</title>
     <style>
-        .pulsante-admob {
-            display: inline-block;
-            background-color: #28a745;
-            color: white !important;
-            padding: 12px 30px;
-            font-size: 18px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            margin-top: 20px;
-            cursor: pointer;
-            border: none;
-        }
+        body { font-family: sans-serif; text-align: center; margin-top: 15%; background-color: #f4f7f6; color: #333; }
+        .box { display: inline-block; padding: 30px; background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #2ecc71; }
+        button { padding: 10px 20px; font-size: 16px; background-color: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 20px; }
     </style>
 </head>
 <body>
-
-    <div class="container">
-        <h1>Carteggio</h1>
-        <h2 style="color: #28a745; margin-top: 50px;">Operazione Completata!</h2>
-        <p style="color: #83abd8; font-size: 18px; text-align: center; padding: 0 20px;">
-            I tuoi dati sono stati elaborati con successo.
-        </p>
-
-        <div id="pulsanti" style="margin-top: 40px;">
-          <a href="index.html" class="pulsante-admob" id="btnRitornaHome">Pagina iniziale</a>  
-           
-        </div>
+    <div class="box">
+        <h1>Scrittura/Lettura Completata!</h1>
+        <p>L'operazione è stata salvata con successo sul tuo PC.</p>
+        <p style="color: #7f8c8d; font-size: 14px;">Verrai reindirizzato alla Home tra un istante...</p>
+        <button onclick="window.location.href='index.html'">Torna alla Home Ora</button>
     </div>
 
+    <script>
+        // Ritorna alla Home automaticamente dopo 4 secondi
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 4000);
+    </script>
 </body>
 </html>
-
