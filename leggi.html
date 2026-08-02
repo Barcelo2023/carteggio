@@ -6,7 +6,7 @@
     <title>Leggi msg</title>
      <link rel="icon" href="img/favicon.png"  type="image/png">
        <link rel="stylesheet" href="style-leggi.css"> <!-- Il file CSS --> 
-        <script src="pubblicita.js"></script>
+      <script  src="carico.pubbl.js"></script>
 
   </head>
   <body>
@@ -203,13 +203,56 @@
         const riferimentoRicevutoDaCancellare = doc(db, "casella_postale", chiaveAttiva, "ricevuti", chiaveDocumento);
         await deleteDoc(riferimentoRicevutoDaCancellare);
         
-   //      window.location.href = "pubbl.html";
-            mostraAnnuncioEVaiAvanti();
+           gestisciPuntoMorto()
+
        } catch (error) {
         console.error("Errore durante il processo:", error);
          document.getElementById("message").value = "errore durante il processo";
     }
+  }
+
+         async function gestisciPuntoMorto() {
+    // 1. Controlla il testo del browser (UserAgent)
+    const haUserAgentMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // 2. Controlla se lo schermo supporta il Touch (tipico di smartphone/tablet)
+    const haTouchScreen = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    
+    // 3. Controlla la larghezza dello schermo
+    const schermoPiccolo = window.innerWidth < 1024;
+
+    // --- BLOCCO TELEFONO / TABLET ---
+    if ((haUserAgentMobile && haTouchScreen) || (schermoPiccolo && haTouchScreen)) {
+        console.log("Rilevato: TELEFONO/TABLET");
+        
+        // Verifica se l'app (AdMob) ha già scaricato l'annuncio in segreto in background
+        if (typeof admob !== 'undefined' && interstitialAdmob) {
+            try {
+                const pronto = await interstitialAdmob.isLoaded();
+                if (pronto) {
+                    console.log("AdMob: Annuncio pronto! Lo mostro all'istante senza attese.");
+                    await interstitialAdmob.show(); // Mostra l'annuncio mobile subito
+                    return; // Ferma la funzione: il cambio pagina avverrà quando l'utente preme la "X"
+                }
+            } catch (err) {
+                console.error("AdMob: Errore durante il controllo del caricamento", err);
+            }
+        }
+        
+        // Se la connessione è lenta e l'annuncio non si è caricato in tempo, 
+        // non facciamo aspettare l'utente e lo mandiamo dritto al successo mobile
+        console.log("AdMob: Annuncio non pronto, salto direttamente a successo_mob.html");
+        window.location.href = "successo_mob.html";
+
+    // --- BLOCCO PC / DESKTOP ---
+    } else {
+        console.log("Rilevato: PC DESKTOP -> Vado a pubbl_pc.html");
+        window.location.href = "pubbl_pc.html";
+    }
 }
+
+     
+
 
          document.getElementById('logoutBtn').addEventListener('click', function() {    
               // 3. Reindirizza alla pagina di login
