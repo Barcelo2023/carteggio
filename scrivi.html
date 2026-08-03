@@ -14,13 +14,12 @@
      <div class="container">
       <h1>Carteggio</h1>
      <h2>Pagina scrivi messaggi</h2>     
-      <p>Scrivi email destinatario</p>
+      <p>email destinatario</p>
       
      <input type="text"   id="email"  required  autocomplete="off">
-    
-      <p>Scrivi messaggio</p>
+      <p>messaggio</p>
      
-      <textarea  disabled = "disabled"name="message" id="message" rows="4"   required></textarea>
+      <textarea  disabled = "disabled" name="message" id="message" rows="4"   required></textarea>
       <p  id="errorm"   ></p>
        <button id="verifica" type="button">Ricerca casella</button> 
       <button id="cripta" type="button"  disabled = "disabled">Cripta messaggio</button> 
@@ -217,7 +216,11 @@
 
                   // 3. Controlla se il documento esiste prima di leggerlo
                  if (docSnap.exists()) {  
-                    document.getElementById('message').disabled = false;
+                  // attivo la textarea  e porto all interno il cursore
+
+                  const campo = document.getElementById('message');
+                   campo.disabled = false;   
+                   campo.focus();           
                     document.getElementById('verifica').disabled = true;
                     document.getElementById('cripta').disabled = false;
                     document.getElementById("errorm").innerText = "";     
