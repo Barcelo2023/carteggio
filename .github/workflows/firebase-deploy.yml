@@ -2,13 +2,14 @@ name: Deploy to Firebase Hosting
 on:
   push:
     branches:
-      - main  # Lascia main (o cambia in master se il tuo ramo principale si chiama così)
+      - main  # Se usi il ramo 'master', scrivi 'master' al posto di 'main'
 
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
       
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
