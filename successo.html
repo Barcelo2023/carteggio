@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Operazione Completata</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            margin-top: 15%;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .success-box {
+            padding: 30px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="success-box">
+        <h1 style="color: #4CAF50;">Operazione completata con successo!</h1>
+        <p style="font-size: 18px;">Verrai reindirizzato all'inizio tra pochi istanti...</p>
+    </div>
+
+    <script>
+        // Reindirizza automaticamente alla pagina principale del sito dopo 4 secondi
+        // (Modifica il numero 4000 in millisecondi se vuoi farlo durare di più o di meno)
+        setTimeout(() => {
+            window.location.href = "index.html"; 
+        }, 4000);
+    </script>
+
+</body>
+</html>
