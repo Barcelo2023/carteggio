@@ -2,10 +2,10 @@ name: Deploy to Firebase Hosting
 on:
   push:
     branches:
-      - main  # <-- Cambia in 'master' se il tuo ramo principale si chiama master
+      - main  # Lascia main (o cambia in master se il tuo ramo principale si chiama così)
 
 jobs:
-  deploy:
+  build_and_deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -14,6 +14,6 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_YOUR_PROJECT_ID }} # <-- Lascia la tua chiave segreta attuale
-          projectId: IL_TUO_ID_PROGETTO_FIREBASE # <-- Sostituisci con il tuo ID esatto di Firebase
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_COMUNICARE_8B181 }}
+          projectId: comunicare-8b181
           channelId: live
