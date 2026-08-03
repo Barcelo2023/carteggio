@@ -44,15 +44,46 @@
             document.getElementById('data').value = (data); 
 
 
-            document.getElementById('btnv').addEventListener('click', function(event) { 
-
-            event.preventDefault(); 
+           
             let  email;                    
             let lengemail;
             let conta;
             let lettera;
             let chioc;
-     
+
+                       // Esegui il controllo all'avvio della pagina
+           window.addEventListener('DOMContentLoaded', () => {
+            bloccaAccessoDaPC();
+            });
+
+
+
+                   function bloccaAccessoDaPC() {
+    // 1. Controlla la larghezza dello schermo (smartphone sotto i 768px)
+    const isLarghezzaMobile = window.innerWidth <= 768;
+
+    // 2. Controlla se il dispositivo supporta il touch screen
+    const supportaTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+    // 3. Controlla lo User-Agent del browser per cercare parole chiave mobile
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isMobileAgent = /iphone|ipad|ipod|android|blackberry|iemobile|opera mini/i.test(userAgent);
+
+    // Se non è una larghezza mobile, non ha il touch o non ha un agente mobile, allora è un PC
+    if (!isLarghezzaMobile || !supportaTouch || !isMobileAgent) {
+        
+    
+            // Se l'elemento HTML non è ancora pronto, usa l'alert con la tua frase
+
+            document.getElementById('email').disabled = true; 
+            document.getElementById('btnv').disabled = true; 
+            document .getElementById("error").innerText = "La casella può essere creata solo dal telefono"; 
+            return
+        }
+        
+                   }  
+        document.getElementById('btnv').addEventListener('click', function() { 
+
         
              email = document.getElementById('email').value; 
 
