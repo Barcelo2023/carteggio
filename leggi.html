@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leggi msg</title>
-     <link rel="icon" href="img/favicon.png"  type="image/png">
+     
        <link rel="stylesheet" href="style-leggi.css"> <!-- Il file CSS --> 
-      <script  src="carico.pubbl.js"></script>
+  
+            <script  src="carico.pubbl.js"></script>
        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324"
      crossorigin="anonymous"></script>
+ 
 
   </head>
   <body>
@@ -38,6 +40,7 @@
            <script type="module"> 
           let chiaveAttiva = null; 
        let chiaveDocumento = null;
+       let numeroRandom  ;
 
            // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
                    import { db } from "./firebaseConfig.js";
@@ -56,7 +59,7 @@
         let converti;
         let pari;     
         let stringaConverti;
-        let numeroRandom;
+       
         let dati;
         
 
@@ -92,9 +95,6 @@
                 
             }
         
-
-
-
              
              const estrae = document.getElementById('estrae');
              estrae.addEventListener('click', function() { 
@@ -110,8 +110,16 @@
              
     
              leggiUtenti().then(data => {
-              if (chiaveDocumento === 'nonce') return    
-            numeroRandom  = data.numero; 
+              if (chiaveDocumento === 'nonce') return  
+              
+              
+            let  datoDaFirestore= data.sigla; 
+
+            // Taglia i primi 4 caratteri ("indx") e prende tutto il resto
+            let parteVariabile = datoDaFirestore.slice(4); 
+
+             numeroRandom = parseInt(parteVariabile, 36);
+
             numeroRandom =numeroRandom -3;
             msg = data.messaggio;
             document.getElementById('message').value = data.messaggio;
@@ -126,7 +134,7 @@
                                                                        
              let  stringaConverti = "";
              let  numero = numeroRandom;
-                
+ 
              let lunghezza = msg.length; 
              
 
