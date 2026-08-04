@@ -2,34 +2,107 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Operazione Completata</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
         body {
-            font-family: sans-serif;
-            text-align: center;
-            margin-top: 15%;
-            background-color: #f9f9f9;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f7f6;
             color: #333;
         }
-        .success-box {
-            padding: 30px;
+        .success-card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        .icon-container {
+            width: 80px;
+            height: 80px;
+            background-color: #e8f5e9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+        .icon-container svg {
+            width: 40px;
+            height: 40px;
+            fill: #4CAF50;
+        }
+        h1 {
+            font-size: 24px;
+            margin: 0 0 12px;
+            color: #1a1a1a;
+        }
+        p {
+            font-size: 16px;
+            color: #666;
+            margin: 0 0 24px;
+            line-height: 1.5;
+        }
+        .countdown {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .btn-home {
             display: inline-block;
+            padding: 12px 24px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        .btn-home:hover {
+            background-color: #43a047;
         }
     </style>
 </head>
 <body>
 
-    <div class="success-box">
-        <h1 style="color: #4CAF50;">Operazione completata con successo!</h1>
-        <p style="font-size: 18px;">Verrai reindirizzato all'inizio tra pochi istanti...</p>
+    <div class="success-card">
+        <div class="icon-container">
+            <!-- Icona Spunta Verde SVG -->
+            <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </svg>
+        </div>
+        
+        <h1>Operazione completata!</h1>
+        <p>Verrai reindirizzato alla pagina iniziale tra <span id="timer" class="countdown">4</span> secondi.</p>
+        
+        <!-- Pulsante di fallback se il reindirizzamento fallisce o l'utente ha fretta -->
+        <a href="index.html" class="btn-home">Torna alla Home</a>
     </div>
 
     <script>
-        // Reindirizza automaticamente alla pagina principale del sito dopo 4 secondi
-        // (Modifica il numero 4000 in millisecondi se vuoi farlo durare di più o di meno)
-        setTimeout(() => {
-            window.location.href = "index.html"; 
-        }, 4000);
+        let seconds = 4;
+        const timerElement = document.getElementById('timer');
+
+        // Aggiorna il testo del conto alla rovescia ogni secondo
+        const countdownInterval = setInterval(() => {
+            seconds--;
+            timerElement.textContent = seconds;
+            
+            if (seconds <= 0) {
+                clearInterval(countdownInterval);
+                window.location.href = "index.html";
+            }
+        }, 1000);
     </script>
 
 </body>
