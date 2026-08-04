@@ -6,7 +6,7 @@ html, body {
   padding: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden; /* Blocca lo scroll per un effetto App nativa */
+  overflow-y: auto; /* CORRETTO: Abilita lo scorrimento verticale dell'intera pagina */
   font-family: sans-serif;
 }
 
@@ -15,7 +15,7 @@ html, body {
   flex-direction: column !important;
   justify-content: flex-start;       /* Allinea dall'alto in modo ordinato */
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;                 /* CORRETTO: Altezza minima dello schermo, si allunga se serve */
   width: 100vw;
   padding: 15px;
   box-sizing: border-box;
@@ -31,8 +31,7 @@ html, body {
 }
 
 .container h2 {
-    
-  color:#83abd8;  
+  color: #83abd8;  
 }
 
 /* Il blocco centrale che racchiude i 5 pulsanti e la DATA */
@@ -42,28 +41,26 @@ html, body {
   width: 100%;
   align-items: center;
   gap: 10px; 
-  margin-top: 60px;                        /* Spazio uniforme tra gli elementi interni */
-  margin-bottom: auto;               /* Spinge il blocco APK e le note verso il fondo dello schermo */
+  margin-top: 60px;                  /* Spazio uniforme tra gli elementi interni */
+  margin-bottom: 40px;               /* Spazio sul fondo per non incollare gli elementi */
 }
 
 /* Uniforma la larghezza di tutti gli input e i bottoni */
 .container input, 
 .container button {
-  width: 90%;                    /* Larghezza ideale per i pollici su mobile */
-  max-width: 360px;              /* Impedisce che diventino troppo larghi su tablet/PC */
-  padding: 14px;                  /* Dimensione comoda da cliccare su touchscreen */
-  font-size: 22px;                   /* Evita lo zoom automatico fastidioso su iOS */
+  width: 90%;                        /* Larghezza ideale per i pollici su mobile */
+  max-width: 360px;                  /* Impedisce che diventino troppo larghi su tablet/PC */
+  padding: 10px 14px;                /* CORRETTO: Meno alti (10px sopra/sotto invece di 14px) */
+  font-size: 19px;                   /* CORRETTO: Carattere ottimizzato per ridurre l'altezza complessiva */
   border-radius: 8px;
- 
   box-sizing: border-box;
-   background-color:#35393d; ; 
-   color: #83abd8;
+  background-color: #35393d; 
+  color: #83abd8;
 }
 
-
-#data   { 
+#data { 
    margin-top: 40px;
-   }
+}
 
 /* Il tuo stile quando il listener aggiunge la classe .bottone-notifica-attiva */
 .bottone-notifica-attiva {
