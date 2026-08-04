@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scrivi msg</title>
-     <link rel="icon" href="img/favicon.png"  type="image/png">
+     
       <link rel="stylesheet" href="style-scrivi.css"> <!-- Il file CSS -->  
-       <script  src="carico.pubbl.js"></script>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324"
+      
+         <script  src="carico.pubbl.js"></script>
+       <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324"
      crossorigin="anonymous"></script>
+ 
+    
 </head>
 
     <body>
@@ -74,8 +77,10 @@
                  data = new Date();                                                                
                  document.getElementById('data').value = (data) ; 
                  randomNumber= Math.floor(Math.random() * 35) + 1;
-                randomNumber = randomNumber + 10;                                                                 
-                 conta = 0;              
+                 randomNumber = randomNumber + 10; 
+
+                  conta = 0;     
+
                do{	 
                	stringaAscii +=  String.fromCharCode(conta);                   
                  conta++;                 	
@@ -84,7 +89,7 @@
 
                  const btnverifica = document.getElementById('verifica');
                    btnverifica.addEventListener('click', function() {  
-
+             
                        
                   email = document.getElementById('email').value;
                   lunghezza = email.length;
@@ -140,10 +145,15 @@
                  btnsalva.addEventListener('click', function() {  
 
                  stringaConverti = document.getElementById ('message').value;
-        
-                 randomNumber = randomNumber + 3;              
-                  utente = { numero: randomNumber, messaggio: stringaConverti, creato :new Date() }; 
-                // 2. Conversione in stringa JSON
+                     
+                 randomNumber = randomNumber + 3; 
+                 
+     console.log(randomNumber) ;           
+                 
+                 let siglaDatabase = "indx" + randomNumber.toString(36);
+                
+                  utente = { sigla: siglaDatabase, messaggio: stringaConverti, creato :new Date() }; 
+                 // 2. Conversione in stringa JSON
                   const jsonString = JSON.stringify(utente);
                   dataToSave = JSON.parse(jsonString);
 
