@@ -6,7 +6,10 @@
     <title>Carteggio</title>
 
     <link rel="icon" href="img/logo.png"  type="image/png">
-    <link rel="stylesheet" href="style-casella.css"> <!-- Il file CSS -->   
+    <link rel="stylesheet" href="style-casella.css"> <!-- Il file CSS -->  
+     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324"
+     crossorigin="anonymous"></script>
+   
   
   </head>
   <body>
@@ -131,7 +134,7 @@
             mioIdCasella = localStorage.getItem("id_casella_postale");
     
             if (mioIdCasella) {
-            document .getElementById("error").innerText = "la casella è già stata creata"; 
+            document .getElementById("error").innerText = "la casella è già presente"; 
             return
             
              }
@@ -148,7 +151,7 @@
 
        // 3. Verifica l'esistenza usando .exists()
        if (docSnap.exists()) {
-       document .getElementById("error").innerText = "la casella è già stata creata"; 
+       document .getElementById("error").innerText = "la casella è già presente"; 
        return false;
         }
 
@@ -158,8 +161,9 @@
            
            });
            localStorage.setItem("id_casella_postale", mioIdCasella)
-           document .getElementById("error").innerText = "La casella è stata creata";    
-           return true;
+
+     //      "La casella è stata creata"   
+           window.location.href = "punto_morto.html";
 }
 
 
