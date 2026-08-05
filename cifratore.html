@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Pannello di Cifratura</title>
+    <!-- Tuoi stili CSS -->
+      <link rel="stylesheet" href="style-scrivi.css"> <!-- Il file CSS -->  
+</head>
+<body>
+
+    <!-- Tuo HTML della pagina (Input, Pulsanti, ecc.) -->
+      <div class="container">
+      <h1>Carteggio</h1>
+     <h2>Dimostrazione cifratura</h2>     
+        <p>immetti un testo</p> 
+    
+      <textarea   name="message" id="message" autofocus     disabled="disabled"  rows="2"  ></textarea>
+     
+       <p  id="errorm"   ></p>
+       <button id="pulisci" type="button"  >Pulisci testo</button> 
+      <button id="cripta" type="button"   >Cripta testo</button> 
+      <button id="decripta" type="button"  >Decripta testo</button> 
+        <button id="logoutBtn" type="button">Pagina iniziale</button>
+       </div>
+
+    <!-- UNICO TAG SCRIPT IN FONDO ALLA PAGINA -->
+
+    <script>
+            let stringaAscii = "";
+           let stringaConverti ;      
+            let conta ;
+            let testoMessage ="";
+            let lunghezza = 0;
+            let converti =0;
+            let ascii = "";          
+            let pari=0;
+            let lettera = "";                                
+           
+            let messaggio;
+            let lengemail;
+            let braMessaggi ="" ;
+            let randomNumber;
+            let numero;
+            let pariodispari;
+            let togli;
+
+            
+              
+                 
+             
+                conta = 0;     
+                do{	 
+               	stringaAscii +=  String.fromCharCode(conta);                   
+                 conta++;                 	
+              	}while ( conta < 255); 
+  
+                  const btnpulisci= document.getElementById('pulisci');
+                   btnpulisci.addEventListener('click', function() {  
+
+                  
+                   document.getElementById('message') .disabled=false  ;
+                   document.getElementById('message'). focus();
+                  
+                    document.getElementById('message').value  = ""; 
+
+                   
+         }) 
+
+                  const btncripta = document.getElementById('cripta');
+                   btncripta.addEventListener('click', function() {  
+           
+                  randomNumber= Math.floor(Math.random() * 35) + 1;
+                 randomNumber = randomNumber + 10; 
+
+                  togli = 1;
+                  pari = randomNumber;
+
+                  if (pari %2 == 0) {  
+                  togli = 2;
+                            
+                 }
+
+               
+                   testoMessage = document.getElementById('message').value;
+                   document.getElementById('message').value=""; 
+
+                 stringaConverti =""; 
+                 numero = randomNumber;
+                 lunghezza = testoMessage.length; 
+                 if(lunghezza  < 2){
+                 document .getElementById("errorm").innerText = "messaggio mancante"; 
+                 return
+                 }
+                 document.getElementById("errorm").innerText = ""; 
+
+               for (conta=0; conta <lunghezza; conta ++)
+	               {		
+                 lettera = testoMessage[conta] ;  	     		 
+                 converti = lettera.charCodeAt(0);                
+	  	           pari = conta;	  	  	  	  
+                if (pari %2 == 0  ) {  
+                converti=converti -numero;               
+                 }
+                 else{     
+                 converti = converti +numero;                 
+                }
+                         
+                  if(numero <= 2){
+                  numero=randomNumber               
+                  numero = numero  -togli; 
+                  }
+                   numero = numero  -togli;   
+		            stringaConverti+= String.fromCharCode(converti) ;          
+              }        
+                  document.getElementById('message').value  = ""; 
+                 document.getElementById('message').value  = stringaConverti; 
+
+                
+       }) 
+
+              const decripta = document.getElementById('decripta');
+               decripta.addEventListener('click', function() {  
+
+               testoMessage =  document.getElementById('message').value;       
+   
+           
+                                                                       
+              stringaConverti = "";
+              numero = randomNumber;
+ 
+              lunghezza = testoMessage.length; 
+             
+
+             for ( conta=0; conta <lunghezza; conta ++)
+	             {		
+                lettera = testoMessage[conta] ;  	     		 
+                converti = lettera.charCodeAt(0);                 
+	  	          pari = conta;	  	  	  	  
+               if (pari %2 == 0) {  
+               converti=converti + numero;               
+                }
+               else{     
+                 converti = converti - numero;                 
+               }
+                                  
+                  if(numero <= 2){
+                  numero=randomNumber                            
+                  numero = numero  -togli; 
+                  }
+                   numero = numero  -togli;   
+		         stringaConverti+=String.fromCharCode(converti) ;                                      
+            }               
+                 document.getElementById("message").value = stringaConverti;
+                 document.getElementById('message') .disabled=true  ;
+                 
+                 
+                              
+          })  
+          
+          
+           document.getElementById('logoutBtn').addEventListener('click', function() {    
+              // 3. Reindirizza alla pagina di login
+               window.location.href = "punto_morto.html";
+              })
+                 
+</script>
+
+</body>
+</html>
