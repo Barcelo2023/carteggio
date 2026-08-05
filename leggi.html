@@ -7,9 +7,7 @@
      
        <link rel="stylesheet" href="style-leggi.css"> <!-- Il file CSS --> 
   
-   <script  src="carico.pubbl.js"></script>
-       <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324"
-     crossorigin="anonymous"></script>
+  
 
   </head>
   <body>
@@ -59,7 +57,7 @@
         let pari;     
         let stringaConverti;
         let dati;
-        let pariodispari;
+        let togli;
 
              let data= new Date(); 
              document.getElementById('data').value = (data) ; 
@@ -113,16 +111,12 @@
 
             // Taglia i primi 4 caratteri ("indx") e prende tutto il resto
             let parteVariabile = datoDaFirestore.slice(4); 
-
              numeroRandom = parseInt(parteVariabile, 36);
-
-            numeroRandom =numeroRandom -3;
-
-              pariodispari ='d';
+             numeroRandom =numeroRandom -3;
+              togli = 1;
                  pari = numeroRandom;
-
                   if (pari %2 == 0) {  
-                  pariodispari = 'p' ; 
+              togli =2;
                             
                  }
 
@@ -154,21 +148,11 @@
                else{     
                  converti = converti - numero;                 
                }
-                 numero = numero  -1; 
-                if (pariodispari == 'p' ) {  
-                numero = numero  -1;              
-                 }
-               
-                if(numero < 2){
-                  numero=numeroRandom;
-
-                  numero=numero -1;
-                  if (pariodispari == 'p' ) {  
-                  numero = numero  -1;              
-                 }
-                  pariodispari = (pariodispari === "p") ? "d" : "p";
-
-                }
+                   if(numero <= 2){
+                  numero=numeroRandom ;              
+                  numero = numero  -togli; 
+                  }
+                   numero = numero  -togli;   
 
 		         stringaConverti+=String.fromCharCode(converti) ;                                      
             }               
