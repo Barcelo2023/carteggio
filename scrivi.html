@@ -68,20 +68,25 @@
             let braMessaggi ="" ;
             let randomNumber;
             let numero;
-            let templateParams;
+            let pariodispari;
 
-              
-      
-
+                   
                        
                  data = new Date();                                                                
                  document.getElementById('data').value = (data) ; 
                  randomNumber= Math.floor(Math.random() * 35) + 1;
                  randomNumber = randomNumber + 10; 
+                 
+                 pariodispari ='d';
+                 pari = randomNumber;
 
-                  conta = 0;     
+                  if (pari %2 == 0) {  
+                  pariodispari = 'p' ; 
+                            
+                 }
 
-               do{	 
+                 conta = 0;     
+                do{	 
                	stringaAscii +=  String.fromCharCode(conta);                   
                  conta++;                 	
               	}while ( conta < 255); 
@@ -122,15 +127,25 @@
                  lettera = testoMessage[conta] ;  	     		 
                  converti = lettera.charCodeAt(0);                
 	  	           pari = conta;	  	  	  	  
-                if (pari %2 == 0) {  
+                if (pari %2 == 0  ) {  
                 converti=converti -numero;               
                  }
                  else{     
                  converti = converti +numero;                 
                 }
                 numero = numero  -1; 
-                if(numero == 0){
+                if (pariodispari == 'p' ) {  
+                numero = numero  -1;              
+                 }
+               
+                if(numero < 2){
                   numero=randomNumber
+                  numero=numero -1;
+                  if (pariodispari == 'p' ) {  
+                numero = numero  -1;              
+                 }
+                  pariodispari = (pariodispari === "p") ? "d" : "p";
+
                 }
                 
 		            stringaConverti+= String.fromCharCode(converti) ;          
