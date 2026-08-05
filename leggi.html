@@ -7,10 +7,9 @@
      
        <link rel="stylesheet" href="style-leggi.css"> <!-- Il file CSS --> 
   
-            <script  src="carico.pubbl.js"></script>
+   <script  src="carico.pubbl.js"></script>
        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324"
      crossorigin="anonymous"></script>
- 
 
   </head>
   <body>
@@ -59,16 +58,13 @@
         let converti;
         let pari;     
         let stringaConverti;
-       
         let dati;
-        
+        let pariodispari;
 
              let data= new Date(); 
              document.getElementById('data').value = (data) ; 
 
-
-          
-            
+                     
 
              let ultimaVolta = 0;
               const segreto = document.getElementById('segreto');
@@ -121,6 +117,15 @@
              numeroRandom = parseInt(parteVariabile, 36);
 
             numeroRandom =numeroRandom -3;
+
+              pariodispari ='d';
+                 pari = numeroRandom;
+
+                  if (pari %2 == 0) {  
+                  pariodispari = 'p' ; 
+                            
+                 }
+
             msg = data.messaggio;
             document.getElementById('message').value = data.messaggio;
              document.getElementById('decripta').disabled = false; 
@@ -150,9 +155,21 @@
                  converti = converti - numero;                 
                }
                  numero = numero  -1; 
-                 if (numero == 0){
-                  numero = numeroRandom ; 
+                if (pariodispari == 'p' ) {  
+                numero = numero  -1;              
                  }
+               
+                if(numero < 2){
+                  numero=numeroRandom;
+
+                  numero=numero -1;
+                  if (pariodispari == 'p' ) {  
+                  numero = numero  -1;              
+                 }
+                  pariodispari = (pariodispari === "p") ? "d" : "p";
+
+                }
+
 		         stringaConverti+=String.fromCharCode(converti) ;                                      
             }               
                  document.getElementById("message").value = stringaConverti;
