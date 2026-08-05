@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Operazione Completata</title>
+    
+    <!-- Script Automatico di Google AdSense -->
+    <script async src="https://googlesyndication.com"
+     crossorigin="anonymous"></script>
+
     <style>
         * {
             box-sizing: border-box;
@@ -15,15 +20,14 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-             background-color: #242433;  
-           
-            color: #333;
+            background-color: #242433;  
+            color: #83abd8;
         }
         .success-card {
             background-color: #35393d; 
             padding: 40px;
             border-radius: 16px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
             text-align: center;
             max-width: 400px;
             width: 90%;
@@ -31,45 +35,47 @@
         .icon-container {
             width: 80px;
             height: 80px;
-            background-color: #e8f5e9;
+            background-color: #242433; /* Sfondo scuro coordinato */
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 24px;
+            border: 2px solid #83abd8; /* Bordo azzurro di definizione */
         }
         .icon-container svg {
             width: 40px;
             height: 40px;
-            fill: #4CAF50;
+            fill: #83abd8; /* Spunta azzurro ufficiale del brand */
         }
         h1 {
             font-size: 24px;
             margin: 0 0 12px;
-            color: #1a1a1a;
+            color: #ffffff; 
         }
         p {
             font-size: 16px;
-            color: #666;
+            color: #b0c4de; 
             margin: 0 0 24px;
             line-height: 1.5;
         }
         .countdown {
             font-weight: bold;
-            color: #4CAF50;
+            color: #83abd8;  
         }
         .btn-home {
             display: inline-block;
             padding: 12px 24px;
-            background-color: #4CAF50;
-            color: white;
+            background-color: #35393d; /* Cambiato a grigio scuro come la home */
+            color: #83abd8; /* Testo azzurro ufficiale */
             text-decoration: none;
             border-radius: 8px;
-            font-weight: 500;
-            transition: background 0.2s;
+            font-weight: bold;
+            border: 1px solid #83abd8; /* Contorno azzurro */
+            transition: background 0.2s, color 0.2s;
         }
-        .btn-home:hover {
-            background-color: #43a047;
+        .btn-home:active {
+            background-color: #454a50;
         }
     </style>
 </head>
@@ -77,7 +83,6 @@
 
     <div class="success-card">
         <div class="icon-container">
-            <!-- Icona Spunta Verde SVG -->
             <svg viewBox="0 0 24 24">
                 <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
             </svg>
@@ -86,7 +91,6 @@
         <h1>Operazione completata!</h1>
         <p>Verrai reindirizzato alla pagina iniziale tra <span id="timer" class="countdown">4</span> secondi.</p>
         
-        <!-- Pulsante di fallback se il reindirizzamento fallisce o l'utente ha fretta -->
         <a href="index.html" class="btn-home">Torna alla Home</a>
     </div>
 
@@ -94,7 +98,6 @@
         let seconds = 4;
         const timerElement = document.getElementById('timer');
 
-        // Aggiorna il testo del conto alla rovescia ogni secondo
         const countdownInterval = setInterval(() => {
             seconds--;
             timerElement.textContent = seconds;
@@ -108,3 +111,4 @@
 
 </body>
 </html>
+
