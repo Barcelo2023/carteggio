@@ -7,10 +7,7 @@
      
       <link rel="stylesheet" href="style-scrivi.css"> <!-- Il file CSS -->  
       
-         <script  src="carico.pubbl.js"></script>
-       <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324"
-     crossorigin="anonymous"></script>
- 
+   
     
 </head>
 
@@ -69,19 +66,19 @@
             let randomNumber;
             let numero;
             let pariodispari;
-
+            let togli;
                    
                        
                  data = new Date();                                                                
                  document.getElementById('data').value = (data) ; 
                  randomNumber= Math.floor(Math.random() * 35) + 1;
-                 randomNumber = randomNumber + 10; 
+                 randomNumber = randomNumber + 15; 
                  
-                 pariodispari ='d';
-                 pari = randomNumber;
+                  togli = 1;
+                  pari = randomNumber;
 
                   if (pari %2 == 0) {  
-                  pariodispari = 'p' ; 
+                  togli = 2;
                             
                  }
 
@@ -133,20 +130,11 @@
                  else{     
                  converti = converti +numero;                 
                 }
-                numero = numero  -1; 
-                if (pariodispari == 'p' ) {  
-                numero = numero  -1;              
-                 }
-               
-                if(numero < 2){
-                  numero=randomNumber
-                  numero=numero -1;
-                  if (pariodispari == 'p' ) {  
-                numero = numero  -1;              
-                 }
-                  pariodispari = (pariodispari === "p") ? "d" : "p";
-
-                }
+                     if(numero <= 2){
+                  numero=randomNumber               
+                  numero = numero  -togli; 
+                  }
+                   numero = numero  -togli;   
                 
 		            stringaConverti+= String.fromCharCode(converti) ;          
               }        
@@ -162,9 +150,7 @@
                  stringaConverti = document.getElementById ('message').value;
                      
                  randomNumber = randomNumber + 3; 
-                 
-     console.log(randomNumber) ;           
-                 
+                                       
                  let siglaDatabase = "indx" + randomNumber.toString(36);
                 
                   utente = { sigla: siglaDatabase, messaggio: stringaConverti, creato :new Date() }; 
