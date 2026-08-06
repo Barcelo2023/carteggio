@@ -7,6 +7,8 @@
 
     <link rel="icon" href="img/logo.png"  type="image/png">
     <link rel="stylesheet" href="style-casella.css"> <!-- Il file CSS -->  
+
+      <script  src="carico.pubbl.js"></script>
      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324"
      crossorigin="anonymous"></script>
    
@@ -59,21 +61,19 @@
             bloccaAccessoDaPC();
             });
 
+                              function bloccaAccessoDaPC() {
+         // 1. Controlla la larghezza dello schermo (smartphone sotto i 768px)
+         const isLarghezzaMobile = window.innerWidth <= 768;
 
+        // 2. Controlla se il dispositivo supporta il touch screen
+         const supportaTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-                   function bloccaAccessoDaPC() {
-    // 1. Controlla la larghezza dello schermo (smartphone sotto i 768px)
-    const isLarghezzaMobile = window.innerWidth <= 768;
+         // 3. Controlla lo User-Agent del browser per cercare parole chiave mobile
+         const userAgent = navigator.userAgent.toLowerCase();
+        const isMobileAgent = /iphone|ipad|ipod|android|blackberry|iemobile|opera mini/i.test(userAgent);
 
-    // 2. Controlla se il dispositivo supporta il touch screen
-    const supportaTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-
-    // 3. Controlla lo User-Agent del browser per cercare parole chiave mobile
-    const userAgent = navigator.userAgent.toLowerCase();
-    const isMobileAgent = /iphone|ipad|ipod|android|blackberry|iemobile|opera mini/i.test(userAgent);
-
-    // Se non è una larghezza mobile, non ha il touch o non ha un agente mobile, allora è un PC
-    if (!isLarghezzaMobile || !supportaTouch || !isMobileAgent) {
+         // Se non è una larghezza mobile, non ha il touch o non ha un agente mobile, allora è un PC
+         if (!isLarghezzaMobile || !supportaTouch || !isMobileAgent) {
         
     
             // Se l'elemento HTML non è ancora pronto, usa l'alert con la tua frase
@@ -84,11 +84,13 @@
             return
         }
         
-                   }  
-        document.getElementById('btnv').addEventListener('click', function() { 
+      }       
+
+    
+               document.getElementById('btnv').addEventListener('click', function() { 
 
         
-             email = document.getElementById('email').value; 
+               email = document.getElementById('email').value; 
 
                   chioc = " ";
            
@@ -118,10 +120,12 @@
                                  
                    const emailPulita1 = String(email).trim().toLowerCase(); 
                    const emailPulita2 =  emailPulita1.replaceAll(".", "a");
-                   const emailPulita3  = emailPulita2.replaceAll("@", "e"); 
-                   const emailPulita4  = emailPulita3.replaceAll("i", "a"); 
-                   const emailPulita5  = emailPulita4.replaceAll("l", "e"); 
-                   chiaveCasella = emailPulita5.split('').reverse().join('');
+                   const emailPulita3  = emailPulita2.replaceAll("@", "a"); 
+                   const emailPulita4  = emailPulita3.replaceAll("i", "s"); 
+                   const emailPulita5  = emailPulita4.replaceAll("o", "v"); 
+                   const emailPulita6  = emailPulita5.replaceAll("e", "z"); 
+                   const emailPulita7  = emailPulita6.replaceAll("u", "r"); 
+                   chiaveCasella = emailPulita7.split('').reverse().join('');
  
                     insertCasella()
                       
