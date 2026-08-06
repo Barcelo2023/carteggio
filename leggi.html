@@ -7,10 +7,9 @@
      
        <link rel="stylesheet" href="style-leggi.css"> <!-- Il file CSS --> 
   
-     <script  src="carico.pubbl.js"></script>
+    <script  src="carico.pubbl.js"></script>
        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324"
      crossorigin="anonymous"></script>
-
   </head>
   <body>
         
@@ -157,7 +156,17 @@
                    numero = numero  -togli;   
 
 		         stringaConverti+=String.fromCharCode(converti) ;                                      
-            }               
+            }  
+                     let capovolto = stringaConverti;
+               // 3. RITORNO (Riapplichi lo stesso codice sul risultato)
+
+                    let lettereRipristinate  = [...capovolto.replace(/\s/g, '')].reverse();
+                    let testoRipristinato = [...capovolto].map(carattere => {
+                   return carattere === ' ' ? ' ' : lettereRipristinate.shift();
+                    }).join('');            
+                 
+                  stringaConverti = testoRipristinato;
+            
                  document.getElementById("message").value = stringaConverti;
                  document.getElementById('cancella').disabled = false; 
                  document.getElementById('decripta').disabled = true;                
