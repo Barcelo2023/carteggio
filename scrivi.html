@@ -110,6 +110,19 @@
                    btncripta.addEventListener('click', function() {  
                            
                    testoMessage = document.getElementById('message').value;
+
+                             // 1. TESTO DI PARTENZA
+                    let originale = testoMessage;             
+
+                      // 1. ANDATA (A prova di emoji)
+                  // Usando [...testo] l'emoji rimane intera!
+                  let lettereCapovolte = [...originale.replace(/\s/g, '')].reverse();
+
+                    let testoCapovolto = [...originale].map(carattere => {
+                   return carattere === ' ' ? ' ' : lettereCapovolte.shift();
+                    }).join('');  
+                   testoMessage = testoCapovolto; 
+                   
                    document.getElementById('message').value=""; 
 
                  stringaConverti =""; 
