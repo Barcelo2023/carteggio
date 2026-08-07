@@ -7,8 +7,8 @@
 
     <link rel="icon" href="img/logo.png"  type="image/png">
     <link rel="stylesheet" href="style-casella.css"> <!-- Il file CSS -->  
-
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324"
+    
+   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324"
             crossorigin="anonymous"
             data-adtest="on"></script>
   
@@ -19,7 +19,7 @@
   <h1>Carteggio</h1>
   <h2>Pagina crea casella postale</h2>
 
-  <p>Scrivi la tua email</p>
+  <p>Scrivi la tua e-mail</p>
  
   <input type="text" id="email"  required autocomplete="off">
 
@@ -46,18 +46,7 @@
  
             let data = new Date(); 
             document.getElementById('data').value = (data); 
-
-
-           
-            let  email;                    
-            let lengemail;
-            let conta;
-            let lettera;
-            let chioc;
-
-                       // Esegui il controllo all'avvio della pagina
-
-                                            // Esegui il controllo all'avvio della pagina
+                   // Esegui il controllo all'avvio della pagina
            window.addEventListener('DOMContentLoaded', () => {
             bloccaAccessoDaPC();
             });
@@ -83,118 +72,104 @@
 
             document.getElementById('email').disabled = true; 
             document.getElementById('btnv').disabled = true; 
-            document .getElementById("error").innerText = "La casella può essere creata solo dal telefono"; 
+            document .getElementById("error").innerText = "La casella può essere creata solo da telefono"; 
             return
         }
-                   }
-    
-              // 1. Aggiunto 'async' prima della funzione del listener
-document.getElementById('btnv').addEventListener('click', async function() { 
-    
-    // Dichiarazione variabili locali
-    let email = document.getElementById('email').value; 
-    let chioc = " ";
-    let lengemail = email.length;
-
-    // Validazione lunghezza
-    if (lengemail < 5) {
-        document.getElementById("error").innerText = "inserisci una email valida"; 
-        return;                              
-    } 
-                    
-    // Controllo caratteri della mail
-    let conta = 0;                
-    do {
-        let lettera = email[conta]; 
-        if (lettera === ',') {
-            document.getElementById("error").innerText = "inserisci una email valida";
-            return;
-        }               
-               
-        if (lettera === '@') chioc = lettera; 
-                                          
-        conta++;
-    } while (conta < lengemail); 
-
-    // Controllo presenza chiocciola
-    if (chioc !== '@') {
-        document.getElementById("error").innerText = "inserisci una email valida"; 
-        return;                              
-    } 
-
-    // Funzione interna per generare l'hash
-    async function generaChiaveNumerica() {
-        const emailPulita = email.trim().toLowerCase();
-        const encoder = new TextEncoder();
-        const data = encoder.encode(emailPulita);
-        const hashBuffer = await window.crypto.subtle.digest('SHA-256', data);
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        return BigInt('0x' + hashHex).toString();     
-    }
-       
-    // Funzione interna per l'inserimento
-    async function insertCasella() {
-        try {
-            // Genera l'ID univoco numerico dall'email
-            const mioIdCasella = await generaChiaveNumerica();
-
-            // CORREZIONE: Controlla se l'utente ha GIÀ registrato una casella in questo browser
-            const localeId = localStorage.getItem("id_casella_postale");
-            if (localeId) {
-                document.getElementById("error").innerText = "la casella è già presente sul dispositivo"; 
-                return;
-            }      
-
-            // 1. Riferimento al documento usando l'hash come ID
-            const docRef = doc(db, "casella_postale", mioIdCasella);
-      
-            // 2. Tenta di recuperare il documento da Firestore
-            const docSnap = await getDoc(docRef);
-
-            // 3. Verifica l'esistenza nel database
-            if (docSnap.exists()) {
-                document.getElementById("error").innerText = "la casella è già presente nel database"; 
-                return;
-            }
-
-            // 4. Se NON esiste, procedi con l'inserimento
-            await setDoc(docRef, { 
-                creatoIl: new Date() 
-            });
-
-            // Salva l'ID generato nel localStorage
-            localStorage.setItem("id_casella_postale", mioIdCasella);
-
-            // Reindirizza l'utente
-            window.location.href = "successo.html";
-
-        } catch (error) {
-            console.error("Errore durante l'inserimento:", error);
-            document.getElementById("error").innerText = "Errore di connessione o salvataggio";
-        }
-    } // Chiude insertCasella
-
-    // ESEGUE la funzione di inserimento dopo che i controlli iniziali sono passati
-    await insertCasella();
-
-}); // Chiude addEventListener
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
+                   }  
 
 
            
+            let  email;                    
+            let lengemail;
+            let conta;
+            let lettera;
+            let chioc;
+
+          
+        document.getElementById('btnv').addEventListener('click', function() { 
+
+        
+             email = document.getElementById('email').value; 
+
+                  chioc = " ";
+           
+                  lengemail = email.length;
+                  if (lengemail < 5){
+                  document .getElementById("error").innerText = "inserisci una email valida"; 
+                 return                              
+                  } 
+                                  
+                  conta = 0;                
+                  do {
+                   lettera = email[conta] ; 
+                   if (lettera === ',') {
+                    document .getElementById("error").innerText = "inserisci una email valida"
+                    return
+                   }               
+                          
+                   if (lettera === '@')  chioc = lettera ; 
+                                                     
+                   conta++;
+                   } while (conta <lengemail); 
+      
+                 if (chioc !== '@'){
+                 document .getElementById("error").innerText = "inserisci una email valida"; 
+                 return                              
+                 } 
+                                 
+                   const emailPulita1 = String(email).trim().toLowerCase(); 
+                   const emailPulita2 =  emailPulita1.replaceAll(".", "a");
+                   const emailPulita3  = emailPulita2.replaceAll("@", "v"); 
+                   const emailPulita4  = emailPulita3.replaceAll("i", "t"); 
+                   const emailPulita5  = emailPulita4.replaceAll("0", "s"); 
+                   const emailPulita6  = emailPulita5.replaceAll("e", "s"); 
+                   chiaveCasella = emailPulita6.split('').reverse().join('');
+ 
+                    insertCasella()
+                      
+        })        
+
+           async function insertCasella() {
+
+   
+            // Controlla la memoria interna del telefono
+            mioIdCasella = localStorage.getItem("id_casella_postale");
+    
+            if (mioIdCasella) {
+            document .getElementById("error").innerText = "la casella è già presente"; 
+            return
+            
+             }
+
+            
+            mioIdCasella = chiaveCasella ; 
+           
+
+       // 1. Riferimento al documento usando il valore come ID
+        const docRef = doc(db, "casella_postale", mioIdCasella);
+  
+        // 2. Tenta di recuperare il documento
+        const docSnap = await getDoc(docRef);
+
+       // 3. Verifica l'esistenza usando .exists()
+       if (docSnap.exists()) {
+       document .getElementById("error").innerText = "la casella è già presente"; 
+       return false;
+        }
+
+         // 4. Se NON esiste, procedi con l'inserimento
+               await setDoc(docRef, { 
+           creatoIl: new Date() 
+           
+           });
+           localStorage.setItem("id_casella_postale", mioIdCasella)
+
+     //      "La casella è stata creata" vado apunto morto per la pubblicità   
+           window.location.href = "index.html";
+}
+
+
                  document.getElementById('logoutBtn').addEventListener('click', function() {    
               // 3. Reindirizza alla pagina di login
                window.location.href = "index.html";
