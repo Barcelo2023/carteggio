@@ -7,9 +7,10 @@
      
       <link rel="stylesheet" href="style-scrivi.css"> <!-- Il file CSS -->  
       
-      <script  src="carico.pubbl.js"></script>
+         <script  src="carico.pubbl.js"></script>
        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324"
      crossorigin="anonymous"></script>
+      
     
 </head>
 
@@ -90,23 +91,68 @@
                  conta++;                 	
               	}while ( conta < 255); 
              
-
                  const btnverifica = document.getElementById('verifica');
-                   btnverifica.addEventListener('click', function() {  
-             
-                       
-                  email = document.getElementById('email').value;
-                  lunghezza = email.length;
-                  if (lunghezza < 10){
-                    document .getElementById("errorm").innerText = "email errata o mancante"; 
-                    return 
-                  }
-                  
-                  leggiCasellaPostale()                                      
-                
-                })           
 
-                  const btncripta = document.getElementById('cripta');
+              btnverifica.addEventListener('click', async function() { 
+
+              email = document.getElementById('email').value; // Aggiunto const
+              lunghezza = email.length;                       // Aggiunto const
+  
+           if (lunghezza < 5) {
+            document.getElementById("errorm").innerText = "email errata o mancante"; 
+           return;
+          }
+                                  
+             // 2. Funzione per rigenerare lo stesso ID numerico dall'email
+           async function generaChiaveNumerica() {
+          const emailPulita = email.trim().toLowerCase();
+           const encoder = new TextEncoder();
+           const data = encoder.encode(emailPulita);
+            const hashBuffer = await window.crypto.subtle.digest('SHA-256', data);
+           const hashArray = Array.from(new Uint8Array(hashBuffer));
+         const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+         return BigInt('0x' + hashHex).toString();     
+        }            
+
+              async function leggiCasellaPostale() { 
+       try {
+      // Genera l'ID univoco numerico dall'email
+       chiaveUtenti = await generaChiaveNumerica(); // Aggiunto const
+ 
+         // 1. Crea il riferimento al documento specifico passando la chiave
+        const docRef = doc(db, "casella_postale", chiaveUtenti);
+
+        // 2. Esegui la lettura
+         const docSnap = await getDoc(docRef);
+
+        // 3. Controlla se il documento esiste prima di leggerlo
+          if (docSnap.exists()) {  
+        // attivo la textarea e porto all interno il cursore
+        const campo = document.getElementById('message');
+        campo.disabled = false;   
+        campo.focus();           
+        document.getElementById('verifica').disabled = true;
+        document.getElementById('cripta').disabled = false;
+        document.getElementById("errorm").innerText = "";     
+        return docSnap.data();
+      } else {        
+        document.getElementById("errorm").innerText = "Utente senza casella";                  
+        return null;
+      }
+       } catch (error) {
+       console.error("Errore durante la lettura:", error);
+        document.getElementById("errorm").innerText = "Errore di connessione";
+      }
+    } // <-- Mancava questa chiusura di leggiCasellaPostale
+
+     // Avvia la lettura della casella postale dopo la verifica
+     await leggiCasellaPostale(); 
+
+          }); // <-- Mancava questa chiusura dell'addEventListener
+
+        
+
+                   const btncripta = document.getElementById('cripta');
                    btncripta.addEventListener('click', function() {  
                            
                    testoMessage = document.getElementById('message').value;
@@ -225,42 +271,8 @@
 
        
       }
-
-              async function leggiCasellaPostale() {  
-                 
-                  const emailPulita1 = String(email).trim().toLowerCase(); 
-                   const emailPulita2 =  emailPulita1.replaceAll(".", "a");
-                   const emailPulita3  = emailPulita2.replaceAll("@", "a"); 
-                   const emailPulita4  = emailPulita3.replaceAll("i", "s"); 
-                   const emailPulita5  = emailPulita4.replaceAll("o", "v"); 
-                   const emailPulita6  = emailPulita5.replaceAll("e", "z"); 
-                   const emailPulita7  = emailPulita6.replaceAll("u", "r"); 
-                   chiaveUtenti = emailPulita7.split('').reverse().join('');
- 
-
-               // 1. Crea il riferimento al documento specifico passando la chiave
-                const docRef = doc(db, "casella_postale", chiaveUtenti);
-
-                             // 2. Esegui la lettura
-                 const docSnap = await getDoc(docRef);
-
-                  // 3. Controlla se il documento esiste prima di leggerlo
-                 if (docSnap.exists()) {  
-                  // attivo la textarea  e porto all interno il cursore
-
-                  const campo = document.getElementById('message');
-                   campo.disabled = false;   
-                   campo.focus();           
-                    document.getElementById('verifica').disabled = true;
-                    document.getElementById('cripta').disabled = false;
-                    document.getElementById("errorm").innerText = "";     
-                    return docSnap.data();
-           
-                  } else {        
-                 document .getElementById("errorm").innerText = "Utente senza casella";                  
-                return 
-                }
-              }     
+      
+                        
              
                    document.getElementById('logoutBtn').addEventListener('click', function() {    
               // 3. Reindirizza alla pagina di login
