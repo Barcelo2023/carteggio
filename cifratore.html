@@ -2,12 +2,15 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Pannello di Cifratura</title>
+   
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carteggio</title>
     <!-- Tuoi stili CSS -->
       <link rel="stylesheet" href="style-scrivi.css"> <!-- Il file CSS -->  
+
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324"
+     crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -47,9 +50,7 @@
             let pariodispari;
             let togli;
 
-            
-              
-                 
+                                         
              
                 conta = 0;     
                 do{	 
@@ -82,9 +83,22 @@
                   togli = 2;
                             
                  }
+              
+                   testoMessage = document.getElementById('message').value;    
 
-               
-                   testoMessage = document.getElementById('message').value;
+                       // 1. TESTO DI PARTENZA
+                        let originale = testoMessage;             
+
+                      // 1. ANDATA (A prova di emoji)
+                  // Usando [...testo] l'emoji rimane intera!
+                  let lettereCapovolte = [...originale.replace(/\s/g, '')].reverse();
+
+                    let testoCapovolto = [...originale].map(carattere => {
+                   return carattere === ' ' ? ' ' : lettereCapovolte.shift();
+                    }).join('');
+
+   
+                   testoMessage = testoCapovolto; 
                    document.getElementById('message').value=""; 
 
                  stringaConverti =""; 
@@ -95,6 +109,8 @@
                  return
                  }
                  document.getElementById("errorm").innerText = ""; 
+
+                  
 
                for (conta=0; conta <lunghezza; conta ++)
 	               {		
@@ -114,8 +130,11 @@
                   }
                    numero = numero  -togli;   
 		            stringaConverti+= String.fromCharCode(converti) ;          
-              }        
+              }  
+                             
+
                   document.getElementById('message').value  = ""; 
+ 
                  document.getElementById('message').value  = stringaConverti; 
 
                 
@@ -151,11 +170,21 @@
                   numero = numero  -togli; 
                   }
                    numero = numero  -togli;   
-		         stringaConverti+=String.fromCharCode(converti) ;                                      
-            }               
-                 document.getElementById("message").value = stringaConverti;
-                 document.getElementById('message') .disabled=true  ;
+		         stringaConverti+=String.fromCharCode(converti) ; 
+
+            } 
+                  let capovolto = stringaConverti;
+               // 3. RITORNO (Riapplichi lo stesso codice sul risultato)
+
+                    let lettereRipristinate  = [...capovolto.replace(/\s/g, '')].reverse();
+                    let testoRipristinato = [...capovolto].map(carattere => {
+                   return carattere === ' ' ? ' ' : lettereRipristinate.shift();
+                    }).join('');            
                  
+                  stringaConverti = testoRipristinato;
+               
+                 document.getElementById("message").value = stringaConverti;
+                 document.getElementById('message') .disabled=true  ;                 
                  
                               
           })  
