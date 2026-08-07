@@ -188,47 +188,78 @@
             document.getElementById('salva').disabled = false;  
         });
 
-        // 3. TERZO CLICK: SALVATAGGIO SU FIREBASE E REINDIRIZZAMENTO CON ADSENSE
-        const btnsalva = document.getElementById('salva');
-        btnsalva.addEventListener('click', async function() {
-            try {
-                const testoCriptato = document.getElementById('message').value;
-                
-                // Genera un ID univoco per il messaggio dentro la casella postale
-                const messaggiRef = collection(db, "casella_postale", chiaveUtenti, "messaggi");
-                
-                // Salva i dati su Firebase Firestore
-                await addDoc(messaggiRef, {
-                    contenuto: testoCriptato,
-                    dataInvio: document.getElementById('data').value,
-                    chiaveDecrittazione: randomNumber
-                });
+       
+         // 3. TERZO CLICK: SALVATAGGIO SU FIREBASE E REINDIRIZZAMENTO CON ADSENSE
+const btnsalva = document.getElementById('salva');
+btnsalva.addEventListener('click', async function(e) {
+    // BLOCCHIAMO IL REFRESH NATIVO DEL FORM (Fondamentale!)
+    e.preventDefault(); 
 
-                console.log("Messaggio depositato! Gestione transazione AdSense...");
+    try {
+        // Disabilita SUBITO il tasto per evitare doppi click compulsivi dell'utente
+        btnsalva.disabled = true;
 
-                // Disabilita il tasto per evitare salvataggi multipli
-                document.getElementById('salva').disabled = true;
+        // Recupero e controllo dei dati
+        const messaggioEl = document.getElementById('message');
+        const dataEl = document.getElementById('data');
 
-                // Transazione sicura con Google AdSense per gli Interstiziali
-                if (window.adsbygoogle && window.adsbygoogle.push) {
-                    window.adsbygoogle.push({
-                        cmd: "navigateToPage",
-                        url: "successo.html"
-                    });
-                    
-                    // Paracadute temporale di 500 millisecondi
-                    setTimeout(() => {
-                        window.location.href = "successo.html";
-                    }, 500);
-                } else {
-                    window.location.href = "successo.html";
-                }
+        if (!messaggioEl || !dataEl) {
+            throw new Error("Campi del form non trovati nel DOM (message o data).");
+        }
 
-            } catch (error) {
-                console.error("Errore nel salvataggio:", error);
-                document.getElementById("errorm").innerText = "Errore durante il salvataggio su Firebase.";
-            }
+        const testoCriptato = messaggioEl.value;
+        const dataInvio = dataEl.value;
+
+        // Verifica che le variabili globali esistano
+        if (typeof chiaveUtenti === 'undefined' || !chiaveUtenti) {
+            throw new Error("La variabile 'chiaveUtenti' non è definita o è vuota.");
+        }
+        if (typeof randomNumber === 'undefined') {
+            throw new Error("La variabile 'randomNumber' non è definita.");
+        }
+
+        console.log("Tentativo di salvataggio su Firebase in corso...");
+        
+        // Genera un ID univoco per il messaggio dentro la casella postale
+        const messaggiRef = collection(db, "casella_postale", chiaveUtenti, "messaggi");
+        
+        // Salva i dati su Firebase Firestore
+        await addDoc(messaggiRef, {
+            contenuto: testoCriptato,
+            dataInvio: dataInvio,
+            chiaveDecrittazione: randomNumber
         });
+
+        console.log("Messaggio depositato con successo! Gestione transazione AdSense...");
+
+        // Transazione sicura con Google AdSense per gli Interstiziali
+        if (window.adsbygoogle && window.adsbygoogle.push) {
+            console.log("AdSense rilevato, reindirizzamento tramite interstitial...");
+            window.adsbygoogle.push({
+                cmd: "navigateToPage",
+                url: "successo.html"
+            });
+            
+            // Paracadute temporale di 500 millisecondi
+            setTimeout(() => {
+                window.location.href = "successo.html";
+            }, 500);
+        } else {
+            console.log("AdSense non rilevato o bloccato. Reindirizzamento diretto.");
+            window.location.href = "successo.html";
+        }
+
+    } catch (error) {
+        console.error("ERRORE CRITICO NEL SALVATAGGIO:", error);
+        
+        // Riabilita il tasto così l'utente può riprovare se c'è un errore
+        btnsalva.disabled = false;
+        
+        // Mostra a schermo l'errore reale per capire cosa fallisce (es. Permessi Firebase o variabile mancante)
+        document.getElementById("errorm").innerText = "Errore durante il salvataggio: " + error.message;
+    }
+});
+ 
 
         // Gestione del pulsante di uscita/home
         document.getElementById('logoutBtn').addEventListener('click', () => {
