@@ -15,7 +15,8 @@
   </head>
   <body>
          
-        <div class="container">
+     <div class="container">     
+    <div  id="datetime"> </div>
   <h1>Carteggio</h1>
   <h2>Pagina crea casella postale</h2>
 
@@ -28,7 +29,7 @@
   <button type="button" id="btnv">Crea casella</button>           
   <button id="logoutBtn" type="button">Pagina iniziale</button>
 
-  <input type="text" name="data" id="data" readonly>
+  
 </div>
 
       
@@ -44,9 +45,19 @@
        "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
      
  
-            let data = new Date(); 
-            document.getElementById('data').value = (data); 
-                   // Esegui il controllo all'avvio della pagina
+      const data = new Date();
+     const anno = data.getFullYear();
+     const mese = String(data.getMonth() + 1).padStart(2, '0');
+     const giorno = String(data.getDate()).padStart(2, '0');
+     const ore = String(data.getHours()).padStart(2, '0');
+     const minuti = String(data.getMinutes()).padStart(2, '0');
+     const  val1 ="data";
+     const val2 = "ora";
+     
+      document.getElementById('datetime').textContent =  `${val1}  ${val2}   ${anno}/${mese}/${giorno}    ${ore}:${minuti}`;
+
+
+           
            window.addEventListener('DOMContentLoaded', () => {
             bloccaAccessoDaPC();
             });
