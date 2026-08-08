@@ -46,20 +46,13 @@ html, body {
 
 
 
-/* Nasconde o formatta l'input "data" se serve solo come dato di background */
-#data {
-  
-  
-  text-align: center;  
-   margin-top: 40px;
-  
-}
-
-
-
 /* Spazio per il div di errore se si attiva */
 #error {
   color: red;
   font-size: 16px;
   text-align: center;
+}
+ #datetime{
+color: #83abd8;
+font-size: large;
 }
