@@ -5,267 +5,274 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scrivi msg</title>
      
-    <link rel="stylesheet" href="style-scrivi.css"> <!-- Il file CSS -->  
+      <link rel="stylesheet" href="style-scrivi.css"> <!-- Il file CSS -->  
       
-    <!-- Script AdSense Globale con MODALITÀ TEST attiva per lo sviluppo sicuro -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324"
-            crossorigin="anonymous"
-            data-adtest="on"></script>
+         <script  src="carico.pubbl.js"></script>
+       <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324"
+     crossorigin="anonymous"></script>
+ 
+    
 </head>
 
-<body>
+    <body>
             
-    <div class="container">
-        <h1>Carteggio</h1>
-        <h2>Pagina scrivi messaggi</h2>     
-        <p>email destinatario</p>
+     <div class="container">
+      <h1>Carteggio</h1>
+     <h2>Pagina scrivi messaggi</h2>     
+      <p>email destinatario</p>
       
-        <input type="text" id="email" required autocomplete="off">
-        <p>messaggio</p>
+     <input type="text"   id="email"  required  autocomplete="off">
+      <p>messaggio</p>
      
-        <textarea disabled="disabled" name="message" id="message" rows="4" required></textarea>
-        <p id="errorm"></p>
-        <button id="verifica" type="button">Ricerca casella</button> 
-        <button id="cripta" type="button" disabled="disabled">Cripta messaggio</button> 
-        <button id="salva" type="button" disabled="disabled">Salva messaggio</button> 
+      <textarea  disabled = "disabled" name="message" id="message" rows="4"   required></textarea>
+      <p  id="errorm"   ></p>
+       <button id="verifica" type="button">Ricerca casella</button> 
+      <button id="cripta" type="button"  disabled = "disabled">Cripta messaggio</button> 
+
+      <button id="salva" type="button"  disabled = "disabled" >Salva messaggio</button> 
        
         <button id="logoutBtn" type="button">Pagina iniziale</button>
-        <input type="text" id="data" name="data" readonly>     
-    </div>
-      
-    <script type="module"> 
-        let chiaveDocumento = "null";
-        let chiaveUtenti = "null";
-           
-        // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
-        import { db } from "./firebaseConfig.js";
-        // 2. Importi solo le funzioni di cui questa pagina ha bisogno  
-        import { getFirestore, collection, getDoc, setDoc, addDoc, doc } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
-      
-        let stringaAscii = "";
-        let stringaConverti;      
-        let conta;
-        let testoMessage = "";
-        let lunghezza = 0;
-        let converti = 0;
-        let ascii = "";          
-        let pari = 0;
-        let lettera = "";            
-        let data;
-        let email;
-        let key;          
-        let utente;
-        let dataToSave;
-        let messaggio;
-        let lengemail;
-        let braMessaggi = "";
-        let randomNumber;
-        let numero;
-        let pariodispari;
-        let togli;
-                   
-        data = new Date();                                                                
-        document.getElementById('data').value = (data); 
-        randomNumber = Math.floor(Math.random() * 35) + 1;
-        randomNumber = randomNumber + 15; 
-                 
-        togli = 1;
-        pari = randomNumber;
-
-        if (pari % 2 == 0) {  
-            togli = 2;
-        }
-
-        conta = 0;     
-        do {	 
-            stringaAscii += String.fromCharCode(conta);                   
-            conta++;                 	
-        } while (conta < 255); 
-             
-        const btnverifica = document.getElementById('verifica');
-
-        btnverifica.addEventListener('click', async function() { 
-            email = document.getElementById('email').value; 
-            lunghezza = email.length;                       
-  
-            if (lunghezza < 5) {
-                document.getElementById("errorm").innerText = "email errata o mancante"; 
-                return;
-            }
-                                  
-            // 2. Funzione per rigenerare lo stesso ID numerico dall'email
-            async function generaChiaveNumerica() {
-                const emailPulita = email.trim().toLowerCase();
-                const encoder = new TextEncoder();
-                const data = encoder.encode(emailPulita);
-                const hashBuffer = await window.crypto.subtle.digest('SHA-256', data);
-                const hashArray = Array.from(new Uint8Array(hashBuffer));
-                const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-                return BigInt('0x' + hashHex).toString();     
-            }            
-
-            async function leggiCasellaPostale() { 
-                try {
-                    // Genera l'ID univoco numerico dall'email
-                    chiaveUtenti = await generaChiaveNumerica(); 
- 
-                    // 1. Crea il riferimento al documento specifico passando la chiave
-                    const docRef = doc(db, "casella_postale", chiaveUtenti);
-
-                    // 2. Esegui la lettura
-                    const docSnap = await getDoc(docRef);
-
-                    // 3. Controlla se il documento esiste prima di leggerlo
-                    if (docSnap.exists()) {  
-                        // attivo la textarea e porto all interno il cursore
-                        const campo = document.getElementById('message');
-                        campo.disabled = false;   
-                        campo.focus();           
-                        document.getElementById('verifica').disabled = true;
-                        document.getElementById('cripta').disabled = false;
-                        document.getElementById("errorm").innerText = "";     
-                        return docSnap.data();
-                    } else {        
-                        document.getElementById("errorm").innerText = "Utente senza casella";                  
-                        return null;
-                    }
-                } catch (error) {
-                    console.error("Errore durante la lettura:", error);
-                    document.getElementById("errorm").innerText = "Errore di connessione";
-                }
-            } 
-
-            // Avvia la lettura della casella postale dopo la verifica
-            await leggiCasellaPostale(); 
-        }); 
-
-        const btncripta = document.getElementById('cripta');
-        btncripta.addEventListener('click', function() {  
-            testoMessage = document.getElementById('message').value;
-
-            // 1. TESTO DI PARTENZA
-            let originale = testoMessage;             
-
-            // 1. ANDATA (A prova di emoji)
-            let lettereCapovolte = [...originale.replace(/\s/g, '')].reverse();
-
-            let testoCapovolto = [...originale].map(carattere => {
-                return carattere === ' ' ? ' ' : lettereCapovolte.shift();
-            }).join('');  
-            testoMessage = testoCapovolto; 
-                   
-            document.getElementById('message').value = ""; 
-
-            stringaConverti = ""; 
-            numero = randomNumber;
-            lunghezza = testoMessage.length; 
-            if (lunghezza < 2) {
-                document.getElementById("errorm").innerText = "messaggio mancante"; 
-                return;
-            }
-            document.getElementById("errorm").innerText = ""; 
-
-            for (conta = 0; conta < lunghezza; conta++) {		
-                lettera = testoMessage[conta];  	     		 
-                converti = lettera.charCodeAt(0);                
-                pari = conta;	  	  	  	  
-                if (pari % 2 == 0) {  
-                    converti = converti - numero;               
-                } else {     
-                    converti = converti + numero;                 
-                }
-                if (numero <= 2) {
-                    numero = randomNumber;               
-                    numero = numero - togli; 
-                }
-                numero = numero - togli;   
+      <input type="text" id="data"  name="data" readonly>     
                 
-                stringaConverti += String.fromCharCode(converti);          
-            }        
+      </div>
+      
+       <script type="module"> 
+     
+     let chiaveDocumento = "null" ;
+     let chiaveUtenti = "null";
+           
+         // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
+      import { db } from "./firebaseConfig.js";
+          // 2. Importi solo le funzioni di cui questa pagina ha bisogno  
+    
+     import { getFirestore,collection, getDoc, setDoc, addDoc,  doc} from
+       "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+      
+           
+           let stringaAscii = "";
+           let stringaConverti ;      
+            let conta ;
+            let testoMessage ="";
+            let lunghezza = 0;
+            let converti =0;
+            let ascii = "";          
+            let pari=0;
+            let lettera = "";            
+            let data ;
+            let email;
+            let key;          
+            let  utente;
+            let dataToSave;
+            let messaggio;
+            let lengemail;
+            let braMessaggi ="" ;
+            let randomNumber;
+            let numero;
+            let togli;
+
+                   
+                       
+                 data = new Date();                                                                
+                 document.getElementById('data').value = (data) ; 
+                 randomNumber= Math.floor(Math.random() * 35) + 1;
+                 randomNumber = randomNumber + 10; 
+
+                  
+               togli = 1;
+               pari = randomNumber;
+  
+               if (pari % 2 == 0) {  
+               togli = 2;
+               }
+
+
+                 conta = 0;     
+                do{	 
+               	stringaAscii +=  String.fromCharCode(conta);                   
+                 conta++;                 	
+              	}while ( conta < 255); 
+             
+
+                 const btnverifica = document.getElementById('verifica');
+                   btnverifica.addEventListener('click', function() {  
+             
+                       
+                  email = document.getElementById('email').value;
+                  lunghezza = email.length;
+                  if (lunghezza < 10){
+                    document .getElementById("errorm").innerText = "email errata o mancante"; 
+                    return 
+                  }
+                  
+                  leggiCasellaPostale()                                      
+                
+                })           
+
+                  const btncripta = document.getElementById('cripta');
+                   btncripta.addEventListener('click', function() {  
+                           
+                   testoMessage = document.getElementById('message').value;
+                   document.getElementById('message').value=""; 
+                                  // 1. TESTO DI PARTENZA
+                   let originale = testoMessage;             
+
+                      // 1. ANDATA (A prova di emoji)
+                  // Usando [...testo] l'emoji rimane intera!
+                   let lettereCapovolte = [...originale.replace(/\s/g, '')].reverse();
+
+                    let testoCapovolto = [...originale].map(carattere => {
+                   return carattere === ' ' ? ' ' : lettereCapovolte.shift();
+                    }).join('');
+
+   
+                   testoMessage = testoCapovolto; 
+                  
+                  
+                    stringaConverti =""; 
+                    numero = randomNumber;
+                    lunghezza = testoMessage.length; 
+                   if(lunghezza  < 8){
+                   document .getElementById("errorm").innerText = "messaggio mancante"; 
+                  return
+                 }
+                  document.getElementById("errorm").innerText = ""; 
                  
-            document.getElementById('message').value = stringaConverti; 
-            document.getElementById('cripta').disabled = true; 
-            document.getElementById('salva').disabled = false;  
-        });
+
+               for (conta=0; conta <lunghezza; conta ++)
+	               {		
+                 lettera = testoMessage[conta] ;  	     		 
+                 converti = lettera.charCodeAt(0);                
+	  	           pari = conta;	  	  	  	  
+                if (pari %2 == 0  ) {  
+                converti=converti -numero;               
+                 }
+                 else{     
+                 converti = converti +numero;                 
+                }
+                         
+                  if(numero <= 2){
+                  numero=randomNumber ;              
+                  numero = numero  -togli; 
+                  }
+                   numero = numero  -togli;   
+		            stringaConverti+= String.fromCharCode(converti) ;          
+                
+              }  
+                
+                      
+                 
+                 document.getElementById('message').value  = stringaConverti; 
+                 document.getElementById('cripta').disabled = true; 
+                 document.getElementById('salva').disabled = false;  
+                
+       }) 
+                 const btnsalva = document.getElementById('salva');
+                 btnsalva.addEventListener('click', function() {  
+
+                 stringaConverti = document.getElementById ('message').value;
+                     
+                 randomNumber = randomNumber + 3            
+                 
+                 let siglaDatabase = "indx" + randomNumber.toString(36);
+                
+                  utente = { sigla: siglaDatabase, messaggio: stringaConverti, creato :new Date() }; 
+                 // 2. Conversione in stringa JSON
+                  const jsonString = JSON.stringify(utente);
+                  dataToSave = JSON.parse(jsonString);
+
+                   aggiungiMessaggi().then(chiave => {
+                
+                    chiaveDocumento = chiave ;     
+                              
+                     aggiungiRicevuti() 
+                                    
+                   
+    console.log("Elaborazione completata. Vado alla pagina di caricamento pubblicità.");
+    // Manda sia i PC che i telefoni alla pagina di transizione con AdSense
+    window.location.href = "successo.html"; 
+
+                                                                 
+                   })                                                                                         
+
+                 }) 
+                         
+                           
+              async  function aggiungiMessaggi(){           
+                   try {
+             const docRef = await addDoc(collection(db, "messaggi"), dataToSave);
+        //       document.getElementById("message").value = "messaggio salvato con successo"; 
+               document.getElementById('message').disabled = true;
+               return docRef.id; 
+              } catch (e) {
+                document.getElementById("errorm").innerText = "errore inserimento messaggio ";
+                            
+                    return
+                }
+             }                                                          
+                                                                                       
+             async  function aggiungiRicevuti(){ 
+           
+           try {
+            // Il percorso punta al documento che ha come ID il valore di chiaveDocumento
+            const docRef = doc(db, "casella_postale", chiaveUtenti, "ricevuti", chiaveDocumento);
+  
+          // Salviamo il documento inserendo anche solo un timestamp (comodo per ordinarli per data)
+            await setDoc(docRef, { 
+           creatoIl: new Date() 
+           });
+
+    //       document.getElementById("message").value = "messaggio salvato con successo!"; 
+             return    
+
+         } catch (firebaseError) {
+           document.getElementById("errorm").innerText = "errore inserimento chiave messaggio";
+          console.log("Errore testuale:", String(firebaseError));
+          return;
+         }
 
        
-         // 3. TERZO CLICK: SALVATAGGIO SU FIREBASE E REINDIRIZZAMENTO CON ADSENSE
-const btnsalva = document.getElementById('salva');
-btnsalva.addEventListener('click', async function(e) {
-    // BLOCCHIAMO IL REFRESH NATIVO DEL FORM (Fondamentale!)
-    e.preventDefault(); 
+      }
 
-    try {
-        // Disabilita SUBITO il tasto per evitare doppi click compulsivi dell'utente
-        btnsalva.disabled = true;
-
-        // Recupero e controllo dei dati
-        const messaggioEl = document.getElementById('message');
-        const dataEl = document.getElementById('data');
-
-        if (!messaggioEl || !dataEl) {
-            throw new Error("Campi del form non trovati nel DOM (message o data).");
-        }
-
-        const testoCriptato = messaggioEl.value;
-        const dataInvio = dataEl.value;
-
-        // Verifica che le variabili globali esistano
-        if (typeof chiaveUtenti === 'undefined' || !chiaveUtenti) {
-            throw new Error("La variabile 'chiaveUtenti' non è definita o è vuota.");
-        }
-        if (typeof randomNumber === 'undefined') {
-            throw new Error("La variabile 'randomNumber' non è definita.");
-        }
-
-        console.log("Tentativo di salvataggio su Firebase in corso...");
-        
-        // Genera un ID univoco per il messaggio dentro la casella postale
-        const messaggiRef = collection(db, "casella_postale", chiaveUtenti, "messaggi");
-        
-        // Salva i dati su Firebase Firestore
-        await addDoc(messaggiRef, {
-            contenuto: testoCriptato,
-            dataInvio: dataInvio,
-            chiaveDecrittazione: randomNumber
-        });
-
-        console.log("Messaggio depositato con successo! Gestione transazione AdSense...");
-
-        // Transazione sicura con Google AdSense per gli Interstiziali
-        if (window.adsbygoogle && window.adsbygoogle.push) {
-            console.log("AdSense rilevato, reindirizzamento tramite interstitial...");
-            window.adsbygoogle.push({
-                cmd: "navigateToPage",
-                url: "successo.html"
-            });
-            
-            // Paracadute temporale di 500 millisecondi
-            setTimeout(() => {
-                window.location.href = "successo.html";
-            }, 500);
-        } else {
-            console.log("AdSense non rilevato o bloccato. Reindirizzamento diretto.");
-            window.location.href = "successo.html";
-        }
-
-    } catch (error) {
-        console.error("ERRORE CRITICO NEL SALVATAGGIO:", error);
-        
-        // Riabilita il tasto così l'utente può riprovare se c'è un errore
-        btnsalva.disabled = false;
-        
-        // Mostra a schermo l'errore reale per capire cosa fallisce (es. Permessi Firebase o variabile mancante)
-        document.getElementById("errorm").innerText = "Errore durante il salvataggio: " + error.message;
-    }
-});
+              async function leggiCasellaPostale() {  
+                 
+                   const emailPulita1 = String(email).trim().toLowerCase(); 
+                   const emailPulita2 =  emailPulita1.replaceAll(".", "a");
+                   const emailPulita3  = emailPulita2.replaceAll("@", "v"); 
+                   const emailPulita4  = emailPulita3.replaceAll("i", "t"); 
+                   const emailPulita5  = emailPulita4.replaceAll("0", "s"); 
+                   const emailPulita6  = emailPulita5.replaceAll("e", "s"); 
+                   chiaveUtenti= emailPulita6.split('').reverse().join('');
  
 
-        // Gestione del pulsante di uscita/home
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            window.location.href = "index.html";
-        });
-    </script> 
-</body>
-</html>
+               // 1. Crea il riferimento al documento specifico passando la chiave
+                const docRef = doc(db, "casella_postale", chiaveUtenti);
 
+                             // 2. Esegui la lettura
+                 const docSnap = await getDoc(docRef);
+
+                  // 3. Controlla se il documento esiste prima di leggerlo
+                 if (docSnap.exists()) {  
+                  // attivo la textarea  e porto all interno il cursore
+
+                  const campo = document.getElementById('message');
+                   campo.disabled = false;   
+                   campo.focus();           
+                    document.getElementById('verifica').disabled = true;
+                    document.getElementById('cripta').disabled = false;
+                    document.getElementById("errorm").innerText = "";     
+                    return docSnap.data();
+           
+                  } else {        
+                 document .getElementById("errorm").innerText = "Utente senza casella";                  
+                return 
+                }
+              }     
+             
+                   document.getElementById('logoutBtn').addEventListener('click', function() {    
+              // 3. Reindirizza alla pagina di login
+               window.location.href = "index.html";
+              })
+    </script>
+              
+  </body>
+  </html>
