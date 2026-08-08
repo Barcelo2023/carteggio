@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carteggio</title>
 
-    <link rel="icon" href="img/logo.png" type="image/png">
+    
     <link rel="stylesheet" href="style-index.css"> <!-- Il file CSS --> 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324"
             crossorigin="anonymous"
@@ -15,6 +15,7 @@
 <body>
 
     <div class="container">
+         <div  id="datetime"> </div>
         <h1>Carteggio</h1>
         <h2>Pagina iniziale</h2>
         <div id="pulsanti">
@@ -24,9 +25,9 @@
             <button id="btncancella" type="button">Cancella casella </button>
             <button id="btncifra" type="button">Dimostrazione cifratura</button>
             <button id="btninfo" type="button">Info app</button>
-            <input type="text" name="data" id="data" readonly>
+            <button id="btnlogout" type="button">Logout</button>
         </div> 
-    </div>  
+       
                         
     <script type="module">
         // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
@@ -34,12 +35,26 @@
         
         // 2. Importi solo le funzioni di cui questa pagina ha bisogno (corretto l'URL con www.)
         import { getFirestore, collection, onSnapshot } from 
-        "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+        "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js"; 
         
         let unsubscribeFaro = null;
 
-        let data = new Date(); 
-        document.getElementById('data').value = (data); 
+        
+     
+     const data = new Date();
+     const anno = data.getFullYear();
+     const mese = String(data.getMonth() + 1).padStart(2, '0');
+     const giorno = String(data.getDate()).padStart(2, '0');
+     const ore = String(data.getHours()).padStart(2, '0');
+     const minuti = String(data.getMinutes()).padStart(2, '0');
+     const  val1 ="data";
+     const val2 = "ora";
+     
+      document.getElementById('datetime').textContent =  `${val1}  ${val2}   ${anno}/${mese}/${giorno}    ${ore}:${minuti}`;
+
+      
+ 
+
 
         function avviaControlloFaro(chiaveAttiva) {
             const ricevutiRef = collection(db, "casella_postale", chiaveAttiva, "ricevuti");
@@ -97,7 +112,11 @@
         const info = document.getElementById('btninfo');
         info.addEventListener('click', function() { 
             window.location.href = "info.html";
-        });         
+        });  
+          const esco = document.getElementById('btnlogout');
+        esco.addEventListener('click', function() { 
+            window.location.href = "https://google.com";
+        });                
     </script>
     
 </body>
