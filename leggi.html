@@ -1,50 +1,59 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leggi msg</title>
      
-    <link rel="stylesheet" href="style-leggi.css"> <!-- Il file CSS --> 
+       <link rel="stylesheet" href="style-leggi.css"> <!-- Il file CSS --> 
   
-    <!-- Script AdSense Globale con MODALITÀ TEST attiva per lo sviluppo sicuro -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324"
+   <script  src="carico.pubbl.js"></script>
+   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324"
             crossorigin="anonymous"
             data-adtest="on"></script>
-</head>
-<body>
-        
-    <div class="container">
-        <h1>Carteggio</h1> 
-        <h2>Pagina leggi messaggi</h2>
-                    
-        <p id="parm">Messaggio</p>
-        <textarea name="message" id="message" rows="4" readonly></textarea>             
-        <div id="error"></div>
-        
-        <button type="button" id="estrae" disabled="disabled">Estrae messaggio</button>
-        <button type="button" id="decripta" disabled="disabled">Decripta messaggio</button>       
-        <button type="button" id="cancella" disabled="disabled">Cancella messaggio</button>
-        <button type="button" id="segreto">...</button>
-
-        <button type="button" id="logoutBtn">Pagina iniziale</button>
-         
-        <input type="text" name="data" id="data">
-    </div>
-
-    <script type="module"> 
-        let chiaveAttiva = null; 
-        let chiaveDocumento = null;
-        let numeroRandom;
-
-        // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
-        import { db } from "./firebaseConfig.js";
       
-        import { getFirestore, collection, getDoc, getDocs, deleteDoc, doc } from "https://gstatic.com";
+  </head>
+  <body>
+        
+
+    <div class="container">
+       <h1>Carteggio</h1> 
+     <h2>Pagina leggi messaggi</h2>
+                    
+    
+      <p id="parm">Messaggio</p>
+      <textarea  name="message" id="message" rows="4" readonly></textarea>             
+       <div id="error" ></div>
+       <button  type="button" id="estrae"  disabled = "disabled"    >Estrae messaggio</button>
+
+       <button  type="button" id="decripta"  disabled = "disabled" >Decripta messaggio</button>       
+        
+      <button  type="button" id="cancella"   disabled = "disabled" >Cancella messaggio</button>
+      <button  type="button" id="segreto" >...</button>
+
+       <button type="button" id="logoutBtn">Pagina iniziale</button>
+
+         
+       <input type="text" name="data" id="data" >
+        
+       </div>
+           <script type="module"> 
+          let chiaveAttiva = null; 
+       let chiaveDocumento = null;
+       let numeroRandom  ;
+
+           // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
+                   import { db } from "./firebaseConfig.js";
+         // Import the functions you need from the SDKs you need
+      
+       import { getFirestore,collection,  getDoc, getDocs, deleteDoc, doc} from
+        "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
        
-        let numero;        
+      
+    
+        let numero ;        
         let conta;
-        let msg;
+        let testoMessage;
         let lunghezza;
         let lettera;
         let converti;
@@ -53,173 +62,202 @@
         let dati;
         let togli;
 
-        let data = new Date(); 
-        document.getElementById('data').value = (data); 
+             let data= new Date(); 
+             document.getElementById('data').value = (data) ; 
 
-        let ultimaVolta = 0;
-        const segreto = document.getElementById('segreto');
-        
-        // 1. Gestione per Telefono (Touch)
-        segreto.addEventListener('touchend', function(event) {
-            let tempoCorrente = new Date().getTime();
-            let tempoTrascorso = tempoCorrente - ultimaVolta;
+                     
+
+             let ultimaVolta = 0;
+              const segreto = document.getElementById('segreto');
+            // 1. Gestione per Telefono (Touch)
+             segreto.addEventListener('touchend', function(event) {
+              let tempoCorrente = new Date().getTime();
+              let tempoTrascorso = tempoCorrente - ultimaVolta;
   
-            if (tempoTrascorso < 300 && tempoTrascorso > 0) {
-                eseguiAzione();
-            }
-            ultimaVolta = tempoCorrente;
-        });
-
-        // 2. Gestione per PC (Mouse)
-        segreto.addEventListener('dblclick', function(event) {
-            eseguiAzione();
-        });
-
-        // 3. La funzione con l'azione da eseguire
-        function eseguiAzione() {
-            document.getElementById('estrae').disabled = false; 
-        }
-        
-        const estrae = document.getElementById('estrae');
-        estrae.addEventListener('click', function() { 
-            chiaveAttiva = localStorage.getItem('id_casella_postale'); 
-             
-            // Sicurezza: se l'ID non esiste nel localStorage, si ferma subito
-            if (!chiaveAttiva) {
-                document.getElementById("error").innerText = "Non ci sono messaggi";
-                return false;
-            }
-
-            leggiUtenti().then(data => {
-                if (chiaveDocumento === 'nonce' || !data) return;  
-              
-                let datoDaFirestore = data.sigla; 
-
-                // Taglia i primi 4 caratteri ("indx") e prende tutto il resto
-                let parteVariabile = datoDaFirestore.slice(4); 
-                numeroRandom = parseInt(parteVariabile, 36);
-                numeroRandom = numeroRandom - 3;
-                togli = 1;
-                pari = numeroRandom;
-                if (pari % 2 == 0) {  
-                    togli = 2;
+              if (tempoTrascorso < 300 && tempoTrascorso > 0) {
+                 eseguiAzione();
                 }
+             ultimaVolta = tempoCorrente;
+             });
 
-                msg = data.messaggio;
-                document.getElementById('message').value = data.messaggio;
-                document.getElementById('decripta').disabled = false; 
-                document.getElementById('estrae').disabled = true;  
-            });              
-        });      
+           // 2. Gestione per PC (Mouse)
+              segreto.addEventListener('dblclick', function(event) {
+               eseguiAzione();
+            });
 
-        const decripta = document.getElementById('decripta');
-        decripta.addEventListener('click', function() {  
-                                                                       
-            let stringaConverti = "";
-            let numero = numeroRandom;
-            let lunghezza = msg.length; 
-
-            for (let conta = 0; conta < lunghezza; conta++) {		
-                let lettera = msg[conta];  	     		 
-                let converti = lettera.charCodeAt(0);                 
-                let pari = conta;	  	  	  	  
-                if (pari % 2 == 0) {  
-                    converti = converti + numero;               
-                } else {     
-                    converti = converti - numero;                 
-                }
-                if (numero <= 2) {
-                    numero = numeroRandom;              
-                    numero = numero - togli; 
-                }
-                numero = numero - togli;   
-
-                stringaConverti += String.fromCharCode(converti);                                      
-            }  
-            
-            let capovolto = stringaConverti;
-            // 3. RITORNO (Riapplichi lo stesso codice sul risultato)
-            let lettereRipristinate = [...capovolto.replace(/\s/g, '')].reverse();
-            let testoRipristinato = [...capovolto].map(carattere => {
-                return carattere === ' ' ? ' ' : lettereRipristinate.shift();
-            }).join('');            
-                 
-            stringaConverti = testoRipristinato;
-            
-            document.getElementById("message").value = stringaConverti;
-            document.getElementById('cancella').disabled = false; 
-            document.getElementById('decripta').disabled = true;                
-        });    
-
-        // TERZO CLICK: CANCELLAZIONE E TRANSIZIONE ADSENSE
-        const cancella = document.getElementById('cancella');
-        cancella.addEventListener('click', async function() { 
-            document.getElementById('cancella').disabled = true; // Evita doppi click
-            await deleteRecord();                                        
-        });
+            // 3. La funzione con l'azione da eseguire
+             function eseguiAzione() {
            
-        async function leggiUtenti() {         
-            // 1. Crea il riferimento al documento specifico passando la chiave
-            const ricevutiRef = collection(db, "casella_postale", chiaveAttiva, "ricevuti");
+            document.getElementById('estrae').disabled = false; 
+                
+            }
+        
+             
+             const estrae = document.getElementById('estrae');
+             estrae.addEventListener('click', function() { 
 
-            // 2. Esegui la lettura
-            const snapshotRicevuti = await getDocs(ricevutiRef);
+             chiaveAttiva = localStorage.getItem('id_casella_postale'); 
+             
+              // Sicurezza: se l'ID non esiste nel localStorage, si ferma subito
+            if (!chiaveAttiva) {
+             document.getElementById("error").innerText = "Non ci sono messaggi";
+            return false;
+            }
 
-            if (snapshotRicevuti.empty) {
-                document.getElementById("error").innerText = "Non ci sono messaggi"; 
-                chiaveDocumento = 'nonce';
-                return null;
+             
+    
+             leggiUtenti().then(data => {
+              if (chiaveDocumento === 'nonce') return  
+              
+              
+            let  datoDaFirestore= data.sigla; 
+              testoMessage= data.messaggio;
+
+            // Taglia i primi 4 caratteri ("indx") e prende tutto il resto
+            let parteVariabile = datoDaFirestore.slice(4); 
+
+             numeroRandom = parseInt(parteVariabile, 36);
+
+              numeroRandom =numeroRandom -3;
+
+              pari=numeroRandom;
+             togli = 1;             
+  
+              if (pari % 2 == 0) {  
+              togli = 2;
+             }
+            
+
+             
+            document.getElementById('message').value = data.messaggio;
+             document.getElementById('decripta').disabled = false; 
+             document.getElementById('estrae').disabled = true;  
+             });              
+          
+            
+      })      
+             const decripta = document.getElementById('decripta');
+             decripta.addEventListener('click', function() {  
+                                                                       
+             stringaConverti = "";
+              numero =numeroRandom;
+ 
+              lunghezza = testoMessage.length; 
+             
+
+             for ( conta=0; conta <lunghezza; conta ++)
+	             {		
+                lettera = testoMessage[conta] ;  	     		 
+                converti = lettera.charCodeAt(0);                 
+	  	          pari = conta;	  	  	  	  
+               if (pari %2 == 0) {  
+               converti=converti + numero;               
+                }
+               else{     
+                 converti = converti - numero;                 
+               }
+                                  
+                  if(numero <= 2){
+                  numero=numeroRandom ;                          
+                  numero = numero  -togli; 
+                  }
+                   numero = numero  -togli;   
+		         stringaConverti+=String.fromCharCode(converti) ; 
+
+            } 
+                   let capovolto = stringaConverti;
+               // 3. RITORNO (Riapplichi lo stesso codice sul risultato)
+
+                    let lettereRipristinate  = [...capovolto.replace(/\s/g, '')].reverse();
+                    let testoRipristinato = [...capovolto].map(carattere => {
+                   return carattere === ' ' ? ' ' : lettereRipristinate.shift();
+                    }).join('');            
+                 
+                  stringaConverti = testoRipristinato;
+
+                  document.getElementById('message').value  = ""; 
+                 document.getElementById("message").value = stringaConverti;
+                 document.getElementById('cancella').disabled = false; 
+                 document.getElementById('decripta').disabled = true;                
+          })    
+                 const cancella = document.getElementById('cancella');
+       cancella.addEventListener('click', function() { 
+    
+                deleteRecord();                                        
+               
+               
+              document.getElementById('cancella').disabled = false;  
+               })
+           
+
+        
+              async function leggiUtenti() {         
+          // 1. Crea il riferimento al documento specifico passando la chiave
+           const ricevutiRef = collection(db, "casella_postale", chiaveAttiva, "ricevuti");
+
+          // 2. Esegui la lettura
+           const snapshotRicevuti = await getDocs(ricevutiRef);
+
+             if (snapshotRicevuti.empty) {
+             document.getElementById("error").innerText = "Non ci sono messaggi"; 
+              chiaveDocumento = 'nonce';
+              return  ;
             }                   
-            const primoDocRicevuto = snapshotRicevuti.docs[0];
-            chiaveDocumento = primoDocRicevuto.id; // Questo è l'ID del messaggio
+          const primoDocRicevuto = snapshotRicevuti.docs[0];
+           chiaveDocumento  = primoDocRicevuto.id; // Questo è l'ID del messaggio
                   
+                       
             // 1. Crea il riferimento al documento (collezione, idDocumento)
             const docRef = doc(db, "messaggi", chiaveDocumento);
             // 2. Ottieni lo snapshot
-            const docSnap = await getDoc(docRef);
+             const docSnap = await getDoc(docRef);
   
             // 3. Verifica se esiste e ottieni i dati
             if (docSnap.exists()) {                                    
-                return docSnap.data();
-            } else {
-                document.getElementById("error").innerText = "non ci sono messaggi"; 
-                return null;
-            }
+           return docSnap.data();
+          } else {
+             document .getElementById("error").innerText = "non ci sono messaggi  "; 
         }
+       }
            
-        async function deleteRecord() {
-            try {
-                // 1. Crea il riferimento al documento su Firestore ed eliminalo
-                const docRef = doc(db, "messaggi", chiaveDocumento.trim());
-                await deleteDoc(docRef);
-                console.log("Messaggio eliminato correttamente. Avvio AdSense...");
+            async function deleteRecord(){
+                  
+         try {
+         // Crea il riferimento al documento: doc(db, "collezione", "id_documento")
+            const docRef = doc(db, "messaggi", chiaveDocumento.trim());
 
-                // 2. Transazione protetta con Google AdSense per gli Interstiziali
-                if (window.adsbygoogle && window.adsbygoogle.push) {
-                    window.adsbygoogle.push({
-                        cmd: "navigateToPage",
-                        url: "successo.html"
-                    });
-                    
-                    // Paracadute temporale di 500 millisecondi se AdSense non risponde subito
-                    setTimeout(() => {
-                        window.location.href = "successo.html";
-                    }, 500);
-                } else {
-                    window.location.href = "successo.html";
-                }
+          // Elimina il documento
+          await deleteDoc(docRef);
+        
+          
+  // 5. Cancella l'idDocumento dalla sottocollezione "ricevuti"
+        const riferimentoRicevutoDaCancellare = doc(db, "casella_postale", chiaveAttiva, "ricevuti", chiaveDocumento);
+        await deleteDoc(riferimentoRicevutoDaCancellare);
+        
+           
+           console.log("Elaborazione completata. Vado alla pagina di caricamento pubblicità.");
+       // Manda sia i PC che i telefoni alla pagina di transizione con AdSense
+        window.location.href = "punto_morto.html"; 
 
-            } catch (error) {
-                console.error("Errore durante la cancellazione:", error);
-                document.getElementById("error").innerText = "Errore durante la rimozione del messaggio.";
-                document.getElementById('cancella').disabled = false; // Riattiva il tasto in caso di errore
-            }
-        }
+       } catch (error) {
+        console.error("Errore durante il processo:", error);
+         document.getElementById("message").value = "errore durante il processo";
+    }
+  }
+     
 
-        // Gestione del pulsante iniziale
-        document.getElementById('logoutBtn').addEventListener('click', () => {
-            window.location.href = "index.html";
-        });
-    </script> 
-</body>
-</html>
+         document.getElementById('logoutBtn').addEventListener('click', function() {    
+              // 3. Reindirizza alla pagina di login
+               window.location.href = "index.html";
+              })
+        
+    </script>
+     
+        
+ </body>
+ </html>
+
+
+ 
+
+
