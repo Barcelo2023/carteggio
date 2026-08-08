@@ -17,6 +17,7 @@
         
 
     <div class="container">
+      <div  id="datetime"> </div>
        <h1>Carteggio</h1> 
      <h2>Pagina leggi messaggi</h2>
                     
@@ -34,7 +35,7 @@
        <button type="button" id="logoutBtn">Pagina iniziale</button>
 
          
-       <input type="text" name="data" id="data" >
+    
         
        </div>
            <script type="module"> 
@@ -62,10 +63,17 @@
         let dati;
         let togli;
 
-             let data= new Date(); 
-             document.getElementById('data').value = (data) ; 
+            const data = new Date();
+     const anno = data.getFullYear();
+     const mese = String(data.getMonth() + 1).padStart(2, '0');
+     const giorno = String(data.getDate()).padStart(2, '0');
+     const ore = String(data.getHours()).padStart(2, '0');
+     const minuti = String(data.getMinutes()).padStart(2, '0');
+     const  val1 ="data";
+     const val2 = "ora";
+     
+      document.getElementById('datetime').textContent =  `${val1}  ${val2}   ${anno}/${mese}/${giorno}    ${ore}:${minuti}`;
 
-                     
 
              let ultimaVolta = 0;
               const segreto = document.getElementById('segreto');
