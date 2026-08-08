@@ -77,13 +77,8 @@ html, body {
 }
 
 
-
-/* Input data in fondo */
-#data {
-  margin-top: 30px;
-  text-align: center;
  
-}
+
 
 /* Div di errore */
 #error {
