@@ -86,3 +86,7 @@ html, body {
   font-size: 16px;
   text-align: center;
 }
+ #datetime{
+color: #83abd8;
+font-size: large;
+}
