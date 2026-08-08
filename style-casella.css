@@ -39,18 +39,17 @@ html, body {
 
 /* Uniforma la larghezza di tutti gli input e i bottoni */
 
+/* Copia questo blocco nei CSS delle altre pagine per uniformare i bottoni */
 .container input, 
 .container button {
-  width: 90%;                    
-  max-width: 360px;              
-  padding: 14px;                  
-  font-size: 22px;                   
+  width: 90%;                        
+  max-width: 360px;                  
+  padding: 10px 14px;                /* Altezza ridotta coordinata con la home */
+  font-size: 19px;                   /* Dimensione del testo ottimizzata */
   border-radius: 8px;
-  
   box-sizing: border-box;
-  background-color: #35393d; ; 
+  background-color: #35393d; 
   color: #83abd8;
-  
 }
 
 #email{
@@ -59,22 +58,14 @@ html, body {
 }
 
 
-
-/* Nasconde o formatta l'input "data" se serve solo come dato di background */
-#data {
-  
-
-  text-align: center;  
-   margin-top: 40px;
-  
-}
-
-
-
-
 /* Spazio per il div di errore se si attiva */
 #error {
   color: red;
   font-size: 16px;
   text-align: center;
+}
+#datetime{
+color: #83abd8;
+font-size: large;
+
 }
