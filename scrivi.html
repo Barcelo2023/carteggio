@@ -6,12 +6,10 @@
     <title>Scrivi msg</title>
      
       <link rel="stylesheet" href="style-scrivi.css"> <!-- Il file CSS -->  
-      
+          <script  src="dataora.js"></script>
          <script  src="carico.pubbl.js"></script>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324"
-            crossorigin="anonymous"
-            data-adtest="on"></script>
- 
+       
+        <script  src="gestioneAdsense.js"></script>
     
 </head>
 
@@ -72,18 +70,7 @@
             let togli;
 
                    
-      data = new Date();
-     const anno = data.getFullYear();
-     const mese = String(data.getMonth() + 1).padStart(2, '0');
-     const giorno = String(data.getDate()).padStart(2, '0');
-     const ore = String(data.getHours()).padStart(2, '0');
-     const minuti = String(data.getMinutes()).padStart(2, '0');
-     const  val1 ="data";
-     const val2 = "ora";
-     
-      document.getElementById('datetime').textContent =  `${val1}  ${val2}   ${anno}/${mese}/${giorno}    ${ore}:${minuti}`;
-  
-                       
+                 caricodata();
                 
                  randomNumber= Math.floor(Math.random() * 35) + 1;
                  randomNumber = randomNumber + 10; 
@@ -197,11 +184,8 @@
                               
                      aggiungiRicevuti() 
                                     
-                   
-    console.log("Elaborazione completata. Vado alla pagina di caricamento pubblicità.");
-    // Manda sia i PC che i telefoni alla pagina di transizione con AdSense
-    window.location.href = "successo.html"; 
-
+                   attivazioneAdSenseEAnagrafica(); 
+                    
                                                                  
                    })                                                                                         
 
@@ -225,14 +209,13 @@
            
            try {
             // Il percorso punta al documento che ha come ID il valore di chiaveDocumento
-            const docRef = doc(db, "casella_postale", chiaveUtenti, "ricevuti", chiaveDocumento);
+            const docRef =  await doc(db, "casella_postale", chiaveUtenti, "ricevuti", chiaveDocumento);
   
           // Salviamo il documento inserendo anche solo un timestamp (comodo per ordinarli per data)
             await setDoc(docRef, { 
            creatoIl: new Date() 
            });
 
-    //       document.getElementById("message").value = "messaggio salvato con successo!"; 
              return    
 
          } catch (firebaseError) {
@@ -240,17 +223,15 @@
           console.log("Errore testuale:", String(firebaseError));
           return;
          }
-
        
       }
-
               async function leggiCasellaPostale() {  
                  
                    const emailPulita1 = String(email).trim().toLowerCase(); 
                    const emailPulita2 =  emailPulita1.replaceAll(".", "a");
                    const emailPulita3  = emailPulita2.replaceAll("@", "v"); 
                    const emailPulita4  = emailPulita3.replaceAll("i", "t"); 
-                   const emailPulita5  = emailPulita4.replaceAll("0", "s"); 
+                   const emailPulita5  = emailPulita4.replaceAll("o", "s"); 
                    const emailPulita6  = emailPulita5.replaceAll("e", "s"); 
                    chiaveUtenti= emailPulita6.split('').reverse().join('');
  
