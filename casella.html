@@ -10,6 +10,7 @@
     
       <script  src="carico.pubbl.js"></script>
       <script  src="dataora.js"></script>
+    
   
   </head>
   <body>
@@ -43,40 +44,6 @@
      import { getFirestore,collection, getDoc, setDoc, addDoc,  doc} from
        "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
      
-            caricodata();
-           
-           window.addEventListener('DOMContentLoaded', () => {
-            bloccaAccessoDaPC();
-            });
-
-
-
-                   function bloccaAccessoDaPC() {
-    // 1. Controlla la larghezza dello schermo (smartphone sotto i 768px)
-    const isLarghezzaMobile = window.innerWidth <= 768;
-
-    // 2. Controlla se il dispositivo supporta il touch screen
-    const supportaTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-
-    // 3. Controlla lo User-Agent del browser per cercare parole chiave mobile
-    const userAgent = navigator.userAgent.toLowerCase();
-    const isMobileAgent = /iphone|ipad|ipod|android|blackberry|iemobile|opera mini/i.test(userAgent);
-
-    // Se non è una larghezza mobile, non ha il touch o non ha un agente mobile, allora è un PC
-    if (!isLarghezzaMobile || !supportaTouch || !isMobileAgent) {
-        
-    
-            // Se l'elemento HTML non è ancora pronto, usa l'alert con la tua frase
-
-            document.getElementById('email').disabled = true; 
-            document.getElementById('btnv').disabled = true; 
-            document .getElementById("error").innerText = "La casella può essere creata solo da telefono"; 
-            return
-        }
-        
-                   }  
-
-
            
             let  email;                    
             let lengemail;
@@ -84,8 +51,25 @@
             let lettera;
             let chioc;
 
-          
-        document.getElementById('btnv').addEventListener('click', function() { 
+
+           caricodata();
+
+            (function() {
+         // 1. Controlla lo User Agent (cerca esplicitamente Android o iPhone)
+          const ua = navigator.userAgent || navigator.vendor || window.opera;
+           const isMobileUA = /android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(ua);
+    
+             // 2. Controlla la larghezza dello schermo (sotto i 768 pixel)
+            const isSmallScreen = window.innerWidth <= 768;
+
+         // Se NON ha un user agent mobile OPPURE lo schermo è troppo grande, bloccalo
+          if (!isMobileUA || !isSmallScreen) {
+         document .getElementById("error").innerText = "creazione non autorizzata"; 
+      }
+     })();
+                 
+        
+            document.getElementById('btnv').addEventListener('click', function() { 
 
         
              email = document.getElementById('email').value; 
