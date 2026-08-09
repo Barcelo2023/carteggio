@@ -43,7 +43,7 @@
      import { getFirestore,collection, getDoc, setDoc, addDoc,  doc} from
        "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
      
-            caricodata()
+            caricodata();
            
            window.addEventListener('DOMContentLoaded', () => {
             bloccaAccessoDaPC();
@@ -120,7 +120,7 @@
                    const emailPulita2 =  emailPulita1.replaceAll(".", "a");
                    const emailPulita3  = emailPulita2.replaceAll("@", "v"); 
                    const emailPulita4  = emailPulita3.replaceAll("i", "t"); 
-                   const emailPulita5  = emailPulita4.replaceAll("0", "s"); 
+                   const emailPulita5  = emailPulita4.replaceAll("o", "s"); 
                    const emailPulita6  = emailPulita5.replaceAll("e", "s"); 
                    chiaveCasella = emailPulita6.split('').reverse().join('');
  
