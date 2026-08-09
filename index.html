@@ -7,10 +7,9 @@
 
     
     <link rel="stylesheet" href="style-index.css"> <!-- Il file CSS --> 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324"
-            crossorigin="anonymous"
-            data-adtest="on"></script>
    
+          <script  src="carico.pubbl.js"></script>
+           <script  src="dataora.js"></script>
 </head>
 <body>
 
@@ -39,21 +38,7 @@
         
         let unsubscribeFaro = null;
 
-        
-     
-     const data = new Date();
-     const anno = data.getFullYear();
-     const mese = String(data.getMonth() + 1).padStart(2, '0');
-     const giorno = String(data.getDate()).padStart(2, '0');
-     const ore = String(data.getHours()).padStart(2, '0');
-     const minuti = String(data.getMinutes()).padStart(2, '0');
-     const  val1 ="data";
-     const val2 = "ora";
-     
-      document.getElementById('datetime').textContent =  `${val1}  ${val2}   ${anno}/${mese}/${giorno}    ${ore}:${minuti}`;
-
-      
- 
+           caricodata()
 
 
         function avviaControlloFaro(chiaveAttiva) {
