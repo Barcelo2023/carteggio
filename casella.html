@@ -10,7 +10,7 @@
     
       <script  src="carico.pubbl.js"></script>
       <script  src="dataora.js"></script>
-    
+     >
   
   </head>
   <body>
@@ -26,7 +26,7 @@
 
   <div id="error"></div> 
   
-  <button type="button" id="btnv">Crea casella</button>           
+  <button type="button" id="btnv"  >Crea casella</button>           
   <button id="logoutBtn" type="button">Pagina iniziale</button>
 
   
@@ -51,27 +51,37 @@
             let lettera;
             let chioc;
 
-
            caricodata();
 
-            (function() {
-         // 1. Controlla lo User Agent (cerca esplicitamente Android o iPhone)
-          const ua = navigator.userAgent || navigator.vendor || window.opera;
-           const isMobileUA = /android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(ua);
-    
-             // 2. Controlla la larghezza dello schermo (sotto i 768 pixel)
-            const isSmallScreen = window.innerWidth <= 768;
-
-         // Se NON ha un user agent mobile OPPURE lo schermo è troppo grande, bloccalo
-          if (!isMobileUA || !isSmallScreen) {
-         document .getElementById("error").innerText = "creazione non autorizzata"; 
-      }
-     })();
-                 
+     
+           
+            // Controlla se il browser supporta l'orientamento (tipico dei telefoni)
+     if (window.DeviceOrientationEvent) {
+  
+      window.addEventListener('deviceorientation', function checkGyro(event) {
+      // Se alpha, beta e gamma sono nulli, significa che il dispositivo non ha sensori fisici (è un PC)
+      if (event.alpha === null && event.beta === null && event.gamma === null) {
+       
         
+         window.removeEventListener('deviceorientation', checkGyro); 
+        document .getElementById("error").innerText = "operazione non permessa"; 
+        document.getElementById('btnv').disabled=true; 
+        document.getElementById('email').disabled=true; 
+             
+      }
+      // Rimuove il listener dopo il controllo per non consumare batteria
+      window.removeEventListener('deviceorientation', checkGyro);
+         document.getElementById('btnv').disabled=false; 
+        document.getElementById('email').disabled=false; 
+
+      });
+     
+    }   
+            
+
             document.getElementById('btnv').addEventListener('click', function() { 
 
-        
+       
              email = document.getElementById('email').value; 
 
                   chioc = " ";
