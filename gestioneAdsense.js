@@ -1,24 +1,30 @@
-// Funzione isolata per gestire il passaggio pubblicitario
-function attivazioneAdSenseEAnagrafica() {
+ function attivazioneAdSenseEAnagrafica() {
     const urlDestinazione = "successo.html";
     let giaReindirizzato = false;
 
-    if (window.adsbygoogle && typeof window.adsbygoogle.push === "function") {
+    if (window.adsbygoogle) {
         console.log("AdSense rilevato, tentativo di interstitial...");
         
-        // AUMENTATO A 2500ms: dà il tempo reale ad AdSense di rispondere senza andare in conflitto
+        // Timeout di sicurezza a 2500ms
         setTimeout(() => {
             if (!giaReindirizzato) {
                 giaReindirizzato = true;
-                console.log("Tempo scaduto. AdSense non ha risposto in tempo o ha ignorato l'annuncio. Reindirizzamento automatico.");
+                console.log("Tempo scaduto. Reindirizzamento di sicurezza.");
                 window.location.href = urlDestinazione;
             }
         }, 2500); 
 
         try {
-            window.adsbygoogle.push({
-                cmd: "navigateToPage",
-                url: urlDestinazione
+            // SINTASSI UFFICIALE DI PRODUZIONE: Mette in coda sicura il comando
+            window.adsbygoogle.push(() => {
+                const adsbygoogle = window.adsbygoogle;
+                if (adsbygoogle && typeof adsbygoogle.push === "function") {
+                    adsbygoogle.push({
+                        cmd: "navigateToPage",
+                        url: urlDestinazione,
+                       adtest: "on" 
+                    });
+                }
             });
         } catch (error) {
             console.error("Errore nell'esecuzione di AdSense:", error);
@@ -28,7 +34,7 @@ function attivazioneAdSenseEAnagrafica() {
             }
         }
     } else {
-        console.log("AdSense non rilevato, disattivato o bloccato da AdBlock. Reindirizzamento immediato.");
+        console.log("AdSense o bloccato da AdBlock. Reindirizzamento immediato.");
         window.location.href = urlDestinazione;
     }
 }
