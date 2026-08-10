@@ -7,11 +7,10 @@
      
        <link rel="stylesheet" href="style-leggi.css"> <!-- Il file CSS --> 
   
+   <script  src="dataora.js"></script>
    <script  src="carico.pubbl.js"></script>
-   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324"
-            crossorigin="anonymous"
-            data-adtest="on"></script>
-      
+    <script  src="gestioneAdsense.js"></script>
+  
   </head>
   <body>
         
@@ -62,18 +61,8 @@
         let stringaConverti;
         let dati;
         let togli;
-
-            const data = new Date();
-     const anno = data.getFullYear();
-     const mese = String(data.getMonth() + 1).padStart(2, '0');
-     const giorno = String(data.getDate()).padStart(2, '0');
-     const ore = String(data.getHours()).padStart(2, '0');
-     const minuti = String(data.getMinutes()).padStart(2, '0');
-     const  val1 ="data";
-     const val2 = "ora";
-     
-      document.getElementById('datetime').textContent =  `${val1}  ${val2}   ${anno}/${mese}/${giorno}    ${ore}:${minuti}`;
-
+        
+             caricodata();
 
              let ultimaVolta = 0;
               const segreto = document.getElementById('segreto');
@@ -110,13 +99,11 @@
             if (!chiaveAttiva) {
              document.getElementById("error").innerText = "Non ci sono messaggi";
             return false;
-            }
-
-             
+            }            
     
              leggiUtenti().then(data => {
               if (chiaveDocumento === 'nonce') return  
-              
+            
               
             let  datoDaFirestore= data.sigla; 
               testoMessage= data.messaggio;
@@ -125,7 +112,6 @@
             let parteVariabile = datoDaFirestore.slice(4); 
 
              numeroRandom = parseInt(parteVariabile, 36);
-
               numeroRandom =numeroRandom -3;
 
               pari=numeroRandom;
@@ -135,9 +121,8 @@
               togli = 2;
              }
             
-
-             
-            document.getElementById('message').value = data.messaggio;
+              
+             document.getElementById('message').value = data.messaggio;
              document.getElementById('decripta').disabled = false; 
              document.getElementById('estrae').disabled = true;  
              });              
@@ -148,10 +133,8 @@
              decripta.addEventListener('click', function() {  
                                                                        
              stringaConverti = "";
-              numero =numeroRandom;
- 
-              lunghezza = testoMessage.length; 
-             
+              numero =numeroRandom; 
+              lunghezza = testoMessage.length;              
 
              for ( conta=0; conta <lunghezza; conta ++)
 	             {		
@@ -245,7 +228,7 @@
            
            console.log("Elaborazione completata. Vado alla pagina di caricamento pubblicità.");
        // Manda sia i PC che i telefoni alla pagina di transizione con AdSense
-        window.location.href = "punto_morto.html"; 
+           attivazioneAdSenseEAnagrafica(); 
 
        } catch (error) {
         console.error("Errore durante il processo:", error);
