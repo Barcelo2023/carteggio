@@ -156,15 +156,10 @@
 		         stringaConverti+=String.fromCharCode(converti) ; 
 
             } 
-                   let capovolto = stringaConverti;
-               // 3. RITORNO (Riapplichi lo stesso codice sul risultato)
+                  const ritorno = stringaConverti;
+                  const ritornomodificato = new TextDecoder().decode(Uint8Array.from(atob(ritorno), m => m.codePointAt(0)));
 
-                    let lettereRipristinate  = [...capovolto.replace(/\s/g, '')].reverse();
-                    let testoRipristinato = [...capovolto].map(carattere => {
-                   return carattere === ' ' ? ' ' : lettereRipristinate.shift();
-                    }).join('');            
-                 
-                  stringaConverti = testoRipristinato;
+                  stringaConverti = ritornomodificato;
 
                   document.getElementById('message').value  = ""; 
                  document.getElementById("message").value = stringaConverti;
