@@ -22,6 +22,7 @@
             <button id="btnscrivi" type="button">Scrivi messaggi</button>                             
             <button id="btnleggi" type="button"> Se rosso ci sono messaggi</button>
             <button id="btncancella" type="button">Cancella casella </button>
+             <button id="btncollega"  type="button">Collega casella</button>
             <button id="btncifra" type="button">Dimostrazione cifratura</button>
             <button id="btninfo" type="button">Info app</button>
             <button id="btnlogout" type="button">Logout</button>
@@ -38,7 +39,7 @@
         
         let unsubscribeFaro = null;
 
-           caricodata()
+           caricodata();
 
 
         function avviaControlloFaro(chiaveAttiva) {
@@ -89,10 +90,16 @@
             window.location.href = "cancella.html";
         });  
 
+
          const cifra = document.getElementById('btncifra');
         cifra.addEventListener('click', function() { 
             window.location.href = "cifratore.html";
-        });         
+        }); 
+        
+         const collega = document.getElementById('btncollega');
+        collega.addEventListener('click', function() { 
+            window.location.href = "collega.html";
+        });  
         
         const info = document.getElementById('btninfo');
         info.addEventListener('click', function() { 
