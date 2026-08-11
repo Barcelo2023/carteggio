@@ -9,21 +9,22 @@
     <link rel="stylesheet" href="style.cancella.css"  >
 
      <script  src="carico.pubbl.js"></script>
+      <script  src="gestioneAdsense.js"></script>
      <script  src="dataora.js"></script>
    
   </head>
   <body>
          
-
          <div class="container">
           <div  id="datetime"> </div>
         <h1>Carteggio</h1>
-         <h2>Pagina cancella casella postale</h2>
-      
+         <h2>Pagina cancella casella</h2>      
                  
         <p id="error"></p> 
+        <p id="avviso"></p> 
         
-         <button type="button" id="btnCasella" disabled="disabled">Cancella casella postale</button>           
+         <button type="button" id="btnCasella" disabled="disabled" >Cancella casella</button> 
+         <button  type="button"  id="segreto">...</button>          
          <button id="logoutBtn" type="button">Pagina iniziale</button>
           
      </div>  
@@ -39,27 +40,34 @@
  
              caricodata();
 
-                     // Controlla se il browser supporta l'orientamento (tipico dei telefoni)
-     if (window.DeviceOrientationEvent) {
+               let ultimaVolta = 0;
+              const segreto = document.getElementById('segreto');
+              
+              document.getElementById("avviso").innerText = "per abilitare il bottone cancella doppio click sui tre ...";
+
+            // 1. Gestione per Telefono (Touch)
+             segreto.addEventListener('touchend', function(event) {
+              let tempoCorrente = new Date().getTime();
+              let tempoTrascorso = tempoCorrente - ultimaVolta;
   
-      window.addEventListener('deviceorientation', function checkGyro(event) {
-      // Se alpha, beta e gamma sono nulli, significa che il dispositivo non ha sensori fisici (è un PC)
-      if (event.alpha === null && event.beta === null && event.gamma === null) {
-       
-        
-         window.removeEventListener('deviceorientation', checkGyro); 
-        document .getElementById("error").innerText = "operazione non permessa"; 
-        document.getElementById('btnCasella').disabled=true; 
-        
-             
-      }
-      // Rimuove il listener dopo il controllo per non consumare batteria
-      window.removeEventListener('deviceorientation', checkGyro);
-        
-        
-      });
-     
-    }   
+              if (tempoTrascorso < 300 && tempoTrascorso > 0) {
+                 eseguiAzione();
+                }
+             ultimaVolta = tempoCorrente;
+             });
+
+           // 2. Gestione per PC (Mouse)
+              segreto.addEventListener('dblclick', function(event) {
+               eseguiAzione();
+            });
+
+            // 3. La funzione con l'azione da eseguire
+             function eseguiAzione() {
+           
+            document.getElementById('btnCasella').disabled = false; 
+             document.getElementById("avviso").innerText = "ora puoi cancellare la casella";
+                
+            }
 
             document.getElementById('btnCasella').addEventListener('click', function() { 
            
@@ -89,7 +97,7 @@
             // 4. Pulisce il localStorage e aggiorna l'interfaccia
               localStorage.removeItem("id_casella_postale");
               // "Cancellata casella postale vado al punto morto per la pubblicità" 
-              window.location.href = "successo.html";   
+               attivazioneAdSenseEAnagrafica(); 
              
 
            } catch (error) {
