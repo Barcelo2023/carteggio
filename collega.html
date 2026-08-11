@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carteggio</title>
+
+    <link rel="icon" href="img/logo.png"  type="image/png">
+    <link rel="stylesheet" href="style-casella.css"> <!-- Il file CSS -->  
+    
+      <script  src="carico.pubbl.js"></script>
+       <script  src="gestioneAdsense.js"></script>
+      <script  src="dataora.js"></script>
+  
+  
+  </head>
+  <body>
+         
+     <div class="container">     
+    <div  id="datetime"> </div>
+  <h1>Carteggio</h1>
+  <h2>Pagina collega casella </h2>
+
+  <p>Scrivi la tua e-mail</p>
+ 
+  <input type="text" id="email"  required autocomplete="off">
+
+  <div id="error"></div> 
+  
+  <button type="button" id="btnv"  >Collega casella</button>           
+  <button id="logoutBtn" type="button">Pagina iniziale</button>
+
+  
+</div>
+
+      
+    
+         <script type="module"> 
+     let mioIdCasella;
+    
+          // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
+      import { db } from "./firebaseConfig.js";
+           // Import the functions you need from the SDKs you need
+    
+     import { getFirestore,collection, getDoc, setDoc, addDoc,  doc} from
+       "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+     
+           
+            let  email;                    
+            let lengemail;
+            let conta;
+            let lettera;
+            let chioc;
+
+           caricodata();
+
+            document.getElementById('btnv').addEventListener('click', function() {       
+             email = document.getElementById('email').value; 
+
+                  chioc = " ";           
+                  lengemail = email.length;
+                  if (lengemail < 5){
+                  document .getElementById("error").innerText = "inserisci una email valida"; 
+                 return                              
+                  }                                   
+                  conta = 0;                
+                  do {
+                   lettera = email[conta] ; 
+                   if (lettera === ',') {
+                    document .getElementById("error").innerText = "inserisci una email valida"
+                    return
+                   }               
+                         
+                   if (lettera === '@')  chioc = lettera ; 
+                                                     
+                   conta++;
+                   } while (conta <lengemail); 
+      
+                 if (chioc !== '@'){
+                 document .getElementById("error").innerText = "inserisci una email valida"; 
+                 return                              
+                 } 
+                                 
+                   const emailPulita1 = String(email).trim().toLowerCase(); 
+                   const emailPulita2 =  emailPulita1.replaceAll(".", "a");
+                   const emailPulita3  = emailPulita2.replaceAll("@", "a"); 
+                   const emailPulita4  = emailPulita3.replaceAll("i", "s"); 
+                   const emailPulita5  = emailPulita4.replaceAll("o", "s"); 
+                   const emailPulita6  = emailPulita5.replaceAll("e", "s"); 
+                   mioIdCasella = emailPulita6.split('').reverse().join('');
+ 
+                    controllaCasella()
+                      
+        })        
+
+           async function controllaCasella() {
+          
+                  
+
+       // 1. Riferimento al documento usando il valore come ID
+        const docRef = doc(db, "casella_postale", mioIdCasella);
+  
+        // 2. Tenta di recuperare il documento
+        const docSnap = await getDoc(docRef);
+
+       // 3. Verifica l'esistenza usando .exists()
+       if (!docSnap.exists()) {
+       document .getElementById("error").innerText = "la casella non esiste  verifica se e-mail corretta"; 
+       return false;
+        }
+           localStorage.setItem("id_casella_postale", mioIdCasella)
+             attivazioneAdSenseEAnagrafica(); 
+           
+           }
+           
+                 document.getElementById('logoutBtn').addEventListener('click', function() {    
+              // 3. Reindirizza alla pagina di login
+               window.location.href = "index.html";
+              })
+
+  </script> 
+  
+  </body>
+  </html>          
