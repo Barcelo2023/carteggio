@@ -112,19 +112,10 @@
                    testoMessage = document.getElementById('message').value;
                    document.getElementById('message').value=""; 
                                   // 1. TESTO DI PARTENZA
-                   let originale = testoMessage;             
-
-                      // 1. ANDATA (A prova di emoji)
-                  // Usando [...testo] l'emoji rimane intera!
-                   let lettereCapovolte = [...originale.replace(/\s/g, '')].reverse();
-
-                    let testoCapovolto = [...originale].map(carattere => {
-                   return carattere === ' ' ? ' ' : lettereCapovolte.shift();
-                    }).join('');
-
-   
-                   testoMessage = testoCapovolto; 
                   
+                   const andata = testoMessage;             
+                   const andatamodificato= btoa(String.fromCodePoint(...new TextEncoder().encode(andata)));  
+                   testoMessage = andatamodificato; 
                   
                     stringaConverti =""; 
                     numero = randomNumber;
