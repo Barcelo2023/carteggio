@@ -8,8 +8,7 @@
     <link rel="icon" href="img/logo.png"  type="image/png">
     <link rel="stylesheet" href="style.cancella.css"  >
 
-     <script  src="carico.pubbl.js"></script>
-      <script  src="gestioneAdsense.js"></script>
+     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324" crossorigin="anonymous"></script>
      <script  src="dataora.js"></script>
    
   </head>
@@ -97,8 +96,7 @@
             // 4. Pulisce il localStorage e aggiorna l'interfaccia
               localStorage.removeItem("id_casella_postale");
               // "Cancellata casella postale vado al punto morto per la pubblicità" 
-               attivazioneAdSenseEAnagrafica(); 
-             
+              window.location.href = "successo.html";
 
            } catch (error) {
             // Gestione di eventuali errori reali (es. problemi di connessione o permessi)
