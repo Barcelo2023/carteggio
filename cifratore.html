@@ -51,7 +51,7 @@
             let pariodispari;
             let togli;
 
-               caricodata()
+               caricodata();
              
                 conta = 0;     
                 do{	 
@@ -88,18 +88,10 @@
                    testoMessage = document.getElementById('message').value;    
 
                        // 1. TESTO DI PARTENZA
-                   let originale = testoMessage;             
+                  const andata = testoMessage;             
+                  const andatamodificato= btoa(String.fromCodePoint(...new TextEncoder().encode(andata)));  
+                   testoMessage = andatamodificato; 
 
-                      // 1. ANDATA (A prova di emoji)
-                  // Usando [...testo] l'emoji rimane intera!
-                   let lettereCapovolte = [...originale.replace(/\s/g, '')].reverse();
-
-                    let testoCapovolto = [...originale].map(carattere => {
-                   return carattere === ' ' ? ' ' : lettereCapovolte.shift();
-                    }).join('');
-
-   
-                   testoMessage = testoCapovolto; 
                    document.getElementById('message').value=""; 
 
                     stringaConverti =""; 
@@ -174,15 +166,10 @@
 		         stringaConverti+=String.fromCharCode(converti) ; 
 
             } 
-                  let capovolto = stringaConverti;
-               // 3. RITORNO (Riapplichi lo stesso codice sul risultato)
+                  const ritorno = stringaConverti;
+                  const ritornomodificato = new TextDecoder().decode(Uint8Array.from(atob(ritorno), m => m.codePointAt(0)));
 
-                    let lettereRipristinate  = [...capovolto.replace(/\s/g, '')].reverse();
-                    let testoRipristinato = [...capovolto].map(carattere => {
-                   return carattere === ' ' ? ' ' : lettereRipristinate.shift();
-                    }).join('');            
-                 
-                  stringaConverti = testoRipristinato;
+                  stringaConverti = ritornomodificato;
                
                  document.getElementById("message").value = stringaConverti;
                  document.getElementById('message') .disabled=true  ;                 
