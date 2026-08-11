@@ -8,8 +8,14 @@
        <link rel="stylesheet" href="style-leggi.css"> <!-- Il file CSS --> 
   
    <script  src="dataora.js"></script>
-   <script  src="carico.pubbl.js"></script>
-    <script  src="gestioneAdsense.js"></script>
+   <head>
+    <meta charset="UTF-8">
+    <title>Titolo della tua pagina</title>
+
+    <!-- INCOLLALO QUI IN TUTTE LE PAGINE -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324" crossorigin="anonymous"></script>
+</head>
+
   
   </head>
   <body>
@@ -223,7 +229,7 @@
            
            console.log("Elaborazione completata. Vado alla pagina di caricamento pubblicità.");
        // Manda sia i PC che i telefoni alla pagina di transizione con AdSense
-           attivazioneAdSenseEAnagrafica(); 
+             window.location.href = "successo.html";
 
        } catch (error) {
         console.error("Errore durante il processo:", error);
