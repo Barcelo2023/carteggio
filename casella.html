@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="style-casella.css"> <!-- Il file CSS -->  
     
       <script  src="carico.pubbl.js"></script>
+       <script  src="gestioneAdsense.js"></script>
       <script  src="dataora.js"></script>
-     >
+  
   
   </head>
   <body>
@@ -18,7 +19,7 @@
      <div class="container">     
     <div  id="datetime"> </div>
   <h1>Carteggio</h1>
-  <h2>Pagina crea casella postale</h2>
+  <h2>Pagina crea casella</h2>
 
   <p>Scrivi la tua e-mail</p>
  
@@ -53,45 +54,15 @@
 
            caricodata();
 
-     
-           
-            // Controlla se il browser supporta l'orientamento (tipico dei telefoni)
-     if (window.DeviceOrientationEvent) {
-  
-      window.addEventListener('deviceorientation', function checkGyro(event) {
-      // Se alpha, beta e gamma sono nulli, significa che il dispositivo non ha sensori fisici (è un PC)
-      if (event.alpha === null && event.beta === null && event.gamma === null) {
-       
-        
-         window.removeEventListener('deviceorientation', checkGyro); 
-        document .getElementById("error").innerText = "operazione non permessa"; 
-        document.getElementById('btnv').disabled=true; 
-        document.getElementById('email').disabled=true; 
-             
-      }
-      // Rimuove il listener dopo il controllo per non consumare batteria
-      window.removeEventListener('deviceorientation', checkGyro);
-         document.getElementById('btnv').disabled=false; 
-        document.getElementById('email').disabled=false; 
-
-      });
-     
-    }   
-            
-
-            document.getElementById('btnv').addEventListener('click', function() { 
-
-       
+            document.getElementById('btnv').addEventListener('click', function() {       
              email = document.getElementById('email').value; 
 
-                  chioc = " ";
-           
+                  chioc = " ";           
                   lengemail = email.length;
                   if (lengemail < 5){
                   document .getElementById("error").innerText = "inserisci una email valida"; 
                  return                              
-                  } 
-                                  
+                  }                                   
                   conta = 0;                
                   do {
                    lettera = email[conta] ; 
@@ -99,7 +70,7 @@
                     document .getElementById("error").innerText = "inserisci una email valida"
                     return
                    }               
-                          
+                         
                    if (lettera === '@')  chioc = lettera ; 
                                                      
                    conta++;
@@ -157,8 +128,7 @@
            });
            localStorage.setItem("id_casella_postale", mioIdCasella)
 
-     //      "La casella è stata creata" vado apunto morto per la pubblicità   
-           window.location.href = "index.html";
+           attivazioneAdSenseEAnagrafica(); 
 }
 
 
