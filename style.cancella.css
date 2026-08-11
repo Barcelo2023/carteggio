@@ -44,11 +44,30 @@ html, body {
   
 }
 
+ /* Gestione elementi disabilitati (disabled) */
+.container [disabled] {
+  background-color: #e9ecef !important;
+  color: #35393d !important;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
 
+
+#segreto {
+  background-color: #242433; /* Giallo/Arancio per opzioni extra */
+  color:#83abd8 ;
+  border: none;
+}
 
 /* Spazio per il div di errore se si attiva */
 #error {
   color: red;
+  font-size: 16px;
+  text-align: center;
+}
+
+#avviso {
+ color: #83abd8 ;
   font-size: 16px;
   text-align: center;
 }
