@@ -68,14 +68,6 @@ html, body {
 }
 
 
-#segreto {
-  background-color: #242433; /* Giallo/Arancio per opzioni extra */
-  color:#83abd8 ;;
-  border: none;
-}
-
-
-
 /* Div di errore */
 #error {
   color: red;
