@@ -8,16 +8,15 @@
        <link rel="stylesheet" href="style-leggi.css"> <!-- Il file CSS --> 
   
    <script  src="dataora.js"></script>
-   <head>
-    <meta charset="UTF-8">
-    <title>Titolo della tua pagina</title>
+  
+    
 
     <!-- INCOLLALO QUI IN TUTTE LE PAGINE -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324" crossorigin="anonymous"></script>
-</head>
+    </head>
 
   
-  </head>
+
   <body>
         
 
@@ -30,12 +29,12 @@
       <p id="parm">Messaggio</p>
       <textarea  name="message" id="message" rows="4" readonly></textarea>             
        <div id="error" ></div>
-       <button  type="button" id="estrae"  disabled = "disabled"    >Estrae messaggio</button>
+       <button  type="button" id="estrae"    >Estrae messaggio</button>
 
        <button  type="button" id="decripta"  disabled = "disabled" >Decripta messaggio</button>       
         
       <button  type="button" id="cancella"   disabled = "disabled" >Cancella messaggio</button>
-      <button  type="button" id="segreto" >...</button>
+      
 
        <button type="button" id="logoutBtn">Pagina iniziale</button>
 
@@ -70,30 +69,6 @@
         
              caricodata();
 
-             let ultimaVolta = 0;
-              const segreto = document.getElementById('segreto');
-            // 1. Gestione per Telefono (Touch)
-             segreto.addEventListener('touchend', function(event) {
-              let tempoCorrente = new Date().getTime();
-              let tempoTrascorso = tempoCorrente - ultimaVolta;
-  
-              if (tempoTrascorso < 300 && tempoTrascorso > 0) {
-                 eseguiAzione();
-                }
-             ultimaVolta = tempoCorrente;
-             });
-
-           // 2. Gestione per PC (Mouse)
-              segreto.addEventListener('dblclick', function(event) {
-               eseguiAzione();
-            });
-
-            // 3. La funzione con l'azione da eseguire
-             function eseguiAzione() {
-           
-            document.getElementById('estrae').disabled = false; 
-                
-            }
         
              
              const estrae = document.getElementById('estrae');
