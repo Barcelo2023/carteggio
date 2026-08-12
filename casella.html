@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+   <!DOCTYPE html>
+     <html lang="en">
+   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carteggio</title>
@@ -13,7 +13,7 @@
 
     <!-- INCOLLALO QUI IN TUTTE LE PAGINE -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324" crossorigin="anonymous"></script>
-</head>
+     </head>
 
       
       <script  src="dataora.js"></script>
@@ -37,7 +37,7 @@
   <button id="logoutBtn" type="button">Pagina iniziale</button>
 
   
-</div>
+   </div>
 
       
     
@@ -106,7 +106,7 @@
             mioIdCasella = localStorage.getItem("id_casella_postale");
     
             if (mioIdCasella) {
-            document .getElementById("error").innerText = "la casella è già presente"; 
+            document .getElementById("error").innerText = "il dispositivo è già collegato a una casella"; 
             return
             
              }
@@ -123,7 +123,7 @@
 
        // 3. Verifica l'esistenza usando .exists()
        if (docSnap.exists()) {
-       document .getElementById("error").innerText = "la casella è già presente"; 
+       document .getElementById("error").innerText = "non puoi collegarti a una casalla esistente"; 
        return false;
         }
 
