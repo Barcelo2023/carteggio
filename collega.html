@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+   <!DOCTYPE html>
+    <html lang="en">
+    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carteggio</title>
@@ -14,13 +14,13 @@
 
     <!-- INCOLLALO QUI IN TUTTE LE PAGINE -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324" crossorigin="anonymous"></script>
-</head>
+   </head>
  
       <script  src="dataora.js"></script>
   
   
-  </head>
-  <body>
+    </head>
+     <body>
          
      <div class="container">     
     <div  id="datetime"> </div>
@@ -101,7 +101,14 @@
 
            async function controllaCasella() {
           
-                  
+                 // Controlla la memoria interna del telefono
+            mioIdCasella = localStorage.getItem("id_casella_postale");
+    
+            if (mioIdCasella) {
+            document .getElementById("error").innerText = "il dispositivo è già collegato a una  casella"; 
+            return
+            
+             }       
 
        // 1. Riferimento al documento usando il valore come ID
         const docRef = doc(db, "casella_postale", mioIdCasella);
