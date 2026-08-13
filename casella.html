@@ -106,7 +106,7 @@
             mioIdCasella = localStorage.getItem("id_casella_postale");
     
             if (mioIdCasella) {
-            document .getElementById("error").innerText = "il dispositivo è già collegato a una casella"; 
+            document .getElementById("error").innerText = "il dispositivo è già associato a una casella"; 
             return
             
              }
@@ -123,7 +123,7 @@
 
        // 3. Verifica l'esistenza usando .exists()
        if (docSnap.exists()) {
-       document .getElementById("error").innerText = "non puoi collegarti a una casalla esistente"; 
+       document .getElementById("error").innerText = "la casella esiste già"; 
        return false;
         }
 
@@ -133,8 +133,9 @@
            
            });
            localStorage.setItem("id_casella_postale", mioIdCasella)
-
-             window.location.href = "successo.html";
+           document .getElementById("error").innerText = "la casella è stata creata con successo'"; 
+           return
+            
 }
 
 
