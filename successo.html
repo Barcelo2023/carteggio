@@ -1,37 +1,75 @@
-
-    
-    <!-- LINK CORRETTO: Inserito l'indirizzo ufficiale completo con il tuo ID cliente -->
-   <!DOCTYPE html>
-     <html lang="it">
-    <head>
+<!DOCTYPE html>
+<html lang="it">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operazione Completata</title>
+    <title>Operazione Completata - BradCarteggio</title>
     
-    <!-- LINK CORRETTO: Inserito l'indirizzo ufficiale completo con il tuo ID cliente -->
+    <!-- Script ufficiale AdSense con il tuo ID cliente -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324" crossorigin="anonymous"></script>
      
     <style>
-        body { background-color: #242433; color: #83abd8; font-family: sans-serif; text-align: center; padding: 40px; }
-        .btn { display: inline-block; padding: 10px 20px; background: #35393d; color: #83abd8; text-decoration: none; border-radius: 8px; }
+        body { 
+            background-color: #242433; 
+            color: #b0c4de; 
+            font-family: sans-serif; 
+            text-align: center; 
+            padding: 40px; 
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 { 
+            color: #83abd8; 
+            font-size: 24px;
+        }
+        p {
+            margin-bottom: 30px;
+        }
+        .info-box {
+            background-color: #1c1c27;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            margin-bottom: 30px;
+            border-left: 4px solid #83abd8;
+            text-align: left;
+        }
+        .btn { 
+            display: inline-block; 
+            padding: 12px 24px; 
+            background: #35393d; 
+            color: #83abd8; 
+            text-decoration: none; 
+            border-radius: 8px; 
+            font-weight: bold;
+        }
+        .btn:hover {
+            background: #454a50;
+        }
     </style>
-    </head>
-    <body>
+</head>
+<body>
 
+<div class="container">
     <h1>Operazione completata con successo!</h1>
-    <script>
-   
-    setTimeout(function() {
-      window.location.href = "index.html";
-
-    }, 2500); // 
     
+    <p>La tua richiesta è stata elaborata dal sistema in totale sicurezza.</p>
+    
+    <!-- Box di testo utile per evitare il rifiuto "Contenuto di scarso valore" -->
+    <div class="info-box">
+        <strong>Nota sulla riservatezza:</strong> I messaggi inviati tramite l'applicazione
+         vengono crittografati e ospitati temporaneamente sul cloud. Al destinatario viene segnalato
+         l arrivo di un nuovo messaggio.
+         I  messaggi  subito dopo la lettura e la cancellazione da parte del destinatario vengono 
+         eliminati senza alcuna conservazione di copie di backup sui server.
+    </div>
 
-    </script>
-    <!-- Il link per tornare alla home: fondamentale per far scattare l'annuncio interstiziale -->
-    <p><a class="btn" href="index.html">Torna alla Home</a></p>
+    <!-- Il click su questo pulsante attiverà l'annuncio interstiziale di AdSense -->
+    <p><a class="btn" href="index.html">Torna alla Home Page</a></p>
+</div>
 
-    </body>
-    </html>
-
-   
+</body>
+</html>
