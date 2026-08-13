@@ -202,9 +202,10 @@
         await deleteDoc(riferimentoRicevutoDaCancellare);
         
            
-           console.log("Elaborazione completata. Vado alla pagina di caricamento pubblicità.");
-       // Manda sia i PC che i telefoni alla pagina di transizione con AdSense
-             window.location.href = "successo.html";
+           document .getElementById("error").innerText = "il messaggio è stato cancellato con successo.";
+
+            document.getElementById('cancella').disabled = true; 
+            return
 
        } catch (error) {
         console.error("Errore durante il processo:", error);
