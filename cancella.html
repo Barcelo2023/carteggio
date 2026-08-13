@@ -95,8 +95,9 @@
         
             // 4. Pulisce il localStorage e aggiorna l'interfaccia
               localStorage.removeItem("id_casella_postale");
-              // "Cancellata casella postale vado al punto morto per la pubblicità" 
-              window.location.href = "successo.html";
+              // "Cancellata casella postale vado al punto morto per la pubblicità"
+              document.getElementById("error").innerText = "La casella postale è stata cancellata con successo"; 
+               return
 
            } catch (error) {
             // Gestione di eventuali errori reali (es. problemi di connessione o permessi)
