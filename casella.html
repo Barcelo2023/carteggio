@@ -1,4 +1,4 @@
-   <!DOCTYPE html>
+<!DOCTYPE html>
      <html lang="en">
    <head>
     <meta charset="UTF-8">
@@ -15,7 +15,7 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324" crossorigin="anonymous"></script>
      </head>
 
-      
+      <script  src="email.criptata.js"></script>
       <script  src="dataora.js"></script>
   
   
@@ -86,16 +86,14 @@
                  document .getElementById("error").innerText = "inserisci una email valida"; 
                  return                              
                  } 
-                                 
-                   const emailPulita1 = String(email).trim().toLowerCase(); 
-                   const emailPulita2 =  emailPulita1.replaceAll(".", "a");
-                   const emailPulita3  = emailPulita2.replaceAll("@", "a"); 
-                   const emailPulita4  = emailPulita3.replaceAll("i", "s"); 
-                   const emailPulita5  = emailPulita4.replaceAll("o", "s"); 
-                   const emailPulita6  = emailPulita5.replaceAll("e", "s"); 
-                   chiaveCasella = emailPulita6.split('').reverse().join('');
- 
-                    insertCasella()
+
+                 
+               hashEmail(email).then(chiave => {
+                   chiaveCasella = chiave;
+
+                    insertCasella();
+               })
+                 
                       
         })        
 
@@ -110,11 +108,8 @@
             return
             
              }
-
-            
-            mioIdCasella = chiaveCasella ; 
-           
-
+            mioIdCasella = chiaveCasella;
+    
        // 1. Riferimento al documento usando il valore come ID
         const docRef = doc(db, "casella_postale", mioIdCasella);
   
