@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +6,8 @@
         html, body {
             margin: 0;
             padding: 0;
-            background-color: #242433; /* Abbinato al colore del tuo container */
-            color: #b0c4de;            /* Testo chiaro leggibile */
+            background-color: #242433; 
+            color: #b0c4de;            
             font-family: sans-serif;
         }
         .privacy-container {
@@ -19,18 +18,18 @@
             box-sizing: border-box;
         }
         h1 {
-            color: #83abd8;            /* Il tuo azzurro dei titoli */
+            color: #83abd8;            
             border-bottom: 2px solid #35393d;
             padding-bottom: 10px;
             font-size: 24px;
         }
         h2 {
-            color: #83abd8;            /* Il tuo azzurro dei sottotitoli */
+            color: #83abd8;            
             margin-top: 30px;
             font-size: 19px;
         }
         strong {
-            color: #ffffff;            /* Forzatura bianco per i termini importanti */
+            color: #ffffff;            
         }
         ul {
             padding-left: 20px;
@@ -39,7 +38,7 @@
             margin-bottom: 10px;
         }
         a {
-            color: #d9383a;            /* Rosso del tuo bottone notifica per i link, molto visibile */
+            color: #d9383a;            
             text-decoration: underline;
         }
         .btn-back {
@@ -60,70 +59,47 @@
     
     <h1>Informativa sulla Privacy (Privacy Policy)</h1>
     
-    <p>La presente Informativa sulla Privacy descrive le modalità con cui viene gestito il sito <strong>BRADCARTEGGIO.IT</strong>
-       (di seguito "l'Applicazione") e il trattamento dei dati personali degli utenti.</p>
+    <p>La presente Informativa sulla Privacy descrive le modalità con cui viene gestito il sito <strong>BRADCARTEGGIO.IT</strong> (di seguito "l'Applicazione") e il trattamento dei dati personali degli utenti.</p>
 
     <h2>1. Dati raccolti e Finalità del trattamento</h2>
     
     <ul>
-        <li><strong>  L' applicazione non raccoglie alcun dato dell'utente.</strong> 
-
-         Per poter usufruire del servizio di messaggistica dell'Applicazione, all'utente viene richiesto di inserire il proprio        
-         indirizzo e-mail al solo scopo di generare un ID  che identifica la casella virtuale univoca e anonima. 
-         Utilizza allo scopo hashing SHA-256. </p>   
-         
-   
-               
-        <li><strong>Protezione dell'E-mail:</strong> L'indirizzo e-mail inserito  reso irriconoscibile da hashing SHA-256
-         viene memorizzato nel localStorage del dispositivo  dell'utente.
-         Tale processo  non permette di ritornare alla e-mail originale.
-        L' accesso alla casella postale può avvenire solo con la e-mail irriconoscibile memorizzata sul dispositivo. 
-        Qualora l' associazioe venisse interrotta  per cambio di browser, cancellamento cronologia  o perdita  del     
-        dispositivo è prevista una funzione per ripristinare l'associazione  con la propria casella.</li>
+        <li><strong>L'applicazione non raccoglie dati personali identificativi diretti.</strong> Per poter usufruire del servizio di messaggistica dell'Applicazione, all'utente viene richiesto di inserire il proprio indirizzo e-mail al solo scopo di generare un ID che identifica la casella virtuale univoca e anonima. Utilizza allo scopo l'hashing algoritmico SHA-256.</li>   
+        
+        <li><strong>Protezione dell'E-mail:</strong> L'indirizzo e-mail inserito, reso irriconoscibile dall'hashing SHA-256, viene memorizzato nel localStorage del dispositivo dell'utente. Tale processo non permette di risalire alla e-mail originale. L'accesso alla casella postale può avvenire solo tramite la stringa memorizzata sul dispositivo. Qualora l'associazione venisse interrotta per cambio di browser, cancellazione della cronologia o perdita del dispositivo, è prevista una funzione per ripristinare l'associazione con la propria casella.</li>
        
-         
-        <li><strong>Limitazione del servizio:</strong> La messaggistica è limitata esclusivamente alle comunicazioni tra utenti 
-         che possiedono una casella postale attiva all'interno dell'Applicazione.</li>
+        <li><strong>Limitazione del servizio:</strong> La messaggistica è limitata esclusivamente alle comunicazioni tra utenti che possiedono una casella postale attiva all'interno dell'Applicazione.</li>
     </ul>
 
     <h2>2. Gestione dei Messaggi e Infrastruttura Cloud (Firebase Firestore)</h2>
     <p>I messaggi di testo scambiati tra gli utenti non vengono salvati in chiaro sui server.</p>
     
     <ul>
-        <li><strong>Crittografia:</strong> Ogni messaggio viene crittografato  prima di essere salvato nel cloud.</li>
-        <li><strong>Salvataggio e Notifica:</strong> Il messaggio cifrato viene ospitato temporaneamente sul database cloud
-         Cloud Firestore (Google Firebase). Una chiave identificativa (ID del messaggio) viene associata al campo dei messaggi
-          ricevuti del destinatario. Un sistema di notifica automatica visiva ("faro") avverte il destinatario della presenza 
-          di un nuovo messaggio.</li>
-        <li><strong>Cancellazione immediata:</strong> Una volta che il destinatario decodifica , legge  e cancella il messaggio
-         ogni evidenzia viene cancellata definitivamente dai server di Cloud Firestore, senza alcuna  conservazione 
-         di copie di backup.</li>
-       
+        <li><strong>Crittografia:</strong> Ogni messaggio viene crittografato prima di essere salvato nel cloud.</li>
+        <li><strong>Salvataggio e Notifica:</strong> Il messaggio cifrato viene ospitato temporaneamente sul database cloud Cloud Firestore (Google Firebase). Una chiave identificativa (ID del messaggio) viene associata al campo dei messaggi ricevuti del destinatario. Un sistema di notifica automatica visiva ("faro") avverte il destinatario della presenza di un nuovo messaggio.</li>
+        <li><strong>Cancellazione immediata:</strong> Una volta che il destinatario decodifica, legge e cancella il messaggio, ogni evidenza viene eliminata definitivamente dai server di Cloud Firestore, senza alcuna conservazione di copie di backup.</li>
     </ul>
 
     <h2>3. Servizi pubblicitari di terze parti (Google AdSense)</h2>
-    <p>   L'Applicazione utilizza Google AdSense per mostrare annunci pubblicitari. I fornitori di terze parti, tra cui Google,
-          utilizzano i cookie per pubblicare annunci sulla base delle precedenti visite dell'utente. Gli utenti possono scegliere
-          di disattivare la pubblicità personalizzata visitando le Impostazioni annunci di Google.
-          È possibile consultare l'informativa estesa del fornitore al seguente link: Norme per i partner di Google.</p>
+    <p>L'Applicazione utilizza <strong>Google AdSense</strong> per mostrare annunci pubblicitari all'interno del sito. I fornitori di terze parti, tra cui Google, utilizzano i cookie (compreso il cookie DoubleClick) per pubblicare annunci sulla base delle precedenti visite dell'utente su questo o su altri siti web.</p>
+    <p>I dati raccolti tramite i cookie di tracciamento includono l'indirizzo IP, il tipo di browser e dati di navigazione, gestiti direttamente da Google secondo le sue politiche di riservatezza.</p>
+    <p>Gli utenti possono scegliere di gestire e disattivare la pubblicità personalizzata nei seguenti modi:</p>
+    <ul>
+        <li>Disattivando la pubblicità mirata tramite la pagina <a href="https://google.com" target="_blank">Impostazioni annunci di Google</a>.</li>
+        <li>Disattivando l'uso dei cookie di fornitori terzi per la pubblicità personalizzata visitando il portale europeo <a href="https://youronlinechoices.com" target="_blank">Your Online Choices</a> o il sito <a href="https://aboutads.info" target="_blank">www.aboutads.info</a>.</li>
+        <li>Consultando le informazioni complete visitando le <a href="https://google.com" target="_blank">Norme per i partner di Google</a>.</li>
+    </ul>
     
-    
-
     <h2>4. Diritto alla cancellazione dell'account e gestione del dispositivo</h2>
-    <p>In conformità con le normative sulla protezione dei dati, l'Applicazione fornisce una funzione esplicita e accessibile
-          per la cancellazione della casella postale.</p>
+    <p>In conformità con le normative sulla protezione dei dati, l'Applicazione fornisce una funzione esplicita e accessibile per la cancellazione della casella postale.</p>
     
     <ul>
-        <li><strong>Rimozione e correzione errori:</strong> L'utente può utilizzare la funzione di cancellazioe in qualsiasi momento
-          per eliminare definitivamente la propria casella postale e l'e-mail offuscata associata.
-          Questa funzione può essere utilizzata anche nel caso in cui l'utente abbia commesso un errore di digitazione durante 
-          l'inserimento della propria e-mail in fase di creazione, consentendogli di azzerare i dati locali e procedere a una nuova
-          configurazione corretta.</li>
-           
+        <li><strong>Rimozione e correzione errori:</strong> L'utente può utilizzare la funzione di cancellazione in qualsiasi momento per eliminare definitivamente la propria casella postale e l'e-mail offuscata associata. Questa funzione può essere utilizzata anche nel caso in cui l'utente abbia commesso un errore di digitazione durante l'inserimento della propria e-mail in fase di creazione, consentendogli di azzerare i dati locali e procedere a una nuova configurazione corretta.</li>
+    </ul>
 
     <h2>5. Contatti</h2>
-    <p>Per domande o segnalazioni sulla privacy, contatta il titolare Bradicich Igor Via Gibellini N.91 28100 Novara ,       
-           e-mail: <a href="mailto:ibradicich@virgilio.it">ibradicich@virgilio.it</a></p>
+    <p>Per domande o segnalazioni sulla privacy, contatta il titolare: Bradicich Igor, Via Gibellini N.91, 28100 Novara. <br>
+    E-mail: <a href="mailto:ibradicich@virgilio.it">ibradicich@virgilio.it</a></p>
 
     <hr style="border: 0; border-top: 1px solid #35393d; margin-top: 40px; margin-bottom: 20px;">
     <p style="font-size: 0.9em; color: #83abd8;"><strong>Ultimo aggiornamento:</strong> Luglio 2026</p>
