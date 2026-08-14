@@ -32,8 +32,8 @@
      
        <p  id="errorm"   ></p>
        <button id="pulisci" type="button"  >Pulisci testo</button> 
-      <button id="cripta" type="button"   >Cripta testo</button> 
-      <button id="decripta" type="button"  >Decripta testo</button> 
+      <button id="cripta" type="button" >Cripta</button>
+      <button id="decripta" type="button" >Decripta testo</button> 
         <button id="logoutBtn" type="button">Pagina iniziale</button>
        </div>
 
@@ -70,11 +70,11 @@
                    btnpulisci.addEventListener('click', function() {  
 
                   
-                   document.getElementById('message') .disabled=false  ;
+                   document.getElementById('message').disabled=false  ;
                    document.getElementById('message'). focus();
                   
                     document.getElementById('message').value  = ""; 
-
+                    document.getElementById('cripta').disabled= false; 
                    
          }) 
 
@@ -137,7 +137,8 @@
  
                  document.getElementById('message').value  = stringaConverti; 
 
-                
+                  document.getElementById('cripta').disabled= true;
+                   
        }) 
 
               const decripta = document.getElementById('decripta');
@@ -180,7 +181,7 @@
                
                  document.getElementById("message").value = stringaConverti;
                  document.getElementById('message') .disabled=true  ;                 
-                 
+                 document.getElementById('cripta') .disabled=false  ; 
                               
           })  
           
