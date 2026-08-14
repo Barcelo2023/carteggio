@@ -17,7 +17,7 @@
    </head>
  
       <script  src="dataora.js"></script>
-  
+      <script  src="email.criptata.js"></script>
   
     </head>
      <body>
@@ -84,17 +84,12 @@
                  document .getElementById("error").innerText = "inserisci una email valida"; 
                  return                              
                  } 
-                                 
-                   const emailPulita1 = String(email).trim().toLowerCase(); 
-                   const emailPulita2 =  emailPulita1.replaceAll(".", "a");
-                   const emailPulita3  = emailPulita2.replaceAll("@", "a"); 
-                   const emailPulita4  = emailPulita3.replaceAll("i", "s"); 
-                   const emailPulita5  = emailPulita4.replaceAll("o", "s"); 
-                   const emailPulita6  = emailPulita5.replaceAll("e", "s"); 
-                   mioIdCasella = emailPulita6.split('').reverse().join('');
- 
+                     hashEmail(email).then(chiave => {
+                   mioIdCasella = chiave;
+             
+               
                     controllaCasella()
-                      
+                       })          
         })        
 
            async function controllaCasella() {
