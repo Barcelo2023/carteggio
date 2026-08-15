@@ -75,7 +75,9 @@
     <p>I messaggi di testo scambiati tra gli utenti non vengono salvati in chiaro sui server.</p>
     
     <ul>
-        <li><strong>Crittografia:</strong> Ogni messaggio viene crittografato prima di essere salvato nel cloud.</li>
+        <li><strong>Crittografia:</strong> Il testo del messaggio viene prima modificato con un algoritmo poi crittografato quindi 
+            salvato nel cloud.</li>
+          
         <li><strong>Salvataggio e Notifica:</strong> Il messaggio cifrato viene ospitato temporaneamente sul database cloud Cloud Firestore (Google Firebase). Una chiave identificativa (ID del messaggio) viene associata al campo dei messaggi ricevuti del destinatario. Un sistema di notifica automatica visiva ("faro") avverte il destinatario della presenza di un nuovo messaggio.</li>
         <li><strong>Cancellazione immediata:</strong> Una volta che il destinatario decodifica, legge e cancella il messaggio, ogni evidenza viene eliminata definitivamente dai server di Cloud Firestore, senza alcuna conservazione di copie di backup.</li>
     </ul>
