@@ -1,18 +1,27 @@
-# Carteggio - Messaggistica Privata Real-Time e Criptata
+# Carteggio - Messaggistica Privata Real-Time e Cifrata
 
 Un'applicazione web e mobile incentrata sulla privacy assoluta, che evita l'uso di email o registrazioni tradizionali. I messaggi si autodistruggono immediatamente dopo la lettura sia dal cloud che dalla memoria del dispositivo.
 
-## 🚀 Prova l'App e Scarica l'APK
-Visita il sito ufficiale su GitHub Pages per leggere il funzionamento e scaricare l'applicazione:
+## 🚀 L 'applicazione si trova sul sito BRADCARTEGGIO.IT
+Visita il sito ufficiale su GitHub Pages per leggere il funzionamento . 
 👉 [Sito Web Carteggio](https://github.io)
 
 ## 🔒 Filosofia di Sicurezza e Crittografia
-* **Crittografia End-to-End Logica:** I messaggi vengono convertiti a livello numerico (Tabella ASCII) e cifrati sul dispositivo del mittente attraverso un algoritmo simmetrico guidato da un flusso pseudo-casuale modificato prima dell'invio.
-* **Zero-Knowledge Cloud:** I testi risiedono su Firebase Firestore esclusivamente in forma cifrata. Nessuno (nemmeno l'amministratore del database) può leggerli in chiaro.
-* **Macchina a Stati Finiti nell'Interfaccia:** La lettura dei messaggi è protetta da un comando segreto (doppio clic su un indicatore nascosto `...`) per prevenire sguardi indiscreti. I pulsanti di azione seguono un flusso sequenziale rigido (Estrai ➡️ Decripta ➡️ Cancella).
+* **Dati raccolti e Finalità del trattamento:** L'applicazione non raccoglie dati personali identificativi diretti.
+Per poter usufruire del servizio di messaggistica dell'Applicazione, all'utente viene richiesto di inserire il proprio indirizzo e-mail al solo scopo di generare un ID che identifica la casella virtuale univoca e anonima. L ID  viene memorizzatto sul
+ localStorage del dispositivo . Questo processo  utilizza l'hashing algoritmico SHA-256.   
+        
+
+* **Crittografia End-to-End Logica:** I messaggi prima di essere cifrati vengono modificati con un algoritmo che modifica 
+il loro contenuto quindi passati alla cifratura tramite (Tabella ASCII) .
+ 
+* **Zero-Knowledge Cloud:** I messaggi risiedono su Firebase Firestore esclusivamente in forma cifrata. Nessuno (nemmeno l'amministratore del database) può leggerli in chiaro.
+Un faro (snapshot) avvisa il destinatario che nella sua casella è stato depositato un messaggio.
+
+* **Macchina a Stati Finiti nell'Interfaccia:** La lettura dei messaggi segue un flusso sequenziale rigido (Estrai ➡️ Decripta ➡️ Cancella).
 * **Tabula Rasa:** Al termine della lettura, il database cloud viene ripulito e un ricaricamento hardware della pagina cancella ogni traccia dei testi dalla memoria RAM del telefono.
 
 ## 🛠️ Tecnologie Utilizzate
 * HTML5 / CSS3 (Layout fluido con Media Queries per dispositivi mobili)
-* JavaScript Vanilla (Logica asincrona e crittografia nativa)
+* JavaScript Vanilla (Logica asincrona e crittografia nativa) SHA-256 per creare la casella. 
 * Firebase Firestore (Sincronizzazione real-time tramite listener `onSnapshot`)
