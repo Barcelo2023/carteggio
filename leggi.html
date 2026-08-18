@@ -75,7 +75,7 @@
              estrae.addEventListener('click', function() { 
 
              chiaveAttiva = localStorage.getItem('id_casella_postale'); 
-             
+     
               // Sicurezza: se l'ID non esiste nel localStorage, si ferma subito
             if (!chiaveAttiva) {
              document.getElementById("error").innerText = "Non ci sono messaggi";
@@ -146,7 +146,9 @@
                  document.getElementById("message").value = stringaConverti;
                  document.getElementById('cancella').disabled = false; 
                  document.getElementById('decripta').disabled = true;                
-          })    
+          })  
+          
+          
                  const cancella = document.getElementById('cancella');
        cancella.addEventListener('click', function() { 
     
@@ -161,7 +163,7 @@
               async function leggiUtenti() {         
           // 1. Crea il riferimento al documento specifico passando la chiave
            const ricevutiRef = collection(db, "casella_postale", chiaveAttiva, "ricevuti");
-
+      
           // 2. Esegui la lettura
            const snapshotRicevuti = await getDocs(ricevutiRef);
 
@@ -170,10 +172,8 @@
               chiaveDocumento = 'nonce';
               return  ;
             }                   
-          const primoDocRicevuto = snapshotRicevuti.docs[0];
-           chiaveDocumento  = primoDocRicevuto.id; // Questo è l'ID del messaggio
-                  
-                       
+            chiaveDocumento = snapshotRicevuti.docs[0].id;
+  
             // 1. Crea il riferimento al documento (collezione, idDocumento)
             const docRef = doc(db, "messaggi", chiaveDocumento);
             // 2. Ottieni lo snapshot
@@ -188,10 +188,11 @@
        }
            
             async function deleteRecord(){
-                  
+
+  
          try {
          // Crea il riferimento al documento: doc(db, "collezione", "id_documento")
-            const docRef = doc(db, "messaggi", chiaveDocumento.trim());
+            const docRef = doc(db, "messaggi", chiaveDocumento);
 
           // Elimina il documento
           await deleteDoc(docRef);
