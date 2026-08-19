@@ -41,6 +41,7 @@
     
          <script type="module"> 
      let mioIdCasella;
+     let chiaveCasella;
     
           // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
       import { db } from "./firebaseConfig.js";
@@ -84,15 +85,21 @@
                  document .getElementById("error").innerText = "inserisci una email valida"; 
                  return                              
                  } 
-                     hashEmail(email).then(chiave => {
-                   mioIdCasella = chiave;
+
              
-               
-                    controllaCasella()
-                       })          
+                   
+          hashEmail(email).then(chiave => {
+                   chiaveCasella = chiave;
+                   console.log(chiaveCasella);
+                  
+                controllaCasella();
+        
+                       })  
+                
         })        
 
            async function controllaCasella() {
+           
           
                  // Controlla la memoria interna del telefono
             mioIdCasella = localStorage.getItem("id_casella_postale");
@@ -101,10 +108,13 @@
             document .getElementById("error").innerText = "il dispositivo è già associato a una  casella"; 
             return
             
-             }       
-
+             } 
+            console.log(chiaveCasella) ;
+            return
+         
+   
        // 1. Riferimento al documento usando il valore come ID
-        const docRef = doc(db, "casella_postale", mioIdCasella);
+        const docRef = doc(db, "casella_postale", chiaveCasella);
   
         // 2. Tenta di recuperare il documento
         const docSnap = await getDoc(docRef);
@@ -114,7 +124,7 @@
        document .getElementById("error").innerText = "la casella non esiste  verifica se e-mail corretta"; 
        return false;
         }
-           localStorage.setItem("id_casella_postale", mioIdCasella)
+           localStorage.setItem("id_casella_postale", chiaveCasella)
            document .getElementById("error").innerText = "la casella é stata associata con successo"; 
            return
            }
