@@ -87,15 +87,15 @@
                  } 
 
              
-                   
-          hashEmail(email).then(chiave => {
+                    hashEmail(email).then(chiave => {
                    chiaveCasella = chiave;
-                   console.log(chiaveCasella);
-                  
-                controllaCasella();
-        
-                       })  
                 
+                   return
+
+                    controllaCasella();
+               })
+                  
+        
         })        
 
            async function controllaCasella() {
@@ -109,8 +109,8 @@
             return
             
              } 
-            console.log(chiaveCasella) ;
-            return
+           
+           
          
    
        // 1. Riferimento al documento usando il valore come ID
