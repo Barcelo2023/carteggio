@@ -1,8 +1,8 @@
-
- async function hashEmail(email) {
-  const emailPulita = String(email).replace(/\s+/g, '').toLowerCase();
-  // 1. Converte il testo dell'email in un array di byte (Uint8Array)
-  const msgBuffer = new TextEncoder().encode(emailPulita);                    
+async function hashEmail(email) {
+  const emailPulita = String(email).replace(/\s+/g, '').toLowerCase();             
+  const emailModificata= btoa(String.fromCodePoint(...new TextEncoder().encode(emailPulita)));                 
+  
+  const msgBuffer = new TextEncoder().encode(emailModificata);                    
 
   // 2. Genera l'hash SHA-256 (restituisce un ArrayBuffer)
   const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
@@ -13,5 +13,3 @@
    
   return chiave;
 }
-
-
