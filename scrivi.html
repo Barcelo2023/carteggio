@@ -92,7 +92,15 @@
              
 
                  const btnverifica = document.getElementById('verifica');
-                   btnverifica.addEventListener('click', function() {  
+                   btnverifica.addEventListener('click', function() { 
+                     // Controlla la memoria interna del dispositivo
+          const   mioIdCasella = localStorage.getItem("id_casella_postale");
+    
+               if (!mioIdCasella) {
+               document .getElementById("errorm").innerText = "non hai creato una casella operazione negata "; 
+                return
+            
+               } 
              
                        
                   email = document.getElementById('email').value;
@@ -113,9 +121,9 @@
                    btncripta.addEventListener('click', function() {  
                            
                    testoMessage = document.getElementById('message').value;
-                   document.getElementById('message').value=""; 
-                                  // 1. TESTO DI PARTENZA
-                  
+                   document.getElementById('message').value="";
+
+                    // 1. TESTO DI PARTENZA                  
                    const andata = testoMessage;             
                    const andatamodificato= btoa(String.fromCodePoint(...new TextEncoder().encode(andata)));  
                    testoMessage = andatamodificato; 
@@ -127,8 +135,7 @@
                    document .getElementById("errorm").innerText = "messaggio mancante"; 
                   return
                  }
-                  document.getElementById("errorm").innerText = ""; 
-                 
+                  document.getElementById("errorm").innerText = "";                  
 
                for (conta=0; conta <lunghezza; conta ++)
 	               {		
@@ -172,53 +179,49 @@
                   const jsonString = JSON.stringify(utente);
                   dataToSave = JSON.parse(jsonString);
 
-                   aggiungiMessaggi().then(chiave => {
-                
+                   aggiungiMessaggi().then(chiave => {                
                     chiaveDocumento = chiave ;     
                               
-                    aggiungiRicevuti() 
-                                    
-                     window.location.href = "successo.html";
-                    
+                    aggiungiRicevuti()                                     
+                     window.location.href = "successo.html";                    
                                                                  
                    })                                                                                         
 
-                 }) 
-                         
+                 })                         
                            
-              async  function aggiungiMessaggi(){           
+                 async  function aggiungiMessaggi(){           
                    try {
-             const docRef = await addDoc(collection(db, "messaggi"), dataToSave);
-        //       document.getElementById("message").value = "messaggio salvato con successo"; 
-               document.getElementById('message').disabled = true;
-               return docRef.id; 
-              } catch (e) {
+                 const docRef = await addDoc(collection(db, "messaggi"), dataToSave);
+        
+                document.getElementById('message').disabled = true;
+                return docRef.id; 
+                } catch (e) {
                 document.getElementById("errorm").innerText = "errore inserimento messaggio ";
                             
                     return
                 }
              }                                                          
                                                                                        
-             async  function aggiungiRicevuti(){ 
+               async  function aggiungiRicevuti(){ 
            
-           try {
-            // Il percorso punta al documento che ha come ID il valore di chiaveDocumento
-            const docRef =  await doc(db, "casella_postale", chiaveUtenti, "ricevuti", chiaveDocumento);
+              try {
+              // Il percorso punta al documento che ha come ID il valore di chiaveDocumento
+               const docRef =  await doc(db, "casella_postale", chiaveUtenti, "ricevuti", chiaveDocumento);
   
-          // Salviamo il documento inserendo anche solo un timestamp (comodo per ordinarli per data)
+             // Salviamo il documento inserendo anche solo un timestamp (comodo per ordinarli per data)
             await setDoc(docRef, { 
-           creatoIl: new Date() 
+              creatoIl: new Date() 
            });
 
              return    
 
-         } catch (firebaseError) {
-           document.getElementById("errorm").innerText = "errore inserimento chiave messaggio";
-          console.log("Errore testuale:", String(firebaseError));
-          return;
-         }
+            } catch (firebaseError) {
+             document.getElementById("errorm").innerText = "errore inserimento chiave messaggio";
+             console.log("Errore testuale:", String(firebaseError));
+            return;
+           }
        
-      }
+       }
               async function leggiCasellaPostale() {  
 
                // 1. Crea il riferimento al documento specifico passando la chiave
@@ -240,7 +243,7 @@
                     return docSnap.data();
            
                   } else {        
-                 document .getElementById("errorm").innerText = "Utente senza casella";                  
+                 document .getElementById("errorm").innerText = "destinatario  senza casella";                  
                 return 
                 }
               }     
