@@ -94,15 +94,14 @@
                  const btnverifica = document.getElementById('verifica');
                    btnverifica.addEventListener('click', function() { 
                      // Controlla la memoria interna del dispositivo
-          const   mioIdCasella = localStorage.getItem("id_casella_postale");
+                 const   mioIdCasella = localStorage.getItem("id_casella_postale");
     
-               if (!mioIdCasella) {
-               document .getElementById("errorm").innerText = "non hai creato una casella operazione negata "; 
+                 if (!mioIdCasella) {
+                 document .getElementById("errorm").innerText = "non hai creato una casella operazione negata "; 
                 return
             
                } 
-             
-                       
+                                    
                   email = document.getElementById('email').value;
                   lunghezza = email.length;
                   if (lunghezza < 10){
@@ -113,10 +112,12 @@
                    hashEmail(email).then(chiave => {
                    chiaveUtenti = chiave;
                   
-                  leggiCasellaPostale()                                      
+                  leggiCasellaPostale()  
+                             
                    }) 
                 })           
 
+  
                   const btncripta = document.getElementById('cripta');
                    btncripta.addEventListener('click', function() {  
                            
@@ -166,22 +167,23 @@
                 
        }) 
                  const btnsalva = document.getElementById('salva');
-                 btnsalva.addEventListener('click', function() {  
-
+                 btnsalva.addEventListener('click', function() { 
+                  
+       
                  stringaConverti = document.getElementById ('message').value;
                      
                  randomNumber = randomNumber + 3            
                  
                  let siglaDatabase = "indx" + randomNumber.toString(36);
                 
-                  utente = { sigla: siglaDatabase, messaggio: stringaConverti, creato :new Date() }; 
+                  utente = { sigla: siglaDatabase, messaggio: stringaConverti, creato: new Date() }; 
                  // 2. Conversione in stringa JSON
                   const jsonString = JSON.stringify(utente);
                   dataToSave = JSON.parse(jsonString);
-
+   
                    aggiungiMessaggi().then(chiave => {                
                     chiaveDocumento = chiave ;     
-                              
+ 
                     aggiungiRicevuti()                                     
                      window.location.href = "successo.html";                    
                                                                  
