@@ -58,43 +58,28 @@
              const modificaemail = document.getElementById('email').value; 
 
              if(!modificaemail.startsWith("!")){
-               document .getElementById("error").innerText = "manca carattere ! vedi info"; 
+              document .getElementById("error").innerText = "manca carattere ! vedi info"; 
                 return
               }
 
               email = modificaemail.slice(1);
-              document .getElementById("error").innerText = ""; 
-           
-                chioc = " ";           
-                lengemail = email.length;
-                if (lengemail < 8){
-                document .getElementById("error").innerText = "inserisci una email valida"; 
-                 return                              
-                  }                                   
-                  conta = 0;                
-                  do {
-                   lettera = email[conta] ; 
-                   if (lettera === ',') {
-                    document .getElementById("error").innerText = "inserisci una email valida"
-                    return
-                   }               
-                         
-                   if (lettera === '@')  chioc = lettera ; 
-                                                     
-                   conta++;
-                   } while (conta <lengemail); 
-      
-                 if (chioc !== '@'){
-                 document .getElementById("error").innerText = "inserisci una email valida"; 
-                 return                              
-                 } 
+              document .getElementById("error").innerText = "";            
+               
+              email = document.getElementById('email').value; 
+              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;            
+              const emailDaControllare = (email);
+              const isValid = emailRegex.test(emailDaControllare); 
+              if (!isValid){
+              document.getElementById("error").innerText = "inserisci una e-mail valida"; 
+              return
+   
+              }
 
-             
-                    hashEmail(email).then(chiave => {
+                  document .getElementById("error").innerText = "";              
+                  
+                   hashEmail(email).then(chiave => {
                    chiaveCasella = chiave;
-                
-                 
-
+ 
                     controllaCasella();
                })
                   
