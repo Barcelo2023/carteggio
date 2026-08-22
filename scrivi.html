@@ -68,13 +68,10 @@
             let randomNumber;
             let numero;
             let togli;
-
                    
-                 caricodata();
-                
-                 randomNumber= Math.floor(Math.random() * 35) + 1;
-                 randomNumber = randomNumber + 10; 
-
+              caricodata();                
+              randomNumber= Math.floor(Math.random() * 35) + 1;
+               randomNumber = randomNumber + 10; 
                   
                togli = 1;
                pari = randomNumber;
@@ -82,7 +79,6 @@
                if (pari % 2 == 0) {  
                togli = 2;
                }
-
 
                  conta = 0;     
                 do{	 
@@ -102,12 +98,17 @@
             
                } 
                                     
-                  email = document.getElementById('email').value;
-                  lunghezza = email.length;
-                  if (lunghezza < 10){
-                    document .getElementById("errorm").innerText = "email errata o mancante"; 
-                    return 
-                  }
+                email = document.getElementById('email').value;
+                 
+               const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;            
+               const emailDaControllare = (email);
+               const isValid = emailRegex.test(emailDaControllare); 
+               if (!isValid){
+               document.getElementById("errorm").innerText = "inserisci una e-mail valida"; 
+               return
+   
+              } 
+                 document.getElementById("errorm").innerText = ""; 
 
                    hashEmail(email).then(chiave => {
                    chiaveUtenti = chiave;
