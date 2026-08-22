@@ -120,7 +120,8 @@
 
          // 4. Se NON esiste, procedi con l'inserimento
                await setDoc(docRef, { 
-           creato: new Date() 
+           creato: new Date() ,
+           sigla: "aut"
            
            });
            localStorage.setItem("id_casella_postale", mioIdCasella)
