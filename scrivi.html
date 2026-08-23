@@ -41,7 +41,7 @@
      let chiaveUtenti = "null";
            
          // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
-      import { db } from "./firebaseConfig.js";
+      import { db, ottieniUtentePronto  } from "./firebaseConfig.js";
           // 2. Importi solo le funzioni di cui questa pagina ha bisogno  
     
      import { getFirestore,collection, getDoc, setDoc, addDoc,  doc} from
@@ -93,7 +93,7 @@
                  const   mioIdCasella = localStorage.getItem("id_casella_postale");
     
                  if (!mioIdCasella) {
-                 document .getElementById("errorm").innerText = "non hai creato una casella operazione negata "; 
+                 document .getElementById("errorm").innerText = "non hai una casella operazione negata "; 
                 return
             
                } 
@@ -226,7 +226,7 @@
        
        }
               async function leggiCasellaPostale() {  
-
+                    await ottieniUtentePronto();    
                // 1. Crea il riferimento al documento specifico passando la chiave
                 const docRef = doc(db, "casella_postale", chiaveUtenti);
 
