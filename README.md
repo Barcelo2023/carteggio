@@ -8,7 +8,7 @@ Visita il sito ufficiale su GitHub Pages per leggere il funzionamento .
 
 ## 🔒 Filosofia di Sicurezza e Crittografia
 * **Dati raccolti e Finalità del trattamento:** L'applicazione non raccoglie dati personali identificativi diretti.
-Per poter usufruire del servizio di messaggistica dell'Applicazione, all'utente viene richiesto di inserire il proprio indirizzo e-mail al solo scopo di generare un ID che identifica la casella virtuale univoca e anonima. L ID  viene memorizzatto sul localStorage del dispositivo . Questo processo  utilizza l'hashing algoritmico SHA-256.  
+Per poter usufruire del servizio di messaggistica dell'Applicazione, all'utente viene richiesto di inserire il proprio indirizzo e-mail al solo scopo di generare un ID che identifica la casella virtuale univoca e anonima. L ID  viene memorizzatto sul localStorage del dispositivo . 
 
 
 * **Crittografia End-to-End Logica:** I messaggi prima di essere cifrati vengono modificati con un algoritmo che modifica il loro contenuto quindi passati alla cifratura tramite (Tabella ASCII) .
@@ -21,5 +21,5 @@ Un faro (snapshot) avvisa il destinatario che nella sua casella è stato deposit
 
 ## 🛠️ Tecnologie Utilizzate
 * HTML5 / CSS3 (Layout fluido con Media Queries per dispositivi mobili)
-* JavaScript Vanilla (Logica asincrona e crittografia nativa) SHA-256 per creare la casella. 
+* JavaScript Vanilla (Logica asincrona e crittografia nativa). 
 * Firebase Firestore (Sincronizzazione real-time tramite listener `onSnapshot`)
