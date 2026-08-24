@@ -4,38 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carteggio</title>
-
    
     <link rel="stylesheet" href="style-casella.css"> <!-- Il file CSS -->  
-   
-    <!-- INCOLLALO QUI IN TUTTE LE PAGINE -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324" crossorigin="anonymous"></script>
+      
     
       <script  src="email.criptata.js"></script>
       <script  src="dataora.js"></script>
   
-  
-  </head>
-  <body>
+    </head>
+    <body>
          
      <div class="container">     
-    <div  id="datetime"> </div>
-  <h1>Carteggio</h1>
-  <h2>Pagina crea casella</h2>
-
-  <p>Scrivi la tua e-mail</p>
+     <div  id="datetime"> </div>
+     <h1>Carteggio</h1>
+      <h2>Pagina crea casella</h2>
+    <p>Scrivi la tua e-mail</p>
  
-  <input type="text" id="email"  required autocomplete="off">
+     <input type="text" id="email"  required autocomplete="off">
 
   <div id="error"></div> 
   
   <button type="button" id="btnv"  >Crea casella</button>           
   <button id="logoutBtn" type="button">Pagina iniziale</button>
-
-  
-   </div>
-
-      
+ 
+   </div>      
     
          <script type="module"> 
         let mioIdCasella;
@@ -68,13 +60,11 @@
                    chiaveCasella = chiave;
 
                     insertCasella();
-               })
-                 
+               })                 
                       
         })        
 
            async function insertCasella() {
-
    
             // Controlla la memoria interna del telefono
             mioIdCasella = localStorage.getItem("id_casella_postale");
