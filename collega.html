@@ -6,10 +6,7 @@
     <title>Carteggio</title>
     
     <link rel="stylesheet" href="style-casella.css"> <!-- Il file CSS -->  
-        
-    <!-- INCOLLALO QUI IN TUTTE LE PAGINE -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324" crossorigin="anonymous"></script>
-  
+             
        <script  src="dataora.js"></script>
       <script  src="email.criptata.js"></script>
   
@@ -17,21 +14,21 @@
      <body>
          
      <div class="container">     
-    <div  id="datetime"> </div>
-  <h1>Carteggio</h1>
-  <h2>Pagina collega casella </h2>
+     <div  id="datetime"> </div>
+     <h1>Carteggio</h1>
+      <h2>Pagina collega casella </h2>
 
-  <p>Scrivi la tua e-mail</p>
+      <p>Scrivi la tua e-mail</p>
  
-  <input type="text" id="email"  required autocomplete="off">
+     <input type="text" id="email"  required autocomplete="off">
 
-  <div id="error"></div> 
+     <div id="error"></div> 
   
-  <button type="button" id="btnv"  >Collega casella</button>           
-  <button id="logoutBtn" type="button">Pagina iniziale</button>
+      <button type="button" id="btnv"  >Collega casella</button>           
+      <button id="logoutBtn" type="button">Pagina iniziale</button>
 
   
-</div>     
+      </div>     
     
          <script type="module"> 
      let mioIdCasella;
@@ -41,14 +38,13 @@
       import { db, ottieniUtentePronto  } from "./firebaseConfig.js";
            // Import the functions you need from the SDKs you need
     
-     import { getFirestore,collection, getDoc,   doc} from
+       import { getFirestore,collection, getDoc,   doc} from
        "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
      
            
-            let  email;                    
-           
+            let  email;                              
 
-           caricodata();
+             caricodata();
 
             document.getElementById('btnv').addEventListener('click', function() {  
 
@@ -78,14 +74,12 @@
                    chiaveCasella = chiave;
  
                     controllaCasella();
-               })
-                  
+               })                  
         
         })        
 
            async function controllaCasella() {
-           
-          
+                     
                  // Controlla la memoria interna del telefono
             mioIdCasella = localStorage.getItem("id_casella_postale");
     
