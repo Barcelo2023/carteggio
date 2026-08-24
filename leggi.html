@@ -1,26 +1,21 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
+    <!DOCTYPE html>
+    <html lang="it">
+     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carteggio</title>
      
-     <link rel="stylesheet" href="style-leggi.css"> <!-- Il file CSS --> 
-  
-   <script  src="dataora.js"></script>
-      
-    <!-- INCOLLALO QUI IN TUTTE LE PAGINE -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324" crossorigin="anonymous"></script>
+     <link rel="stylesheet" href="style-leggi.css"> <!-- Il file CSS -->   
+     <script  src="dataora.js"></script>
+        
     </head>
 
-  <body>
+     <body>
         
-
     <div class="container">
       <div  id="datetime"> </div>
        <h1>Carteggio</h1> 
-     <h2>Pagina leggi messaggi</h2>
-                    
+     <h2>Pagina leggi messaggi</h2>                   
     
       <p id="parm">Messaggio</p>
       <textarea  name="message" id="message" rows="4" readonly></textarea>             
@@ -144,11 +139,10 @@
           
           
                  const cancella = document.getElementById('cancella');
-       cancella.addEventListener('click', function() { 
+                cancella.addEventListener('click', function() { 
     
                 deleteRecord();                                        
-               
-               
+                             
               document.getElementById('cancella').disabled = false;  
                })
            
@@ -191,22 +185,18 @@
             const docRef = doc(db, "messaggi", chiaveDocumento);
 
           // Elimina il documento
-          await deleteDoc(docRef);
-        
+          await deleteDoc(docRef);        
           
-  // 5. Cancella l'idDocumento dalla sottocollezione "ricevuti"
+       // 5. Cancella l'idDocumento dalla sottocollezione "ricevuti"
         const riferimentoRicevutoDaCancellare = doc(db, "casella_postale", chiaveAttiva, "ricevuti", chiaveDocumento);
         await deleteDoc(riferimentoRicevutoDaCancellare);
-        
-           
-           document .getElementById("error").innerText = "il messaggio è stato cancellato con successo.";
-
+                            
             document.getElementById('cancella').disabled = true; 
-            return
+            window.location.href = "successo.html";   
 
        } catch (error) {
-        console.error("Errore durante il processo:", error);
-         document.getElementById("message").value = "errore durante il processo";
+           console.error("Errore durante il processo:", error);
+           document.getElementById("message").value = "errore durante il processo";
     }
   }
      
@@ -216,8 +206,7 @@
                window.location.href = "index.html";
               })
         
-    </script>
-     
+    </script>     
         
  </body>
  </html>
