@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carteggio</title>
+        <!DOCTYPE html>
+        <html lang="it">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Carteggio</title>
      
-      <link rel="stylesheet" href="style-scrivi.css"> <!-- Il file CSS -->  
-       
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7064918153021324" crossorigin="anonymous"></script>  
-    
+       <link rel="stylesheet" href="style-scrivi.css"> <!-- Il file CSS -->  
+                 
         <script  src="dataora.js"></script>
          <script  src="email.criptata.js"></script>
-</head>
+       </head>
 
-    <body>
+        <body>
             
      <div class="container">
       <div  id="datetime"> </div>
@@ -37,14 +35,14 @@
       
        <script type="module"> 
      
-     let chiaveDocumento = "null" ;
-     let chiaveUtenti = "null";
+       let chiaveDocumento = "null" ;
+       let chiaveUtenti = "null";
            
          // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
-      import { db, ottieniUtentePronto  } from "./firebaseConfig.js";
+        import { db, ottieniUtentePronto  } from "./firebaseConfig.js";
           // 2. Importi solo le funzioni di cui questa pagina ha bisogno  
     
-     import { getFirestore,collection, getDoc, setDoc, addDoc,  doc} from
+        import { getFirestore,collection, getDoc, setDoc, addDoc,  doc} from
        "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
       
            
