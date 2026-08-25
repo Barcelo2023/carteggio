@@ -54,11 +54,9 @@
               document .getElementById("error").innerText = "manca carattere ! vedi info"; 
                 return
               }
-
+               document .getElementById("error").innerText = "";       
               email = modificaemail.slice(1);
-              document .getElementById("error").innerText = "";            
-               
-              email = document.getElementById('email').value; 
+                                                           
               const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;            
               const emailDaControllare = (email);
               const isValid = emailRegex.test(emailDaControllare); 
@@ -85,18 +83,17 @@
     
             if (mioIdCasella) {
             document .getElementById("error").innerText = "il dispositivo è già associato a una  casella"; 
-            console.log(chiaveCasella);
-            return
-            
+      
              } 
               await ottieniUtentePronto();                    
    
        // 1. Riferimento al documento usando il valore come ID
         const docRef = doc(db, "casella_postale", chiaveCasella);
+ 
   
         // 2. Tenta di recuperare il documento
         const docSnap = await getDoc(docRef);
-
+ 
        // 3. Verifica l'esistenza usando .exists()
        if (!docSnap.exists()) {
        document .getElementById("error").innerText = "la casella non esiste  verifica se e-mail corretta"; 
