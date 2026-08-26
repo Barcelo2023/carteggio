@@ -66,10 +66,10 @@
     
     <ul>
         <li><strong>L'applicazione non raccoglie dati personali identificativi diretti.</strong> Per poter usufruire del servizio di messaggistica dell'Applicazione, all'utente viene richiesto di inserire il proprio indirizzo e-mail al solo scopo di generare un ID che identifica la casella virtuale univoca e anonima.
-             La e-mail viene prima modificata e poi criptata con l'hashing algoritmico SHA-256.
-             Il trattamento dei dati (hashing dell'indirizzo e-mail) si fonda sul consenso esplicito dell'utente, espresso al momento dell'inserimento della e-mail per l'attivazione del servizio.</li>   
+            
+             Il trattamento dei dati ( dell'indirizzo e-mail) si fonda sul consenso esplicito dell'utente, espresso al momento dell'inserimento della e-mail per l'attivazione del servizio.</li>   
         
-        <li><strong>Protezione dell'E-mail:</strong> L'indirizzo e-mail inserito, reso irriconoscibile dall'hashing SHA-256, viene memorizzato nel localStorage del dispositivo dell'utente e utilizzato come identificativo univoco sul database Cloud Firestore. Tale processo non permette di risalire alla e-mail originale. L'accesso alla casella postale può avvenire solo tramite la stringa memorizzata sul dispositivo. Qualora l'associazione venisse interrotta per cambio di browser o perdita del dispositivo, è prevista una funzione per ripristinare l'associazione con la propria casella.</li>
+        <li><strong>Protezione dell'E-mail:</strong> L'indirizzo e-mail inserito, reso irriconoscibile , viene memorizzato nel localStorage del dispositivo dell'utente e utilizzato come identificativo univoco sul database Cloud Firestore. Tale processo non permette di risalire alla e-mail originale. L'accesso alla casella postale può avvenire solo tramite la stringa memorizzata sul dispositivo. Qualora l'associazione venisse interrotta per cambio di browser o perdita del dispositivo, è prevista una funzione per ripristinare l'associazione con la propria casella.</li>
        
         <li><strong>Limitazione del servizio:</strong> La messaggistica è limitata esclusivamente alle comunicazioni tra utenti che possiedono una casella postale attiva all'interno dell'Applicazione.</li>
     </ul>
@@ -83,26 +83,15 @@
         <li><strong>Cancellazione immediata:</strong> Una volta che il destinatario decodifica, legge e cancella il messaggio, ogni evidenza viene eliminata definitivamente dai server di Cloud Firestore, senza alcuna conservazione di copie di backup.</li>
     </ul>
 
-    <h2>3. Servizi pubblicitari di terze parti (Google AdSense)</h2>
-    <p>L'Applicazione utilizza <strong>Google AdSense</strong> per mostrare annunci basati sulle visite precedenti degli utenti tramite cookie, inclusi quelli per la pubblicità personalizzata gestiti da Google e dai suoi partner.</p>
     
-    <p>I dati raccolti (tra cui indirizzo IP, tipo di browser e dati di navigazione) sono trattati secondo le norme sulla privacy di Google.</p>
-        
-    <p>Gli utenti possono gestire o disattivare la pubblicità personalizzata nei seguenti modi:</p>
-    <ul>
-        <li>Disattivando la pubblicità mirata tramite la pagina <a href="https://adssettings.google.com" target="_blank">Impostazioni annunci di Google</a>.</li>
-        <li>Disattivando l'uso dei cookie di fornitori terzi per la pubblicità personalizzata visitando il portale europeo <a href="https://youronlinechoices.com" target="_blank">Your Online Choices</a> o il sito <a href="https://aboutads.info" target="_blank">www.aboutads.info</a>.</li>
-        <li>Consultando le informazioni complete visitando le <a href="https://google.com" target="_blank">Norme per i partner di Google</a>.</li>
-    </ul>
-    
-    <h2>4. Diritto alla cancellazione dell'account e gestione del dispositivo</h2>
+    <h2>3. Diritto alla cancellazione dell'account e gestione del dispositivo</h2>
     <p>In conformità con le normative sulla protezione dei dati, l'Applicazione fornisce una funzione esplicita e accessibile per la cancellazione della casella postale.</p>
     
     <ul>
         <li><strong>Rimozione e correzione errori:</strong> L'utente può utilizzare la funzione di cancellazione in qualsiasi momento per eliminare definitivamente la propria casella postale e l'e-mail offuscata associata. Questa funzione può essere utilizzata anche nel caso in cui l'utente abbia commesso un errore di digitazione durante l'inserimento della propria e-mail in fase di creazione, consentendogli di azzerare i dati locali e procedere a una nuova configurazione corretta.</li>
     </ul>
 
-    <h2>5. Contatti</h2>
+    <h2>4. Contatti</h2>
     <p>Per domande o segnalazioni sulla privacy, contatta il titolare: Bradicich Igor, Via Gibellini N.91, 28100 Novara. <br>
     E-mail: <a href="mailto:ibradicich@virgilio.it">ibradicich@virgilio.it</a></p>
 
