@@ -54,9 +54,9 @@
               document .getElementById("error").innerText = "manca carattere ! vedi info"; 
                 return
               }
-               document .getElementById("error").innerText = "";       
-              email = modificaemail.slice(1);
-                                                           
+               document .getElementById("error").innerText = ""; 
+
+              email = modificaemail.slice(1);                                                           
               const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;            
               const emailDaControllare = (email);
               const isValid = emailRegex.test(emailDaControllare); 
@@ -65,9 +65,7 @@
               return
    
               }
-
-                  document .getElementById("error").innerText = "";              
-                  
+                      
                    hashEmail(email).then(chiave => {
                    chiaveCasella = chiave;
  
@@ -83,13 +81,12 @@
     
             if (mioIdCasella) {
             document .getElementById("error").innerText = "il dispositivo è già associato a una  casella"; 
-      
+            return
              } 
               await ottieniUtentePronto();                    
    
        // 1. Riferimento al documento usando il valore come ID
-        const docRef = doc(db, "casella_postale", chiaveCasella);
- 
+        const docRef = doc(db, "casella_postale", chiaveCasella); 
   
         // 2. Tenta di recuperare il documento
         const docSnap = await getDoc(docRef);
