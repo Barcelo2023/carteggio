@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style-index.css"> <!-- Il file CSS --> 
   
        <script  src="dataora.js"></script>
-       <script  src="sw.js"></script>
+       
     </head>
       <body>
 
@@ -108,7 +108,20 @@
         esco.addEventListener('click', function() { 
             window.location.href = "https://google.com";
         });                
-    </script>
+   
+       if ('serviceWorker' in navigator) {
+       window.addEventListener('load', function() {
+      navigator.serviceWorker.register('./sw.js')
+        .then(function(reg) {
+          console.log('Service Worker di Monetag registrato con successo!', reg.scope);
+        })
+        .catch(function(err) {
+          console.error('Errore di registrazione del Service Worker:', err);
+        });
+    });
+  }
+</script>
+
     
 </body>
 </html>
