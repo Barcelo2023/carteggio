@@ -20,7 +20,7 @@
       <h2>Pagina crea casella</h2>
     <p>Scrivi la tua e-mail</p>
  
-     <input type="text" id="email"  required autocomplete="off">
+     <input type="text" id="email"  required autocomplete="off"  disabled="disabled">
 
   <div id="error"></div> 
   
@@ -43,7 +43,11 @@
            
            caricodata();
 
-            document.getElementById('btnv').addEventListener('click', function() {       
+            document.getElementById('btnv').addEventListener('click', function() { 
+             document.getElementById("error").innerText = "sito in fase di test"; 
+             
+              return  
+              
              email = document.getElementById('email').value; 
              
               const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;            
