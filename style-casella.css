@@ -37,9 +37,12 @@ html, body {
   color:#83abd8;  
 }
 
-/* Uniforma la larghezza di tutti gli input e i bottoni */
 
-/* Copia questo blocco nei CSS delle altre pagine per uniformare i bottoni */
+
+#label{
+    transform: translateY(-30px);
+}
+
 .container input, 
 .container button {
   width: 90%;                        
@@ -50,6 +53,7 @@ html, body {
   box-sizing: border-box;
   background-color: #35393d; 
   color: #83abd8;
+  transform: translateY(-45px);
 }
 
 #email{
@@ -69,3 +73,5 @@ color: #83abd8;
 font-size: large;
 
 }
+
+
