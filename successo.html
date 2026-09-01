@@ -82,10 +82,17 @@
         if (accessi >= 4) {
             accessi = 0;
          localStorage.setItem('accessi_pubblicita', accessi);
-           window.location.href = "pubbl.html";
-           return
+          window.open("/pubbl.html","_blank","noopener,noreferrer");                       
+
+        setTimeout(function(){
+        
+          window.location.href = "/index.html";   
+        }, 200);
+             
+        } else {
+            window.location.href = "/index.html";
         }
-           window.location.href = "index.html";
+          
           
          }); 
         
