@@ -192,7 +192,7 @@
         await deleteDoc(riferimentoRicevutoDaCancellare);
                             
             document.getElementById('cancella').disabled = true; 
-            window.location.href = "successo.html";   
+           window.location.replace("/successo.html");     
 
        } catch (error) {
            console.error("Errore durante il processo:", error);
