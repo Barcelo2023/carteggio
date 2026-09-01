@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carteggio</title>
-    
-   
-     
+    <title>Carteggio</title>    
+  
     <style>
         body { 
             background-color: #242433; 
@@ -44,32 +42,57 @@
             text-decoration: none; 
             border-radius: 8px; 
             font-weight: bold;
+            cursor: pointer;
+            border: none;
         }
         .btn:hover {
             background: #454a50;
         }
     </style>
-    </head>
-    <body>
+</head>
+<body>
 
-     <div class="container">
+<div class="container">
     <h1>Operazione completata con successo!</h1>
     
     <p>La tua richiesta è stata elaborata dal sistema in totale sicurezza.</p>
     
-    <!-- Box di testo utile per evitare il rifiuto "Contenuto di scarso valore" -->
     <div class="info-box">
         <strong>Nota sulla riservatezza:</strong> I messaggi inviati tramite l'applicazione
          vengono crittografati e ospitati temporaneamente sul cloud. Al destinatario viene 
-         segnalato l arrivo di un nuovo messaggio.
+         segnalato l'arrivo di un nuovo messaggio.
          
-         I  messaggi  subito dopo la lettura e la cancellazione da parte del destinatario vengono 
+         I messaggi subito dopo la lettura e la cancellazione da parte del destinatario vengono 
          eliminati senza alcuna conservazione di copie di backup sui server.
     </div>
 
-    <!-- Il click su questo pulsante attiverà l'annuncio -->
-    <p><a class="btn" href="index.html">Torna alla Home Page</a></p>
-</div>
+     <button class="btn" type="button">Ritorna alla home</button>
+     </div>
+
+      <script>
+         const  bottone = document.querySelector('.btn');
+        bottone.addEventListener('click', function() { 
+               
+        let accessi = parseInt(localStorage.getItem('accessi_pubblicita')) || 0;
+           
+        accessi++;
+        localStorage.setItem('accessi_pubblicita', accessi);
+
+        // Se l'utente ha raggiunto o superato il quarto accesso
+        if (accessi >= 4) {
+            accessi = 0;
+         localStorage.setItem('accessi_pubblicita', accessi);
+           window.location.href = "pubbl.html";
+           return
+        }
+           window.location.href = "index.html";
+          
+         }); 
+        
+          
+    
+</script>
 
 </body>
 </html>
+
