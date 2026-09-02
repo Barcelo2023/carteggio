@@ -36,7 +36,7 @@
             border-left: 4px solid #83abd8;
             text-align: left;
         }
-        .btn { 
+        .btn1 { 
             display: inline-block; 
             padding: 12px 24px; 
             background: #35393d; 
@@ -45,7 +45,20 @@
             border-radius: 8px; 
             font-weight: bold;
         }
-        .btn:hover {
+        .btn1:hover {
+            background: #454a50;
+        }
+
+        .btn2 { 
+            display: inline-block; 
+            padding: 12px 24px; 
+            background: #35393d; 
+            color: #83abd8; 
+            text-decoration: none; 
+            border-radius: 8px; 
+            font-weight: bold;
+        }
+        .btn2:hover {
             background: #454a50;
         }
     </style>
@@ -73,12 +86,28 @@
             E' sempre possibile cancellare la casella creata utilizzando la funzione 
             CANCELLA CASELLA.
     </div>
+            </div>
 
+     <button class="btn1" type="button">Vai a crea casella gratis</button>
+     <button class="btn2" type="button">Vai a pagamento</button>
+     </div>
+  
 
-    <p><a class="btn" href="casella.gratis.html">Vai a crea casella gratis</a></p>
-    <p><a class="btn" href="pagamento.html">Vai a pagamento</a></p>
+   </div>
 
-</div>
+  <script>
+       const  bottone1 = document.querySelector('.btn1');
+        bottone1.addEventListener('click', function() { 
+            window.location.replace ("/casella.gratis.html");   
+        }) 
+        
+         const  bottone2 = document.querySelector('.btn2');
+        bottone2.addEventListener('click', function() { 
+             window.location.replace ("/pagamento.html");  
+        })   
+
+  </script>
+
 
 </body>
 </html>
