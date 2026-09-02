@@ -35,7 +35,20 @@
             border-left: 4px solid #83abd8;
             text-align: left;
         }
-       
+        .btn { 
+            display: inline-block; 
+            padding: 12px 24px; 
+            background: #35393d; 
+            color: #83abd8; 
+            text-decoration: none; 
+            border-radius: 8px; 
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+        }
+        .btn:hover {
+            background: #454a50;
+        }
         
     </style>
 </head>
@@ -51,14 +64,25 @@
                
          Gli stacchi pubblicitari non interrompono le operazioni di lettura,
          scrittura e creazione casella. 
-         Inoltre per non molestare troppo vengono mostrati al raggiungimento di un limite di
-         accessi.
+         Inoltre per non molestare troppo scattano solo al raggiungimento di un limite
+         di operazioni.
           
          
     </div>
 
-    
+     
 
+     <button class="btn" type="button">clicca qui per sostenere l'applicazione</button>
+     </div>
+    <script>
+
+          const  bottone = document.querySelector('.btn');
+        bottone.addEventListener('click', function() { 
+
+           return 
+
+        })
+    </script>
      
 </body>
 </html>
