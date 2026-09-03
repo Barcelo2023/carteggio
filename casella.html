@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+   <!DOCTYPE html>
      <html lang="it">
    <head>
     <meta charset="UTF-8">
@@ -14,20 +14,20 @@
     </head>
     <body>
          
-     <div class="container">     
-     <div  id="datetime"> </div>
-     <h1>Carteggio</h1>
+       <div class="container">     
+       <div  id="datetime"> </div>
+       <h1>Carteggio</h1>
       <h2>Pagina crea casella</h2>
-    <p>Scrivi la tua e-mail</p>
- 
-     <input type="text" id="email"  required autocomplete="off"  disabled="disabled">
-
-  <div id="error"></div> 
+     
+      <p id="error"></p>
+      <p id="label">Scrivi la tua e-mail</p>
+      <input type="text" id="email" autocomplete="off">
   
-  <button type="button" id="btnv"  >Crea casella</button>           
-  <button id="logoutBtn" type="button">Pagina iniziale</button>
+      <button type="button" id="btngratis"  >Crea casella</button> 
+         
+      <button id="logoutBtn" type="button">Pagina iniziale</button>
  
-   </div>      
+      </div>      
     
          <script type="module"> 
         let mioIdCasella;
@@ -37,17 +37,14 @@
       import { db, ottieniUtentePronto  } from "./firebaseConfig.js";
            // Import the functions you need from the SDKs you need
     
-     import { getFirestore,collection, getDoc, setDoc,  doc} from
+     import { getFirestore,collection,  setDoc,  doc} from
        "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
                      
            
            caricodata();
 
-            document.getElementById('btnv').addEventListener('click', function() { 
-             document.getElementById("error").innerText = "sito in fase di test"; 
+            document.getElementById('btngratis').addEventListener('click', function() { 
              
-              return  
-              
              email = document.getElementById('email').value; 
              
               const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;            
@@ -81,32 +78,28 @@
             mioIdCasella = chiaveCasella;
           await ottieniUtentePronto();    
     
-       // 1. Riferimento al documento usando il valore come ID
-        const docRef = doc(db, "casella_postale", mioIdCasella);
-  
-        // 2. Tenta di recuperare il documento
-        const docSnap = await getDoc(docRef);
-
-       // 3. Verifica l'esistenza usando .exists()
-       if (docSnap.exists()) {
-       document .getElementById("error").innerText = "la casella esiste già"; 
-       return false;
-        }
-
-         // 4. Se NON esiste, procedi con l'inserimento
-               await setDoc(docRef, { 
+          // 1. Riferimento al documento usando il valore come ID
+           const docRef = doc(db, "casella_postale", mioIdCasella);
+         
+            await setDoc(docRef, { 
            creato: new Date() ,
            sigla: "aut"
            
            });
-           localStorage.setItem("id_casella_postale", mioIdCasella)
-           window.location.href = "successo.html";
+           localStorage.setItem("id_casella_postale", mioIdCasella)           
+           localStorage.setItem('accessi_pubblicita', 0);
+           localStorage.setItem('consenso_cookie_marketing', 'true'); 
+           localStorage.setItem('account_status', 'ads');
+           window.location.replace("/successo.html");     
                     
     }
+             
+
 
                  document.getElementById('logoutBtn').addEventListener('click', function() {    
               // 3. Reindirizza alla pagina di login
-               window.location.href = "index.html";
+               window.location.replace("/index.html");    
+              
               })
 
   </script> 
