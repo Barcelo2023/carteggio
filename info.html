@@ -61,8 +61,7 @@
             Attivare la funzione cancella casella e ripetere il procedimento.
 
             In  caso di perdita del dispositivo o cancellazione del localStorage per ripristinare 
-            l' associazione tra localStorage e casella attivare la funzione collega casella digitando
-            la e-mail preceduta da !.
+            l' associazione tra localStorage  e dispositivo ripetere la creazione della casella.
           
 
           </p>
@@ -98,11 +97,35 @@
 
     </section>
 
-    <!-- Pulsante per tornare alla Home -->
-    <footer class="info-footer">
-      <a href="index.html" class="btn-home">⬅ Torna alla Pagina Iniziale</a>
-    </footer>
-  </div>
+        <!-- Pulsante per tornare alla Home -->
+         <div>
+    
+         <br>
+        <button class="btn" type="button">Ritorna alla home</button>
+     </div>
+     <style>
+      .btn { 
+            display: inline-block; 
+            padding: 12px 24px; 
+            background: #35393d; 
+            color: #83abd8; 
+            text-decoration: none; 
+            border-radius: 8px; 
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+        }
+        .btn:hover {
+            background: #454a50;
+        }
+     </style>
+
+      <script>
+         const  bottone = document.querySelector('.btn');
+        bottone.addEventListener('click', function() { 
+        window.location.replace("/index.html");
+        })
+      </script>
 
 </body>
 </html>
