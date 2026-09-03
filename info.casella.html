@@ -66,30 +66,40 @@
     <body>
 
      <div class="container">
-    <h1>Scelta attivazione casella anonima</h1>
+    <h1>Attivazione casella anonima</h1>
     
     
     
     <div class="info-box">
-        <strong>Creando la casella GRATIS</strong><br>
-            Consenti l'uso dei cookie di terze parti (Monetag) 
-            e la visualizzazione di annunci pubblicitari.
+        <strong>Creazione della casella </strong><br>
+             La creazione della casella ti permette di comunicare (tramite messaggi criptati
+             usa e getta)  con persone  che hanno creato una casella.            
+             I messaggi inviati vengono criptati e depositati temporaneamente su un 
+             database.
+             Il ricevente viene avvisato che è stato depositato un messaggio nella sua 
+             casella. 
+             Il ricevente estrae il messaggio lo decripta  e infine lo cancella.
+             
+             L' applicazione non raccoglie alcun dato trasforma  la tua e-mail per creare
+             una chiave che non permette di risalire alla e-mail originaria .
+
+             La chiave creata viene salvata sul localStorage del dispositivo creando una
+             associazione tra dispositivo e casella.
+
+            Creando la casella consenti l'uso dei cookie di terze parti (Monetag) 
+             e la visualizzazione di annunci pubblicitari.
              <p></p>
-       
-            <strong>Creando la casella a PAGAMENTO</strong><br>
-            Nessuna pubblicità, nessun cookie di terze parti.  Costo 18€ l'anno .
-            Un consiglio - prima di spendere dei soldi prova  la creazione 
-            gratis per vedere se l'applicazione risponde alle tue esigenze.
-            <p></p>
+              
                        
             <strong>Cancellazione casella </strong><br> 
-            E' sempre possibile cancellare la casella creata utilizzando la funzione 
-            CANCELLA CASELLA.
+             Se l'applicazione non soddisfa le tue esigenze la puoi cancellare 
+             utilizzando la funzione  Cancella Casella.
+        
     </div>
             </div>
 
-     <button class="btn1" type="button">Vai a crea casella gratis</button>
-     <button class="btn2" type="button">Vai a pagamento</button>
+     <button class="btn1" type="button">Accetto</button>
+     <button class="btn2" type="button">Non accetto</button>
      </div>
   
 
@@ -98,12 +108,12 @@
   <script>
        const  bottone1 = document.querySelector('.btn1');
         bottone1.addEventListener('click', function() { 
-            window.location.replace ("/casella.gratis.html");   
+            window.location.replace ("/casella.html");   
         }) 
         
          const  bottone2 = document.querySelector('.btn2');
         bottone2.addEventListener('click', function() { 
-             window.location.replace ("/pagamento.html");  
+             window.location.replace ("/index.html");  
         })   
 
   </script>
