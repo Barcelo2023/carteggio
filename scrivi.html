@@ -233,6 +233,14 @@
 
                   // 3. Controlla se il documento esiste prima di leggerlo
                  if (docSnap.exists()) {  
+                   
+                  const dati = docSnap.data();  
+                  // 2. Estrai il campo specifico (es. "nome_campo")
+                  const mioCampo = dati.sigla;
+                   if (miocampo === 'can'){
+                   document .getElementById("errorm").innerText = "destinatario  senza casella"; 
+                    return  
+                   }
                   // attivo la textarea  e porto all interno il cursore
 
                   const campo = document.getElementById('message');
