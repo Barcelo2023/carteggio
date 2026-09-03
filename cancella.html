@@ -32,7 +32,7 @@
       import { db, ottieniUtentePronto  } from "./firebaseConfig.js";
            // Import the functions you need from the SDKs you need
     
-     import { getFirestore,collection, deleteDoc,   doc} from
+     import { getFirestore,collection, setDoc,   doc} from
        "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
      
  
@@ -88,22 +88,21 @@
            // 2. Crea il riferimento al documento
            const docRef = doc(db, "casella_postale", mioIdCasella);
 
-            try {
-            // 3. Cancella direttamente (Firestore gestisce da solo se esiste o meno)
-              await deleteDoc(docRef);                   
+          
+                 await setDoc(docRef, { 
+                 creato: new Date() ,
+                 sigla: "can"
+           
+           });
         
             // 4. Pulisce il localStorage e aggiorna l'interfaccia
               localStorage.removeItem("id_casella_postale");
-             
-              document.getElementById("error").innerText = "La casella postale è stata cancellata con successo"; 
-               return
-
-           } catch (error) {
-            // Gestione di eventuali errori reali (es. problemi di connessione o permessi)
-               
-              document.getElementById("error").innerText = "Errore durante l'eliminazione";
-            return false;
-          }
+              localStorage.removeItem('accessi_pubblicita', 0);
+              localStorage.removeItem('consenso_cookie_marketing', 'true'); 
+              localStorage.removeItem('account_status', 'ads');
+              window.location.replace("/successo.html");
+              
+          
       }
 
        
