@@ -76,12 +76,19 @@
              
 
              async function cancellaCasella() {
+
+            const numero = localStorage.getItem("numero_cancellazioni");
+            if (numero) {
+             document.getElementById("error").innerText = "Casella già cancellata";
+            return false;
+            }
+
             // 1. Recupera l'ID salvato nel localStorage
             const mioIdCasella = localStorage.getItem("id_casella_postale");
 
              // Sicurezza: se l'ID non esiste nel localStorage, si ferma subito
             if (!mioIdCasella) {
-             document.getElementById("error").innerText = "Non esiste casella postale";
+             document.getElementById("error").innerText = "Non hai caselle da cancellare";
             return false;
             }
                 await ottieniUtentePronto(); 
@@ -97,9 +104,10 @@
         
             // 4. Pulisce il localStorage e aggiorna l'interfaccia
               localStorage.removeItem("id_casella_postale");
-              localStorage.removeItem('accessi_pubblicita', 0);
-              localStorage.removeItem('consenso_cookie_marketing', 'true'); 
-              localStorage.removeItem('account_status', 'ads');
+              localStorage.removeItem('accessi_pubblicita');
+              localStorage.removeItem('consenso_cookie_marketing'); 
+              localStorage.removeItem('account_status');
+              localStorage.setItem('numero_cancellazioni', 1);
               window.location.replace("/successo.html");
               
           
