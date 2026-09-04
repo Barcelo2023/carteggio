@@ -66,14 +66,20 @@
         })        
 
            async function insertCasella() {
+          
+             const numero = localStorage.getItem("numero_cancellazioni");
+            if (numero ) {
+             document.getElementById("error").innerText = "Non puoi ricreare una casella cancellata";
+            return false;
+            }
    
             // Controlla la memoria interna del telefono
             mioIdCasella = localStorage.getItem("id_casella_postale");
     
             if (mioIdCasella) {
-            document .getElementById("error").innerText = "il dispositivo è già associato a una casella"; 
-            return
-            
+              // la casella esiste già
+              window.location.replace("/successo.html");                  
+           
              }
             mioIdCasella = chiaveCasella;
           await ottieniUtentePronto();    
@@ -90,6 +96,7 @@
            localStorage.setItem('accessi_pubblicita', 0);
            localStorage.setItem('consenso_cookie_marketing', 'true'); 
            localStorage.setItem('account_status', 'ads');
+          
            window.location.replace("/successo.html");     
                     
     }
