@@ -37,7 +37,7 @@
       import { db, ottieniUtentePronto  } from "./firebaseConfig.js";
            // Import the functions you need from the SDKs you need
     
-     import { getFirestore,collection,  setDoc,  doc} from
+     import { getFirestore,collection, getDoc ,setDoc,  doc} from
        "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
                      
            
@@ -65,11 +65,10 @@
                       
         })        
 
-           async function insertCasella() {
-          
+           async function insertCasella() {          
              const numero = localStorage.getItem("numero_cancellazioni");
             if (numero ) {
-             document.getElementById("error").innerText = "Non puoi ricreare una casella cancellata";
+             document.getElementById("error").innerText = " vietato creare caselle cancellate";
             return false;
             }
    
@@ -82,10 +81,23 @@
            
              }
             mioIdCasella = chiaveCasella;
-          await ottieniUtentePronto();    
-    
-          // 1. Riferimento al documento usando il valore come ID
-           const docRef = doc(db, "casella_postale", mioIdCasella);
+          await ottieniUtentePronto();   
+         
+                 const docRef = doc(db, "casella_postale", mioIdCasella);
+                             // 2. Esegui la lettura
+                 const docSnap = await getDoc(docRef);
+
+                  // 3. Controlla se il documento esiste prima di leggerlo
+                 if (docSnap.exists()) {  
+                   
+                  const dati = docSnap.data();  
+                  // 2. Estrai il campo specifico (es. "nome_campo")
+                  const mioCampo = dati.sigla;
+                   if (mioCampo === 'can'){
+                   document .getElementById("error").innerText = "vietato creare caselle cancellate"; 
+                    return  
+                   }
+                  }
          
             await setDoc(docRef, { 
            creato: new Date() ,
