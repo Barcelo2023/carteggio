@@ -18,7 +18,8 @@
      <h1>Carteggio</h1>
       <h2>Pagina collega casella </h2>
 
-      <p>Scrivi la tua e-mail</p>
+      <p id="error"></p>
+      <p id="label">Scrivi la tua e-mail</p>
  
      <input type="text" id="email"  autocomplete="off">
 
@@ -40,18 +41,27 @@
     
        import { getFirestore,collection, getDoc,   doc} from
        "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
-     
-           
-            let  email;                              
+                                        
 
              caricodata();
 
             document.getElementById('btnv').addEventListener('click', function() {  
 
-             const modificaemail = document.getElementById('email').value; 
-
-             
-              email = modificaemail;                                                           
+                   // Controlla la memoria interna del dispositivo
+                mioIdCasella = localStorage.getItem("id_casella_postale");
+    
+                if (mioIdCasella) {
+                window.location.replace("/successo.html");                       
+             } 
+                 const numero = localStorage.getItem("numero_cancellazioni");
+   
+                 if (numero ) {        
+                 document.getElementById("error").innerText = "vietato cancellare caselle cancellate"; 
+                 return 
+            }  
+    
+             const email = document.getElementById('email').value; 
+                                                                         
               const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;            
               const emailDaControllare = (email);
               const isValid = emailRegex.test(emailDaControllare); 
@@ -60,18 +70,8 @@
               return
    
               }
-                     // Controlla la memoria interna del telefono
-                mioIdCasella = localStorage.getItem("id_casella_postale");
-    
-                if (mioIdCasella) {
-                window.location.replace("/successo.html");       
-                
-             } 
-                    const numero = localStorage.getItem("numero_cancellazioni");
-                 if (numero ) {
-                 document.getElementById("error").innerText = " vietato collegare caselle cancellate";
-                 return false;
-            }  
+         
+              
                    hashEmail(email).then(chiave => {
                    chiaveCasella = chiave;
  
@@ -80,15 +80,13 @@
         
         })        
 
-           async function controllaCasella() {
-  
-                 // Controlla la memoria interna del telefono
+           async function controllaCasella() {                
           
               await ottieniUtentePronto();                    
    
        // 1. Riferimento al documento usando il valore come ID
         const docRef = doc(db, "casella_postale", chiaveCasella); 
-  
+
         // 2. Tenta di recuperare il documento
         const docSnap = await getDoc(docRef);
  
@@ -98,7 +96,7 @@
        return false;
         }
          const dati = docSnap.data();  
-                  // 2. Estrai il campo specifico (es. "nome_campo")
+                  // 2. Estrai il campo specifico 
                   const mioCampo = dati.sigla;
                    if (mioCampo === 'can'){
                    document .getElementById("error").innerText = "vietato collegare caselle cancellate"; 
