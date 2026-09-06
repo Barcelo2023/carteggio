@@ -20,8 +20,8 @@
             <button id="btncasella" type="button">Crea casella </button>                  
             <button id="btnscrivi" type="button">Scrivi messaggi</button>                             
             <button id="btnleggi" type="button"> Se rosso ci sono messaggi</button>
-            <button id="btncancella" type="button">Cancella casella </button>
-            
+            <button id="btncollega" type="button">Collega casella </button>
+             <button id="btncancella" type="button">Cancella casella </button>
             <button id="btncifra" type="button">Dimostrazione cifratura</button>
             <button id="btninfo" type="button">Info app</button>
             <button id="btnlogout" type="button">Logout</button>
@@ -82,7 +82,11 @@
         const leggi = document.getElementById('btnleggi');
         leggi.addEventListener('click', function() { 
             window.location.href = "leggi.html";
-        });  
+        }); 
+        const collega = document.getElementById('btncollega');
+        collega.addEventListener('click', function() { 
+            window.location.href = "collega.html";
+        });   
 
         const cancella = document.getElementById('btncancella');
         cancella.addEventListener('click', function() { 
