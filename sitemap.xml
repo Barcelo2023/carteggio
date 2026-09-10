@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://sitemaps.org">
+
+  <!-- 1. Pagina Principale (Home Page / App) -->
+  <url>
+    <loc>https://bradcarteggio.it</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- 2. Pagina Informazioni (Guida / SEO) -->
+  <url>
+    <loc>https://bradcarteggio.itinfo.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>
