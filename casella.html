@@ -1,4 +1,4 @@
-   <!DOCTYPE html>
+<!DOCTYPE html>
      <html lang="it">
    <head>
     <meta charset="UTF-8">
@@ -6,9 +6,7 @@
     <title>Carteggio</title>
    
     <link rel="stylesheet" href="style-casella.css"> <!-- Il file CSS -->  
-      
-    
-      <script  src="email.criptata.js"></script>
+               
       <script  src="dataora.js"></script>
   
     </head>
@@ -20,8 +18,9 @@
       <h2>Pagina crea casella</h2>
      
       <p id="error"></p>
-      <p id="label">Scrivi la tua e-mail</p>
-      <input type="text" id="email" autocomplete="off">
+      <p id="label"></p>
+     
+      <input type="text" id="chiave">
   
       <button type="button" id="btngratis"  >Crea casella</button> 
          
@@ -30,91 +29,63 @@
       </div>      
     
          <script type="module"> 
-        let mioIdCasella;
-        let chiaveCasella;
-         let  email;       
+       
           // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
       import { db, ottieniUtentePronto  } from "./firebaseConfig.js";
            // Import the functions you need from the SDKs you need
     
-     import { getFirestore,collection, getDoc ,setDoc,  doc} from
+     import { getFirestore,collection ,addDoc,  doc} from
        "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
                      
            
            caricodata();
 
             document.getElementById('btngratis').addEventListener('click', function() { 
-             
-             email = document.getElementById('email').value; 
-             
-              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;            
-              const emailDaControllare = (email);
-              const isValid = emailRegex.test(emailDaControllare); 
-              if (!isValid){
-              document.getElementById("error").innerText = "inserisci una e-mail valida"; 
-              return 
-              }   
-              
-               document.getElementById("error").innerText = ""; 
-            
-               hashEmail(email).then(chiave => {
-                   chiaveCasella = chiave;
-
-                    insertCasella();
-               })                 
-                      
-        })        
-
-           async function insertCasella() {          
-             const numero = localStorage.getItem("numero_cancellazioni");
-            if (numero ) {
-             document.getElementById("error").innerText = " vietato creare caselle cancellate";
-            return false;
-            }
-   
-            // Controlla la memoria interna del telefono
-            mioIdCasella = localStorage.getItem("id_casella_postale");
+                           
+            // Controlla la memoria interna del dispositivo
+            const mioIdCasella = localStorage.getItem("id_casella_postale");
     
             if (mioIdCasella) {
               // la casella esiste già
-              window.location.replace("/successo.html");                  
-           
+             document.getElementById('label').innerText = 'Indirizzo casella salvalo e comunicalo'; 
+             document.getElementById('chiave').value = mioIdCasella; 
+             return
              }
-            mioIdCasella = chiaveCasella;
-          await ottieniUtentePronto();   
          
-                 const docRef = doc(db, "casella_postale", mioIdCasella);
-                             // 2. Esegui la lettura
-                 const docSnap = await getDoc(docRef);
+               insertCasella().then(chiave => {                
+               const chiaveCasella = chiave ;  
 
-                  // 3. Controlla se il documento esiste prima di leggerlo
-                 if (docSnap.exists()) {  
-                   
-                  const dati = docSnap.data();  
-                  // 2. Estrai il campo specifico (es. "nome_campo")
-                  const mioCampo = dati.sigla;
-                   if (mioCampo === 'can'){
-                   document .getElementById("error").innerText = "vietato creare caselle cancellate"; 
-                    return  
-                   }
-                  }
-         
-            await setDoc(docRef, { 
-           creato: new Date() ,
-           sigla: "aut"
-           
-           });
-           localStorage.setItem("id_casella_postale", mioIdCasella)           
-           localStorage.setItem('accessi_pubblicita', 0);
-           localStorage.setItem('consenso_cookie_marketing', 'true'); 
-           localStorage.setItem('account_status', 'ads');
+               document.getElementById('label').innerText = 'Indirizzo casella salvalo e comunicalo'; 
+               document.getElementById('chiave').value = chiaveCasella; 
+               chiaveCasella
+               localStorage.setItem('id_casella_postale', chiaveCasella);          
+               localStorage.setItem('accessi_pubblicita', 0);
+               localStorage.setItem('consenso_cookie_marketing', 'true'); 
+               localStorage.setItem('account_status', 'ads');
+               
+               })                
+      })                
+       
+       async function insertCasella() {          
           
-           window.location.replace("/successo.html");     
-                    
-    }
-             
-
-
+          await ottieniUtentePronto(); 
+          
+          const dati = {
+            creato: new Date() ,
+            sigla: "aut"
+       };
+          try {
+            const docRef = await addDoc(collection(db, "casella_postale"), dati);
+                     
+            return docRef.id;
+                } catch (e) {
+                document.getElementById("error").innerText = "errore inserimento casella ";
+                            
+             return
+            }                   
+         
+        }        
+            
                  document.getElementById('logoutBtn').addEventListener('click', function() {    
               // 3. Reindirizza alla pagina di login
                window.location.replace("/index.html");    
@@ -125,3 +96,5 @@
   
   </body>
   </html>          
+
+ 
