@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style-casella.css"> <!-- Il file CSS -->  
              
        <script  src="dataora.js"></script>
-      <script  src="email.criptata.js"></script>
+      
   
     </head>
      <body>
@@ -19,9 +19,9 @@
       <h2>Pagina collega casella </h2>
 
       <p id="error"></p>
-      <p id="label">Scrivi la tua e-mail</p>
+      <p id="label">Indirizzo casella</p>
  
-     <input type="text" id="email"  autocomplete="off">
+     <input type="text" id="indirizzo">
 
      <div id="error"></div> 
   
@@ -53,32 +53,19 @@
                 if (mioIdCasella) {
                 window.location.replace("/successo.html");                       
              } 
-                 const numero = localStorage.getItem("numero_cancellazioni");
-   
-                 if (numero ) {        
-                 document.getElementById("error").innerText = "vietato cancellare caselle cancellate"; 
-                 return 
-            }  
+                
     
-             const email = document.getElementById('email').value; 
+             const chiaveCasella = document.getElementById('indirizzo').value; 
                                                                          
-              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;            
-              const emailDaControllare = (email);
-              const isValid = emailRegex.test(emailDaControllare); 
-              if (!isValid){
-              document.getElementById("error").innerText = "inserisci una e-mail valida"; 
-              return
-   
-              }
-         
-              
-                   hashEmail(email).then(chiave => {
-                   chiaveCasella = chiave;
- 
+               const lunghezza = chiaveCasella.length; 
+                 if (lunghezza !== 20){
+                  document .getElementById("errorm").innerText = "indirizzo casella errato ";
+                  return    
+                 }
+                                          
                     controllaCasella();
                })                  
-        
-        })        
+                      
 
            async function controllaCasella() {                
           
@@ -95,13 +82,7 @@
        document .getElementById("error").innerText = "la casella non esiste"; 
        return false;
         }
-         const dati = docSnap.data();  
-                  // 2. Estrai il campo specifico 
-                  const mioCampo = dati.sigla;
-                   if (mioCampo === 'can'){
-                   document .getElementById("error").innerText = "vietato collegare caselle cancellate"; 
-                    return  
-                   }
+         
            localStorage.setItem("id_casella_postale", chiaveCasella);
            localStorage.setItem('accessi_pubblicita', 4);
            localStorage.setItem('consenso_cookie_marketing', 'true'); 
