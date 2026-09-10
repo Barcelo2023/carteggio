@@ -1,4 +1,4 @@
-        <!DOCTYPE html>
+<!DOCTYPE html>
         <html lang="it">
         <head>
         <meta charset="UTF-8">
@@ -8,7 +8,7 @@
        <link rel="stylesheet" href="style-scrivi.css"> <!-- Il file CSS -->  
                  
         <script  src="dataora.js"></script>
-         <script  src="email.criptata.js"></script>
+        
        </head>
 
         <body>
@@ -17,9 +17,9 @@
       <div  id="datetime"> </div>
       <h1>Carteggio</h1>
      <h2>Pagina scrivi messaggi</h2>     
-      <p>email destinatario</p>
+      <p>Indirizzo casella destinatario</p>
       
-     <input type="text"   id="email"  required  autocomplete="off">
+     <input type="text"   id="indirizzo" >
       <p>messaggio</p>
      
       <textarea  disabled = "disabled" name="message" id="message" rows="4"   required></textarea>
@@ -96,25 +96,17 @@
             
                } 
                                     
-                email = document.getElementById('email').value;
-                 
-               const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;            
-               const emailDaControllare = (email);
-               const isValid = emailRegex.test(emailDaControllare); 
-               if (!isValid){
-               document.getElementById("errorm").innerText = "inserisci una e-mail valida"; 
-               return
-   
-              } 
-                 document.getElementById("errorm").innerText = ""; 
-
-                   hashEmail(email).then(chiave => {
-                   chiaveUtenti = chiave;
-                  
+                chiaveUtenti = document.getElementById('indirizzo').value;        
+                 lunghezza = chiaveUtenti.length; 
+                 if (lunghezza !== 20){
+                  document .getElementById("errorm").innerText = "indirizzo casella errato ";
+                  return    
+                 }
+              
                   leggiCasellaPostale()  
                              
                    }) 
-                })           
+                           
 
   
                   const btncripta = document.getElementById('cripta');
@@ -238,7 +230,7 @@
                   // 2. Estrai il campo specifico (es. "nome_campo")
                   const mioCampo = dati.sigla;
                    if (mioCampo === 'can'){
-                   document .getElementById("errorm").innerText = "destinatario  senza casella"; 
+                   document .getElementById("errorm").innerText = "il destinatario ha cancellato la  casella"; 
                     return  
                    }
                   // attivo la textarea  e porto all interno il cursore
@@ -252,7 +244,7 @@
                     return docSnap.data();
            
                   } else {        
-                 document .getElementById("errorm").innerText = "destinatario  senza casella";                  
+                 document .getElementById("errorm").innerText = "indirizzo destinatario errato";                  
                 return 
                 }
               }     
