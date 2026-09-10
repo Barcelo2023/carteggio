@@ -77,12 +77,7 @@
 
              async function cancellaCasella() {
 
-            const numero = localStorage.getItem("numero_cancellazioni");
-            if (numero) {
-             document.getElementById("error").innerText = "Casella già cancellata";
-            return false;
-            }
-
+           
             // 1. Recupera l'ID salvato nel localStorage
             const mioIdCasella = localStorage.getItem("id_casella_postale");
 
@@ -107,7 +102,7 @@
               localStorage.removeItem('accessi_pubblicita');
               localStorage.removeItem('consenso_cookie_marketing'); 
               localStorage.removeItem('account_status');
-              localStorage.setItem('numero_cancellazioni', 1);
+              
               window.location.replace("/successo.html");
               
           
