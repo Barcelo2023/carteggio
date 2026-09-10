@@ -1,0 +1,18 @@
+# Regole valide per tutti i motori di ricerca (Google, Bing, ecc.)
+User-agent: *
+
+# Pagine operative che non ha senso indicizzare nelle ricerche pubbliche
+Disallow: /leggi.html
+Disallow: /scrivi.html
+Disallow: /collega.html
+Disallow: /cifratore.html
+Disallow: /casella.html
+Disallow: /cancella.html
+Disallow: /info.casella.html
+# Consente la scansione della Home e delle Info ottimizzate per la SEO
+Allow: /index.html
+Allow: /info.html
+Allow: /
+
+# Segnala ai motori dove trovare la mappa del sito
+Sitemap: https://bradcarteggio.it
