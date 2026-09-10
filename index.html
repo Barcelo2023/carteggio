@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style-index.css"> <!-- Il file CSS --> 
   
        <script  src="dataora.js"></script>
-       
+        <script  src="ads.js"></script>
     </head>
       <body>
 
@@ -37,6 +37,10 @@
         "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js"; 
         
         let unsubscribeFaro = null;
+
+        if(typeof canRunAds === 'undefined'){
+            window.location.replace("/sblocco.html");   
+        }
 
            caricodata();
 
