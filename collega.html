@@ -32,9 +32,8 @@
       </div>     
     
          <script type="module"> 
-     let mioIdCasella;
-     let chiaveCasella;
-    
+     
+      let chiaveCasella = "null" ;
           // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
       import { db, ottieniUtentePronto  } from "./firebaseConfig.js";
            // Import the functions you need from the SDKs you need
@@ -48,18 +47,21 @@
             document.getElementById('btnv').addEventListener('click', function() {  
 
                    // Controlla la memoria interna del dispositivo
-                mioIdCasella = localStorage.getItem("id_casella_postale");
+                const mioIdCasella = localStorage.getItem("id_casella_postale");
     
                 if (mioIdCasella) {
                 window.location.replace("/successo.html");                       
              } 
                 
     
-             const chiaveCasella = document.getElementById('indirizzo').value; 
-                                                                         
+             const valore = document.getElementById('indirizzo').value; 
+             chiaveCasella = valore.replaceAll(' ', '');
+   
+                                                                      
                const lunghezza = chiaveCasella.length; 
+
                  if (lunghezza !== 20){
-                  document .getElementById("errorm").innerText = "indirizzo casella errato ";
+                  document .getElementById("error").innerText = "indirizzo casella errato ";
                   return    
                  }
                                           
@@ -70,9 +72,10 @@
            async function controllaCasella() {                
           
               await ottieniUtentePronto();                    
-   
+  
        // 1. Riferimento al documento usando il valore come ID
         const docRef = doc(db, "casella_postale", chiaveCasella); 
+  
 
         // 2. Tenta di recuperare il documento
         const docSnap = await getDoc(docRef);
@@ -84,7 +87,7 @@
         }
          
            localStorage.setItem("id_casella_postale", chiaveCasella);
-           localStorage.setItem('accessi_pubblicita', 4);
+           localStorage.setItem('accessi_pubblicita', 1);
            localStorage.setItem('consenso_cookie_marketing', 'true'); 
            localStorage.setItem('account_status', 'ads');
            window.location.replace("/successo.html");   
