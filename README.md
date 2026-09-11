@@ -8,7 +8,10 @@ Visita il sito ufficiale su GitHub Pages per leggere il funzionamento .
 
 ## 🔒 Filosofia di Sicurezza e Crittografia
 * **Dati raccolti e Finalità del trattamento:** L'applicazione non raccoglie dati personali identificativi diretti.
-Per poter usufruire del servizio di messaggistica dell'Applicazione, all'utente viene richiesto di inserire il proprio indirizzo e-mail al solo scopo di generare un ID che identifica la casella virtuale univoca e anonima. L ID  viene memorizzatto sul localStorage del dispositivo . 
+Per poter usufruire del servizio di messaggistica dell'Applicazione, all'utente viene richiesto di creare una casella.
+Alla casella viene assegnato un ID  (creato da Firestore )  tale ID rappresenta l' indirizzo della casella.
+L'indirizzo della casella va conservato  e comunicato ai mittenti.
+Si possono scambiare messaggi solo tra utenti che hanno creato una casella.
 
 
 * **Crittografia End-to-End Logica:** I messaggi prima di essere cifrati vengono modificati con un algoritmo che modifica il loro contenuto quindi passati alla cifratura tramite (Tabella ASCII) .
