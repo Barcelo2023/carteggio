@@ -96,7 +96,8 @@
             
                } 
                                     
-                chiaveUtenti = document.getElementById('indirizzo').value;        
+              const valore = document.getElementById('indirizzo').value; 
+                 chiaveUtenti = valore.replaceAll(' ', '');       
                  lunghezza = chiaveUtenti.length; 
                  if (lunghezza !== 20){
                   document .getElementById("errorm").innerText = "indirizzo casella errato ";
