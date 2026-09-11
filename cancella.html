@@ -86,6 +86,9 @@
              document.getElementById("error").innerText = "Non hai caselle da cancellare";
             return false;
             }
+
+            const lunghezza = mioIdCasella.length;
+            if (lunghezza === 20){
                 await ottieniUtentePronto(); 
            // 2. Crea il riferimento al documento
            const docRef = doc(db, "casella_postale", mioIdCasella);
@@ -96,7 +99,7 @@
                  sigla: "can"
            
            });
-        
+          }
             // 4. Pulisce il localStorage e aggiorna l'interfaccia
               localStorage.removeItem("id_casella_postale");
               localStorage.removeItem('accessi_pubblicita');
