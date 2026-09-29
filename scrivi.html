@@ -230,10 +230,28 @@
                   const dati = docSnap.data();  
                   // 2. Estrai il campo specifico (es. "nome_campo")
                   const mioCampo = dati.sigla;
+                  const dataRegistrazione = dati.creato;
+        
                    if (mioCampo === 'can'){
                    document .getElementById("errorm").innerText = "il destinatario ha cancellato la  casella"; 
                     return  
                    }
+
+                   // verifico se sono passati 90 giorni
+                   const oggi = Date.now();
+                   const registrazione = dataRegistrazione.toMillis(); 
+  
+                 // 92 giorni in millisecondi (1000ms * 60s * 60m * 24h * 30d)
+                  const millisecondi90Giorni = 92 * 24 * 60 * 60 * 1000;
+  
+                 // Differenza in millisecondi
+                  const differenza = oggi - registrazione;
+          
+                  if(differenza >= millisecondi90Giorni){
+                   window.location.href = "pagamento.rinnovo.casella.html";  
+      
+                  }
+
                   // attivo la textarea  e porto all interno il cursore
 
                   const campo = document.getElementById('message');
