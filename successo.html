@@ -59,42 +59,25 @@
     
     <div class="info-box">
         <strong>Nota sulla riservatezza:</strong> I messaggi inviati tramite l'applicazione
-         vengono crittografati e ospitati temporaneamente sul cloud. Al destinatario viene 
+         vengono criptati e ospitati temporaneamente sul cloud. Al destinatario viene 
          segnalato l'arrivo di un nuovo messaggio.
          
          I messaggi subito dopo la lettura e la cancellazione da parte del destinatario vengono 
          eliminati senza alcuna conservazione di copie di backup sui server.
     </div>
 
-     <button class="btn" type="button">Ritorna alla home</button>
+     <button class="btn" type="button">Pagina iniziale</button>
      </div>
 
       <script>
          const  bottone = document.querySelector('.btn');
         bottone.addEventListener('click', function() { 
-               
-        let accessi = parseInt(localStorage.getItem('accessi_pubblicita')) || 0;
-           
-        accessi++;
-        localStorage.setItem('accessi_pubblicita', accessi);
-
-        // Se l'utente ha raggiunto o superato il quarto accesso
-        if (accessi >= 4) {
-            accessi = 0;
-         localStorage.setItem('accessi_pubblicita', accessi);
-          window.open("/pubbl.html","_blank","noopener,noreferrer");                       
-
-        setTimeout(function(){
+                      
           window.location.replace( "/index.html");
             
-        }, 1000);
-             
-        } else {
-            window.location.replace( "/index.html");
-        }
+       
           
-          
-         }); 
+         }) 
         
           
     
