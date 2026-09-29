@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+     <html lang="it">
+   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carteggio</title>
+        <style>
+        body { 
+            background-color: #242433; 
+            color: #b0c4de; 
+            font-family: sans-serif; 
+            text-align: center; 
+            padding: 40px; 
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 { 
+            color: #83abd8; 
+            font-size: 24px;
+        }
+        p {
+            margin-bottom: 30px;
+        }
+        .info-box {
+            background-color: #1c1c27;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            margin-bottom: 30px;
+            border-left: 4px solid #83abd8;
+            text-align: left;
+        }
+        .btn { 
+            display: inline-block; 
+            padding: 12px 24px; 
+            background: #35393d; 
+            color: #83abd8; 
+            text-decoration: none; 
+            border-radius: 8px; 
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+        }
+        .btn:hover {
+            background: #454a50;
+        }
+    </style>
+     <script  src="dataora.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>Operazione completata con successo!</h1>
+    
+    <p>La tua casella é attivata, per vedere come funziona l'applicazione puoi inviare un
+      messaggio di prova alla tua casella .</p>
+    
+    <div class="info-box">
+         Qui di seguito trovi l'indirizzo della tua casella conservalo e comunicalo alle persone
+         con le quali scambierai dei messaggi.
+         L'indirizzo serve anche per collegare il tuo dispositivo alla casella  in caso di cambio
+         dispositivo o cancellazione della cronologia.
+         Usando la funzione Collega Casella puoi associare alla casella qualsiasi dispositivo.
+        
+    </div>
+     <p id="label"></p>
+      <p id="chiave"></p>
+
+     <button class="btn" type="button">Ritorna alla home</button>
+     </div>
+                    
+        
+         <script type="module"> 
+       
+          // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
+      import { db, ottieniUtentePronto  } from "./firebaseConfig.js";
+           // Import the functions you need from the SDKs you need
+    
+     import { getFirestore,collection ,addDoc,  doc} from
+       "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+                               
+           caricodata();           
+                           
+            // Controlla la memoria interna del dispositivo
+            const chiaveCasella = localStorage.getItem("temp_id_casella_postale");
+    
+            if (!chiaveCasella) {
+               window.location.replace("/index.html");               
+             
+             }
+         
+               insertCasella()
+
+               document.getElementById('label').innerText = 'Indirizzo casella'; 
+               document.getElementById('chiave').value = chiaveCasella; 
+               localStorage.setItem('id_casella_postale', chiaveCasella); 
+               localStorage.removeItem("temp_id_casella_postale");         
+                                                                               
+       async function insertCasella() {          
+          
+          await ottieniUtentePronto(); 
+          
+          const dati = {
+            creato: new Date() ,
+            sigla: "aut"
+       };
+          try {
+            const docRef = await addDoc(collection(db, "casella_postale",chiaveCasella), dati);
+                     
+            return docRef.id;
+                } catch (e) {
+                document.getElementById("error").innerText = "errore inserimento casella ";
+                            
+             return
+            }                   
+         
+        }        
+            
+                 document.getElementById('logoutBtn').addEventListener('click', function() {    
+              // 3. Reindirizza alla pagina di login
+               window.location.replace("/index.html");    
+              
+              })
+
+  </script> 
+  
+  </body>
+  </html>          
+
+ 
