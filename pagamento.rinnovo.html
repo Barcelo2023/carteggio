@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Carteggio</title>
+   
+    <link rel="stylesheet" href="style.pagamento.css"> <!-- Il file CSS -->  
+               
+     <script  src="dataora.js"></script>
+     <script  src="https://www.paypal.com/sdk/js?client-id=Adxi4hglDMh8V9Kk1TujGHkB-qx3b-z4STAICTo2ZeNtaJ2dxsIb9I_Cv4K-Byxik6tdLoEMv_PagqT_"></script>
+     <script src="https://paypal.com"></script>
+  
+   </head>
+    <body>
+
+    <div class="container">
+
+        
+      <div  id="datetime"> </div>
+     <h1>Carteggio</h1>
+     <h2>Pagamento con PayPal</h2>
+     
+      <p id="error"></p>       
+       <p id="label"></p>  
+        
+        <!-- Il contenitore di PayPal ora segue perfettamente le regole del tuo foglio di stile -->
+        <div id="paypal-button-container"></div>
+        
+        <button id="logoutBtn"> Pagina iniziale</button>
+    </div>
+     
+      <script>
+           caricodata();
+     // Recupera l'ID della casella che l'utente sta usando attualmente
+      document.getElementById('label').textContent = 'Rinnovo attivazione casella';
+       const idCasellaCorrente= localStorage.getItem("id_casella_postale");
+        
+
+      paypal.Buttons({
+      
+       createOrder: function(data, actions) {
+        return actions.order.create({
+            purchase_units: [{
+                amount: { currency_code: 'EUR', value: '5.00' }, // Prezzo rinnovo trimestrale
+                description: `Rinnovo Trimestrale Casella: ${idCasellaCorrente}`,
+                custom_id: idCasellaCorrente // Collega l'ID al pagamento su PayPal
+            }]
+        });
+    },
+    onApprove: function(data, actions) {
+        return actions.order.capture().then(async function(details) {
+            try {
+                // PAGO COMPLETATO: Esegui qui la tua logica di rinnovo su Firestore.
+                
+                
+                 window.location.href = "rinnovo.casella.html";
+                
+               
+                
+            } catch (error) {
+               document.getElementById('error').textContent = 'Errore durante il rinnovo del pagamento.'; 
+            }
+        });
+    },
+    onError: function(err) {
+        document.getElementById('error').textContent = 'Errore durante il rinnovo del pagamento.';
+    }
+     }).render('#paypal-button-container'); // Un ID contenitore diverso se preferisci
+
+
+    
+         document.getElementById('logoutBtn').addEventListener('click', function() {    
+           // 3. Reindirizza alla pagina di login
+           window.location.replace("/index.html");
+              })
+    </script>
+
+</body>
+</html>
