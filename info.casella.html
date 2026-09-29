@@ -66,24 +66,19 @@
     <body>
 
      <div class="container">
-    <h1>Attivazione casella </h1>
+    <h1>Attivazione casella anonima </h1>
     
     
     
     
        <div class="info-box">
     
-             L'applicazione non raccoglie dati personali identificativi diretti. <br>
-                                   
-             Creando la casella accetti i cookie di terze parti (Monetag) 
-             e la visualizzazione di annunci pubblicitari. <br>
-
-             Gli annunci vengono mostrati solo dopo un certo numero di operazioni e non
-             mentre stai scrivendo o leggendo un messaggio. <br>
              
-             Tieni presente che puoi  in qualsiasi momento cancellare la casella. <br>
-            
-
+             L'applicazione non raccoglie dati personali, non usa ne cookie ne annunci pubblicitari. <br>
+             L'attivazione della casella ti permette di scambiare messaggi criptati, usa e getta senza <br>
+             l'invio di e-mail , solo con destinatari che hanno attivato una casella. <br>            
+             Per attivare la casella il costo trimestrale è  di 5 euro. <br>
+             Il rinnovo non è automatico alla scadenza verrà richiesto un nuovo pagamento. <br>
              Nella pagina Info trovi le informazioni  sul funzionamento dell'applicazione.
                                                                 
             </div>
@@ -96,9 +91,17 @@
    </div>
 
   <script>
+           const mioIdCasella = localStorage.getItem("id_casella_postale");
+    
+            if (mioIdCasella) {
+              // la casella esiste già
+             window.location.replace ("/index.html"); 
+             }
+
+
        const  bottone1 = document.querySelector('.btn1');
         bottone1.addEventListener('click', function() { 
-            window.location.replace ("/casella.html");   
+            window.location.replace ("/pagamento.attivazione.html");   
         }) 
         
          const  bottone2 = document.querySelector('.btn2');
