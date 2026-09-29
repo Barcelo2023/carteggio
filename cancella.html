@@ -69,12 +69,10 @@
 
             document.getElementById('btnCasella').addEventListener('click', function() { 
            
-                
-                 cancellaCasella();
-                                           
+
+                 cancellaCasella();                                           
             })           
              
-
              async function cancellaCasella() {
 
            
@@ -102,11 +100,10 @@
           }
             // 4. Pulisce il localStorage e aggiorna l'interfaccia
               localStorage.removeItem("id_casella_postale");
-              localStorage.removeItem('accessi_pubblicita');
-              localStorage.removeItem('consenso_cookie_marketing'); 
-              localStorage.removeItem('account_status');
-              
-              window.location.replace("/successo.html");
+              localStorage.removeItem("temp_id_casella_postale");
+             
+               document.getElementById("error").innerText = "La casella è stata cancellata con successo";
+              return
               
           
       }
