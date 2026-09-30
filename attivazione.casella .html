@@ -48,12 +48,12 @@
             background: #454a50;
         }
     </style>
-     <script  src="dataora.js"></script>
+   
 </head>
 <body>
 
 <div class="container">
-    <h1>Operazione completata con successo!</h1>
+    <h1>Pagamento effettuato con successo!</h1>
     
     <p>La tua casella é attivata, per vedere come funziona l'applicazione puoi inviare un
       messaggio di prova alla tua casella .</p>
@@ -64,62 +64,63 @@
          L'indirizzo serve anche per collegare il tuo dispositivo alla casella  in caso di cambio
          dispositivo o cancellazione della cronologia.
          Usando la funzione Collega Casella puoi associare alla casella qualsiasi dispositivo.
-        
+         <p id="label"></p>
+         <p id="error" ></p>
     </div>
-     <p id="label"></p>
-      <p id="chiave"></p>
-
+         
      <button class="btn" type="button">Ritorna alla home</button>
-     </div>
-                    
+     </div>                    
         
          <script type="module"> 
-       
+   let chiaveCasella;
           // 1. IMPORTANTE: Devi importare esplicitamente "db" dal tuo file locale
       import { db, ottieniUtentePronto  } from "./firebaseConfig.js";
            // Import the functions you need from the SDKs you need
     
-     import { getFirestore,collection ,addDoc,  doc} from
+     import { getFirestore,collection ,setDoc,  doc} from
        "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
                                
-           caricodata();           
+                 
                            
             // Controlla la memoria interna del dispositivo
-            const chiaveCasella = localStorage.getItem("temp_id_casella_postale");
+          chiaveCasella = localStorage.getItem("temp_id_casella_postale");
     
             if (!chiaveCasella) {
-               window.location.replace("/index.html");               
+               window.location.replace("/pagamento.non.eseguito.html");               
              
-             }
-         
-               insertCasella()
+             }         
+                
+            document.getElementById('label').innerText = `${'indirizzo casella - '} ${chiaveCasella}`; 
+        
+            insertCasella();
 
-               document.getElementById('label').innerText = 'Indirizzo casella'; 
-               document.getElementById('chiave').value = chiaveCasella; 
-               localStorage.setItem('id_casella_postale', chiaveCasella); 
-               localStorage.removeItem("temp_id_casella_postale");         
-                                                                               
-       async function insertCasella() {          
+
+         async function insertCasella() {          
           
-          await ottieniUtentePronto(); 
-          
-          const dati = {
-            creato: new Date() ,
-            sigla: "aut"
-       };
-          try {
-            const docRef = await addDoc(collection(db, "casella_postale",chiaveCasella), dati);
-                     
-            return docRef.id;
-                } catch (e) {
-                document.getElementById("error").innerText = "errore inserimento casella ";
-                            
-             return
-            }                   
+          await ottieniUtentePronto();                   
+       
+       try {
+        // 1. Crei il riferimento al documento inserendo il TUO ID calcolato
+        const docRef = doc(db, "casella_postale", chiaveCasella);
+        
+        // 2. Usi setDoc per salvare i dati
+        await setDoc(docRef, {
+                creato: new Date() ,
+                sigla: "aut"
+        });
+               localStorage.setItem('id_casella_postale', chiaveCasella);   
+               localStorage.removeItem('temp_id_casella_postale'); 
+                return
+      } catch (error) {
+                console.error("ERRORE DETTAGLIATO:", error);
+              document.getElementById("error").innerText = "errore inserimento casella ";
+    }
+}
+
          
-        }        
-            
-                 document.getElementById('logoutBtn').addEventListener('click', function() {    
+        
+                const  bottone = document.querySelector('.btn');
+               bottone.addEventListener('click', function() { 
               // 3. Reindirizza alla pagina di login
                window.location.replace("/index.html");    
               
@@ -130,4 +131,5 @@
   </body>
   </html>          
 
- 
+                
+             
