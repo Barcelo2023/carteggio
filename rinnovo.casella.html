@@ -65,8 +65,7 @@
          L'indirizzo serve anche per collegare il tuo dispositivo alla casella  in caso di cambio
          dispositivo o cancellazione della cronologia.
          Usando la funzione Collega Casella puoi associare alla casella qualsiasi dispositivo.
-         <p id="label"></p>
-         <p id="chiave"></p>
+         <p id="label"></p>        
           <p id="error"></p>
     </div>
      
@@ -90,13 +89,13 @@
             chiaveCasella = localStorage.getItem("id_casella_postale");
     
             if (!chiaveCasella) {
-               window.location.replace("/index.html");               
+               window.location.replace("/pagamento.non.eseguito.html");               
              
              }
          
                aggiornaCasella()
 
-               document.getElementById('label').innerText = `${'indirizzo casella '} ${chiaveCasella}`; 
+               document.getElementById('label').innerText = `${'indirizzo casella - '} ${chiaveCasella}`; 
                
                 
                                                                                
@@ -104,16 +103,23 @@
           
           await ottieniUtentePronto(); 
           
-             const docRef = doc(db, "casella_postale", chiaveCasella);
-
-          
-                 await setDoc(docRef, { 
-                 creato: new Date() ,
-                 sigla: "aut"
-           
-           });
          
-       }       
+          try {
+                // 1. Crei il riferimento al documento inserendo il TUO ID calcolato
+        const docRef = doc(db, "casella_postale", chiaveCasella);
+        
+        // 2. Usi setDoc per salvare i dati
+               await setDoc(docRef, {
+                creato: new Date() ,
+                sigla: "aut"
+        });
+                 return
+                } catch (e) {
+                document.getElementById("error").innerText = "errore rinnovo casella ";
+                            
+             return
+       }  
+    }     
                   const  bottone = document.querySelector('.btn');
         bottone.addEventListener('click', function() { 
                       
