@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+     <html lang="it">
+   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carteggio</title>
+        <style>
+        body { 
+            background-color: #242433; 
+            color: #b0c4de; 
+            font-family: sans-serif; 
+            text-align: center; 
+            padding: 40px; 
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 { 
+            color: #83abd8; 
+            font-size: 24px;
+        }
+        p {
+            margin-bottom: 30px;
+        }
+        .info-box {
+            background-color: #1c1c27;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            margin-bottom: 30px;
+            border-left: 4px solid #83abd8;
+            text-align: left;
+        }
+        .btn { 
+            display: inline-block; 
+            padding: 12px 24px; 
+            background: #35393d; 
+            color: #83abd8; 
+            text-decoration: none; 
+            border-radius: 8px; 
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            margin-top: 30px;
+        }
+        .btn:hover {
+            background: #454a50;
+        }
+    </style>
+    
+</head>
+<body>
+
+<div class="container">
+    <h1>Pagamento non eseguito!</h1>
+       
+     <p id="pagamento"></p>
+     <button class="btn" type="button">Pagina iniziale</button>
+     </div>
+                    
+       <script>
+     
+             chiaveCasella = localStorage.getItem("temp_id_casella_postale" );                        
+
+            if (chiaveCasella) {
+            document.getElementById("pagamento").innerText = "la casella non è stata creata ";
+            localStorage.removeItem("temp_id_casella_postale" );   
+             }         
+           
+             chiaveCasella = localStorage.getItem("id_casella_postale" );                        
+
+            if (chiaveCasella) {
+            document.getElementById("pagamento").innerText = "il rinnovo trimestrale non é stato effettuato";
+              
+             }         
+
+                const  bottone = document.querySelector('.btn');
+               bottone.addEventListener('click', function() { 
+                      
+              // 3. Reindirizza alla pagina di login
+               window.location.replace("/index.html");    
+              
+              })
+
+  </script> 
+  
+  </body>
+  </html>          
+
+ 
