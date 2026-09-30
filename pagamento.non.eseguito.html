@@ -61,20 +61,21 @@
      </div>
                     
        <script>
-     
-             chiaveCasella = localStorage.getItem("temp_id_casella_postale" );                        
-
-            if (chiaveCasella) {
-            document.getElementById("pagamento").innerText = "la casella non è stata creata ";
-            localStorage.removeItem("temp_id_casella_postale" );   
-             }         
-           
-             chiaveCasella = localStorage.getItem("id_casella_postale" );                        
+            chiaveCasella = localStorage.getItem("id_casella_postale" );                        
 
             if (chiaveCasella) {
             document.getElementById("pagamento").innerText = "il rinnovo trimestrale non é stato effettuato";
               
              }         
+     
+             chiaveCasella = localStorage.getItem("temp_id_casella_postale" );                        
+
+            if (chiaveCasella) {
+            document.getElementById("pagamento").innerText = "la casella non è stata creata ";
+             
+             }         
+           
+            
 
                 const  bottone = document.querySelector('.btn');
                bottone.addEventListener('click', function() { 
