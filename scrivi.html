@@ -19,7 +19,7 @@
      <h2>Pagina scrivi messaggi</h2>     
       <p>Indirizzo casella destinatario</p>
       
-     <input type="text"   id="indirizzo" >
+     <input type="text"   id="indirizzo" autocomplete="off" >
       <p>messaggio</p>
      
       <textarea  disabled = "disabled" name="message" id="message" rows="4"   required></textarea>
@@ -100,7 +100,7 @@
                  chiaveUtenti = valore.replaceAll(' ', '');       
                  lunghezza = chiaveUtenti.length; 
                  if (lunghezza !== 20){
-                  document .getElementById("errorm").innerText = "indirizzo casella errato ";
+                  document .getElementById("errorm").innerText = "indirizzo casella destinatario errato ";
                   return    
                  }
               
@@ -176,8 +176,10 @@
                    aggiungiMessaggi().then(chiave => {                
                     chiaveDocumento = chiave ;     
  
-                    aggiungiRicevuti()                                     
-                     window.location.replace("/successo.html");                    
+                    aggiungiRicevuti() 
+                    document.getElementById("errorm").innerText = "operazione completata con successo"; 
+                    document.getElementById('salva').disabled = true;                                        
+                    return                   
                                                                  
                    })                                                                                         
 
@@ -241,13 +243,13 @@
                    const oggi = Date.now();
                    const registrazione = dataRegistrazione.toMillis(); 
   
-                 // 92 giorni in millisecondi (1000ms * 60s * 60m * 24h * 30d)
-                  const millisecondi90Giorni = 92 * 24 * 60 * 60 * 1000;
+                 // 31 giorni in millisecondi (1000ms * 60s * 60m * 24h * 30d)
+                  const millisecondi31Giorni = 31 * 24 * 60 * 60 * 1000;
   
                  // Differenza in millisecondi
                   const differenza = oggi - registrazione;
           
-                  if(differenza >= millisecondi90Giorni){
+                  if(differenza >= millisecondi31Giorni){
                    window.location.replace("/pagamento.rinnovo.casella.html");  
       
                   }
