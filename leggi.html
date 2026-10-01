@@ -67,7 +67,7 @@
      
               // Sicurezza: se l'ID non esiste nel localStorage, si ferma subito
             if (!chiaveAttiva) {
-             document.getElementById("error").innerText = "non hai creato una casella operazione negata ";
+             document.getElementById("error").innerText = "non hai una casella operazione negata ";
             return 
             }            
     
@@ -192,7 +192,8 @@
         await deleteDoc(riferimentoRicevutoDaCancellare);
                             
             document.getElementById('cancella').disabled = true; 
-           window.location.replace("/successo.html");     
+            document .getElementById("error").innerText = "operazione completata con successo "; 
+           return   
 
        } catch (error) {
            console.error("Errore durante il processo:", error);
