@@ -26,7 +26,7 @@ html, body {
    2. TITOLI E POSIZIONAMENTO VERTICALE
    ========================================================================== */
 .container h1 {
-   transform: translateY(35px);
+   transform: translateY(20px);
    color: #83abd8;  
 }
 
@@ -41,7 +41,7 @@ html, body {
   width: 100%;
   align-items: center;
   gap: 10px; 
-  margin-top: 60px;                  /* Spazio uniforme tra gli elementi interni */
+  margin-top: 30px;                  /* Spazio uniforme tra gli elementi interni */
   margin-bottom: 40px;               /* Spazio sul fondo per non incollare gli elementi */
 }
 
