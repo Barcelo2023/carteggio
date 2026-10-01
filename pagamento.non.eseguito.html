@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-     <html lang="it">
-   <head>
+<html lang="it">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carteggio</title>
-        <style>
+    <title>Carteggio - Pagamento Fallito</title>
+    <style>
         body { 
             background-color: #242433; 
             color: #b0c4de; 
@@ -18,7 +18,7 @@
             margin: 0 auto;
         }
         h1 { 
-            color: #83abd8; 
+            color: #ff6b6b; /* Rosso per l'errore */
             font-size: 24px;
         }
         p {
@@ -26,12 +26,17 @@
         }
         .info-box {
             background-color: #1c1c27;
-            padding: 15px;
+            padding: 20px;
             border-radius: 8px;
-            font-size: 0.9em;
+            font-size: 0.95em;
             margin-bottom: 30px;
-            border-left: 4px solid #83abd8;
+            border-left: 4px solid #ff6b6b;
             text-align: left;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
         }
         .btn { 
             display: inline-block; 
@@ -43,51 +48,79 @@
             font-weight: bold;
             cursor: pointer;
             border: none;
-            margin-top: 30px;
         }
         .btn:hover {
             background: #454a50;
         }
+        .btn-primary {
+            background: #83abd8;
+            color: #242433;
+        }
+        .btn-primary:hover {
+            background: #9ec2eb;
+        }
     </style>
-    
 </head>
 <body>
 
 <div class="container">
-    <h1>Pagamento non eseguito!</h1>
-       
-     <p id="pagamento"></p>
-     <button class="btn" type="button">Pagina iniziale</button>
-     </div>
-                    
-       <script>
-            chiaveCasella = localStorage.getItem("id_casella_postale" );                        
+    <h1 id="titolo-errore">Pagamento non eseguito</h1>
+    
+    <div class="info-box">
+        <p id="messaggio-errore">La transazione è stata annullata o non è andata a buon fine. Nessun importo è stato addebitato sul tuo conto.</p>
+        <span id="dettaglio-azione"></span>
+    </div>
+         
+    <div class="btn-group">
+        <!-- Pulsante dinamico per riprovare l'azione specifica -->
+        <button class="btn btn-primary" id="btn-riprova" type="button">Riprova</button>
+        <!-- Pulsante per tornare indietro alla home -->
+        <button class="btn" id="btn-home" type="button">Pagina iniziale</button>
+    </div>
+</div>                    
+        
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 1. Recupera il tipo di pagamento salvato prima del lancio di PayPal
+        const tipoPagamento = localStorage.getItem("tipo_pagamento");
+        
+        const titoloHtml = document.getElementById("titolo-errore");
+        const dettaglioHtml = document.getElementById("dettaglio-azione");
+        const btnRiprova = document.getElementById("btn-riprova");
+        const btnHome = document.getElementById("btn-home");
 
-            if (chiaveCasella) {
-            document.getElementById("pagamento").innerText = "il rinnovo trimestrale non é stato effettuato";
-              
-             }         
-     
-             chiaveCasella = localStorage.getItem("temp_id_casella_postale" );                        
+        // Per sicurezza, se l'utente riprova ma fallisce di nuovo, teniamo traccia dell'indirizzo di destinazione
+        let paginaRiprova = "/index.html"; 
 
-            if (chiaveCasella) {
-            document.getElementById("pagamento").innerText = "la casella non è stata creata ";
-             
-             }         
-           
+        // 2. Controllo condizionale basato sulla tua variabile di stato
+        if (tipoPagamento === "rinnovo") {
+            titoloHtml.innerText = "Rinnovo casella non riuscito";
+            dettaglioHtml.innerHTML = "Se riscontri problemi continui con il modulo di pagamento, assicurati che la carta abbia fondi sufficienti o prova a selezionare un metodo differente all'interno del pop-up di PayPal. La tua casella rimarrà temporaneamente sospesa finché il rinnovo non sarà completato.";
+            paginaRiprova = "/pagamento.rinnovo.html"; // Indirizza alla tua pagina di rinnovo
             
+        } else if (tipoPagamento === "attivazione") {
+            titoloHtml.innerText = "Attivazione casella non riuscita";
+            dettaglioHtml.innerHTML = "Non è stato possibile completare la creazione della tua nuova casella postale. Se il pop-up si è chiuso accidentalmente, puoi riprovare l'operazione. L'ID temporaneo generato per te non andrà perduto.";
+            paginaRiprova = "/pagamento.attivazione.html"; // Sostituisci con il nome esatto della tua pagina di prima attivazione
+            
+        } else {
+            // Caso di riserva (se il localStorage per qualche motivo si fosse svuotato)
+            titoloHtml.innerText = "Transazione interrotta";
+            dettaglioHtml.innerText = "Si è verificato un problema durante la comunicazione con PayPal. Ti invitiamo a riprovare.";
+            paginaRiprova = "/index.html";
+        }
 
-                const  bottone = document.querySelector('.btn');
-               bottone.addEventListener('click', function() { 
-                      
-              // 3. Reindirizza alla pagina di login
-               window.location.replace("/index.html");    
-              
-              })
+        // 3. Gestione dei click sui pulsanti
+        btnRiprova.addEventListener("click", function() {
+            window.location.replace(paginaRiprova);
+        });
 
-  </script> 
-  
-  </body>
-  </html>          
-
- 
+        btnHome.addEventListener("click", function() {
+            // Prima di tornare alla home puliamo lo stato del tipo di pagamento per i futuri tentativi
+            localStorage.removeItem("tipo_pagamento");
+            window.location.replace("/index.html");
+        });
+    });
+</script> 
+</body>
+</html>
