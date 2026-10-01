@@ -19,7 +19,7 @@
       <h2>Pagina collega casella </h2>
 
       <p id="error"></p>
-      <p id="label">Indirizzo casella</p>
+      <p id="label">Il tuo indirizzo casella</p>
  
      <input type="text" id="indirizzo">
 
@@ -50,7 +50,9 @@
                 const mioIdCasella = localStorage.getItem("id_casella_postale");
     
                 if (mioIdCasella) {
-                window.location.replace("/successo.html");                       
+                document .getElementById("error").innerText = "il dispositivo è già associato a un casella";
+                  return    
+                                    
              } 
                 
     
@@ -87,10 +89,8 @@
         }
          
            localStorage.setItem("id_casella_postale", chiaveCasella);
-           localStorage.setItem('accessi_pubblicita', 1);
-           localStorage.setItem('consenso_cookie_marketing', 'true'); 
-           localStorage.setItem('account_status', 'ads');
-           window.location.replace("/successo.html");   
+            document .getElementById("error").innerText = "operazione completata con successo";
+                  return    
            
            }
            
