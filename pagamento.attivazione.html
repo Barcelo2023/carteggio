@@ -9,7 +9,7 @@
                
      <script  src="dataora.js"></script>
      <script  src="https://www.paypal.com/sdk/js?client-id=Adxi4hglDMh8V9Kk1TujGHkB-qx3b-z4STAICTo2ZeNtaJ2dxsIb9I_Cv4K-Byxik6tdLoEMv_PagqT_"></script>
-     <script src="https://paypal.com"></script>
+     
   
    </head>
     <body>
@@ -26,8 +26,7 @@
         
         <!-- Il contenitore di PayPal ora segue perfettamente le regole del tuo foglio di stile -->
         <div id="paypal-button-container"></div>
-        
-        <button id="logoutBtn"> Pagina iniziale</button>
+              
     </div>
      
        <script type="module"> 
@@ -38,38 +37,55 @@
     
      import { getFirestore,collection ,  doc} from
        "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
-                     
-     // Genera l'ID locale (senza toccare il DB)
-      const miaNuovaCasellaID = doc(collection(db, "casella_postale")).id; 
-           caricodata();
-            document.getElementById('label').textContent = 'Attivazione casella';
 
-     // Lo salvi nel localStorage con un nome mascherato per sviare occhi indiscreti
-         localStorage.setItem('temp_id_casella_postale', miaNuovaCasellaID);
-  
+          document.getElementById('label').textContent = ' Attivazione mensile casella 1,75$';
+
+          
+               // Genera l'ID locale (senza toccare il DB) 
+            const miaNuovaCasellaID = doc(collection(db, "casella_postale")).id; 
+              // Lo salvi nel localStorage con un nome mascherato per sviare occhi indiscreti
+           localStorage.setItem('temp_id_casella_postale', miaNuovaCasellaID);
+           localStorage.setItem('tipo_pagamento', 'attivazione');
+                             
+    
+                    
+           caricodata();
+              
 
        paypal.Buttons({
          createOrder: function(data, actions) {
         return actions.order.create({
             purchase_units: [{
-                amount: { currency_code: 'EUR', value: '5.00' },
-                description: `ATTIVAZIONE CASTELLA ANONIMA. Indirizzo casella da comunicare per ricevere messaggi è: ${miaNuovaCasellaID}`,
+                amount: { currency_code: 'USD', value: '1.75' },
+                description: `ATTIVAZIONE CASELLA. Indirizzo casella da comunicare per ricevere messaggi è: ${miaNuovaCasellaID}`,
                 custom_id: miaNuovaCasellaID // Lo passi comunque a PayPal per la ricevuta
             }]
         });
     },
-    onApprove: function(data, actions) {
-        return actions.order.capture().then(function(details) {
-            // Pagamento riuscito! Mandi l'utente alla pagina di creazione SENZA ID nell'URL
-            window.location.href = "attivazione.casella.html";
-        });
-    }
+   onApprove: function(data, actions) {
+    return actions.order.capture().then(function(details) {
+        // Pagamento riuscito!
+       if (window.opener) {
+            window.opener.location.replace("/attivazione.casella.html");
+            window.close(); // Chiude il pop-up di PayPal automaticamente
+        } else {
+            window.location.replace("/attivazione.casella.html");
+        }
+    }).catch(function(error) {
+        // Gestione errore in fase di cattura
+         console.error("Errore durante la cattura dei fondi:", error);
+        window.location.replace("/pagamento.non.eseguito.html");
+    });
+  },
+    onError: function(err) {
+      console.error("Errore generale PayPal:", err);
+    // Se l'utente chiude la finestra o il pagamento fallisce a monte
+    window.location.replace("/pagamento.non.eseguito.html");
+   }
+
      }).render('#paypal-button-container');
 
-         document.getElementById('logoutBtn').addEventListener('click', function() {    
-           // 3. Reindirizza alla pagina di login
-           window.location.replace("/index.html");
-              })
+        
     </script>
 
 </body>
