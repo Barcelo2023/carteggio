@@ -9,7 +9,8 @@
                
      <script  src="dataora.js"></script>
      <script  src="https://www.paypal.com/sdk/js?client-id=Adxi4hglDMh8V9Kk1TujGHkB-qx3b-z4STAICTo2ZeNtaJ2dxsIb9I_Cv4K-Byxik6tdLoEMv_PagqT_"></script>
-     <script src="https://paypal.com"></script>
+     
+
   
    </head>
     <body>
@@ -33,39 +34,44 @@
       <script>
            caricodata();
      // Recupera l'ID della casella che l'utente sta usando attualmente
-      document.getElementById('label').textContent = 'Rinnovo attivazione casella';
+      document.getElementById('label').textContent = 'Rinnovo mesile casella  1,75$';
        const idCasellaCorrente= localStorage.getItem("id_casella_postale");
-        
+
+         localStorage.setItem('tipo_pagamento', 'rinnovo')
 
       paypal.Buttons({
       
        createOrder: function(data, actions) {
         return actions.order.create({
             purchase_units: [{
-                amount: { currency_code: 'EUR', value: '5.00' }, // Prezzo rinnovo trimestrale
-                description: `Rinnovo Trimestrale Casella: ${idCasellaCorrente}`,
+                amount: { currency_code: 'USD', value: '1.75' }, // Prezzo rinnovo trimestrale
+                description: `Rinnovo Mensile Casella: ${idCasellaCorrente}`,
                 custom_id: idCasellaCorrente // Collega l'ID al pagamento su PayPal
             }]
         });
     },
     onApprove: function(data, actions) {
-        return actions.order.capture().then(async function(details) {
-            try {
-                // PAGO COMPLETATO: Esegui qui la tua logica di rinnovo su Firestore.
-                
-                
-                 window.location.href = "rinnovo.casella.html";
-                
-               
-                
-            } catch (error) {
-               document.getElementById('error').textContent = 'Errore durante il rinnovo del pagamento.'; 
-            }
-        });
-    },
+    return actions.order.capture().then(function(details) {
+        // Pagamento riuscito!
+          if (window.opener) {
+            window.opener.location.replace("/rinnovo.casella.html");
+            window.close(); // Chiude il pop-up di PayPal automaticamente
+        } else {
+            window.location.replace("/rinnovo.casella.html");
+        }
+    }).catch(function(error) {
+        console.error("Errore durante la cattura dei fondi:", error);
+        // Gestione errore in fase di cattura
+        window.location.replace("/pagamento.non.eseguito.html");
+    });
+   },
     onError: function(err) {
-        document.getElementById('error').textContent = 'Errore durante il rinnovo del pagamento.';
-    }
+        console.error("Errore generale PayPal:", error);
+    // Se l'utente chiude la finestra o il pagamento fallisce a monte
+    window.location.replace("/pagamento.non.eseguito.html");
+   }
+
+   
      }).render('#paypal-button-container'); // Un ID contenitore diverso se preferisci
 
 
