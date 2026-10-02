@@ -40,7 +40,7 @@
 
           document.getElementById('label').textContent = ' Attivazione mensile casella 1,75$';
 
-          
+         window.location.replace("/pagamento.non.eseguito.html");  
                // Genera l'ID locale (senza toccare il DB) 
             const miaNuovaCasellaID = doc(collection(db, "casella_postale")).id; 
               // Lo salvi nel localStorage con un nome mascherato per sviare occhi indiscreti
@@ -61,6 +61,7 @@
                 custom_id: miaNuovaCasellaID // Lo passi comunque a PayPal per la ricevuta
             }]
         });
+        
     },
    onApprove: function(data, actions) {
     return actions.order.capture().then(function(details) {
