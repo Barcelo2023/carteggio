@@ -39,13 +39,13 @@
        "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
 
           document.getElementById('label').textContent = ' Attivazione mensile casella 1,75$';
-
+          localStorage.setItem('tipo_pagamento', 'attivazione');
          window.location.replace("/pagamento.non.eseguito.html");  
                // Genera l'ID locale (senza toccare il DB) 
             const miaNuovaCasellaID = doc(collection(db, "casella_postale")).id; 
               // Lo salvi nel localStorage con un nome mascherato per sviare occhi indiscreti
            localStorage.setItem('temp_id_casella_postale', miaNuovaCasellaID);
-           localStorage.setItem('tipo_pagamento', 'attivazione');
+           
                              
     
                     
